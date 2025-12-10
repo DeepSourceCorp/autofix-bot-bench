@@ -1,22 +1,39 @@
 # Autofix Bot Bench
 
-This repository contains prompts used for benchmarking security analysis and remediation by [Autofix Bot](https://autofix.bot) and other security review tools.
+Benchmark dataset of [Autofix Bot](https://autofix.bot) against other code/security review tools on the [OpenSSF CVE Benchmark](https://github.com/ossf-cve-benchmark/ossf-cve-benchmark).
 
-- `benchmarks/security-analysis/prompts/`
-  - `openai-codex-new-security-prompt.md` — Security review prompt used in OpenAI Codex CLI tool to identify vulnerabilities.
-  - `autofix-eval-judge-prompt.md` — Judge prompt to evaluate whether a diff fully fixes a vulnerability.
-  - `codex-autofix-prompt.md` — Security fix generation instruction used in Codex CLI for a detected vulnerability.
-  - `claude-code-original-security-prompt.md` — Original security review prompt used by Claude Code CLI.
-  - `claude-code-modified-security-prompt.md` — File-based security review prompt detecting intentional vulnerabilities for benchmarking. 
-  - `claude-code-autofix-prompt.md` — Security fix generation prompt used in Claude Code CLI to fix a given vulnerability.
-  - `gemini-cli-autofix-prompt.md` — Security fix generation prompt used in Gemini CLI to fix a vulnerability.
+## Benchmarked Tools
 
-## Notes
+| Tool | Description |
+|------|-------------|
+| **Autofix Bot** | AI agent for deep code review |
+| **Claude Code** | Anthropic's CLI security review |
+| **Cursor Bugbot** | Cursor's PR review bot |
+| **CodeRabbit** | AI code review platform |
+| **Semgrep (CE)** | Static analysis (Community Edition) |
 
-- In Claude Code, the original security prompt was modified to optimize performance when analyzing large codebases through batched file processing. Using the CLI command `claude -p /security-review --permission-mode acceptEdits`, the approach processes 10 files per CLI instance, as Claude struggled with larger file counts while single-file analysis proved too memory intensive. The original prompt analyzed entire git diffs, but this caused token limits to be exceeded when processing large datasets. Key modifications include switching from git diff analysis to file-list based analysis to stay within token limits, explicitly instructing Claude to report intentional vulnerabilities in benchmark repositories (which it previously dismissed as non-real), and changing the output format from plain text stdout to structured JSONL file output for benchmarking purposes. The original prompt from the `/security-review` command was git-centric and designed for general security reviews, while the modified version is optimized for systematic vulnerability detection in testing environments with structured data collection.
+## Data Format
 
-- In Codex, since it lacks a dedicated security review feature, a custom security prompt was created by passing Claude Code's security review prompt through OpenAI's official prompt generator. The approach uses the CLI command `codex exec --sandbox workspace-write < {prompt}` to process 15 files at a time in parallel, demonstrating Codex's ability to handle larger batch sizes compared to Claude Code's 10-file limitation.
+### Judged Results (`benchmarks/judged-results/`)
+Final evaluation results in JSONL format with fields:
+- `cve_id`: CVE identifier
+- `variant`: `fixed` or `unfixed`
+- `detected_issues`: Issues found by the tool
+- `TP`, `FP`, `TN`, `FN`: Classification metrics
+- `judge_reasoning`: Explanation of the judgment
 
-- Refer to [Autofix Bot benchmarks page](https://autofix.bot/benchmarks) for more information.
-- For validation of detected security issues, [OWASP Benchmark Java](https://github.com/OWASP-Benchmark/BenchmarkJava) repository as ground truth.
+### Processed Results (`benchmarks/processed/`)
+Intermediate formatted results from each tool, normalized for comparison.
+
+### Raw Output (`benchmarks/raw-output/`)
+Original tool outputs per CVE, preserving the exact response from each tool.
+
+## Archive
+
+The `archive/` directory contains prompts and data from earlier benchmark runs:
+
+## References
+
+- [Autofix Bot Benchmarks](https://autofix.bot/benchmarks)
+- [OpenSSF CVE Benchmark](https://github.com/ossf-cve-benchmark/ossf-cve-benchmark)
 
