@@ -1,6 +1,6 @@
 # Archived - September 2025
 
-This directory contains archived prompts from earlier Autofix Bot benchmarks.
+This directory contains archived prompts from earlier benchmark runs.
 
 ## Contents
 
@@ -12,11 +12,11 @@ This directory contains archived prompts from earlier Autofix Bot benchmarks.
 |------|-------------|
 | `claude-code-original-security-prompt.md` | Original security review prompt from Claude Code CLI |
 | `claude-code-modified-security-prompt.md` | Modified prompt for batched file processing |
-| `claude-code-autofix-prompt.md` | Security fix generation prompt for Claude Code |
+| `claude-code-prompt.md` | Security fix generation prompt for Claude Code |
 | `openai-codex-new-security-prompt.md` | Security review prompt adapted for Codex CLI |
-| `codex-autofix-prompt.md` | Security fix generation prompt for Codex |
-| `gemini-cli-autofix-prompt.md` | Security fix generation prompt for Gemini CLI |
-| `autofix-eval-judge-prompt.md` | Judge prompt for evaluating fix completeness |
+| `codex-prompt.md` | Security fix generation prompt for Codex |
+| `gemini-cli-prompt.md` | Security fix generation prompt for Gemini CLI |
+| `deepsource-eval-judge-prompt.md` | Judge prompt for evaluating fix completeness |
 
 ## Notes
 

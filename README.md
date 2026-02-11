@@ -1,20 +1,24 @@
-# Autofix Bot Bench
+# DeepSource Benchmarks
 
-Benchmark dataset of [Autofix Bot](https://autofix.bot) against other code/security review tools on the [OpenSSF CVE Benchmark](https://github.com/ossf-cve-benchmark/ossf-cve-benchmark).
+Benchmark dataset evaluating code review and security analysis tools on the [OpenSSF CVE Benchmark](https://github.com/ossf-cve-benchmark/ossf-cve-benchmark).
 
 ## Benchmarked Tools
 
-| Tool | Description |
-|------|-------------|
-| **Autofix Bot** | AI agent for deep code review |
-| **Claude Code** | Anthropic's CLI security review |
-| **Cursor Bugbot** | Cursor's PR review bot |
-| **CodeRabbit** | AI code review platform |
-| **Semgrep (CE)** | Static analysis (Community Edition) |
+> Last updated: February 8, 2026
+
+- [DeepSource](https://deepsource.com/)
+- [Claude Code](https://claude.com/product/claude-code)
+- [Codex](https://openai.com/codex/)
+- [CodeRabbit](https://www.coderabbit.ai/)
+- [Cursor](https://www.cursor.com/)
+- [Devin](https://cognition.ai/)
+- [Greptile](https://www.greptile.com/)
+- [Semgrep](https://semgrep.dev/)
 
 ## Data Format
 
 ### Judged Results (`benchmarks/judged-results/`)
+
 Final evaluation results in JSONL format with fields:
 - `cve_id`: CVE identifier
 - `variant`: `fixed` or `unfixed`
@@ -23,9 +27,11 @@ Final evaluation results in JSONL format with fields:
 - `judge_reasoning`: Explanation of the judgment
 
 ### Processed Results (`benchmarks/processed/`)
+
 Intermediate formatted results from each tool, normalized for comparison.
 
 ### Raw Output (`benchmarks/raw-output/`)
+
 Original tool outputs per CVE, preserving the exact response from each tool.
 
 ## Archive
@@ -34,6 +40,5 @@ The `archive/` directory contains prompts and data from earlier benchmark runs:
 
 ## References
 
-- [Autofix Bot Benchmarks](https://autofix.bot/benchmarks)
 - [OpenSSF CVE Benchmark](https://github.com/ossf-cve-benchmark/ossf-cve-benchmark)
 
