@@ -12,6 +12,7 @@ Benchmark dataset evaluating code review and security analysis tools on the [Ope
 - [CodeRabbit](https://www.coderabbit.ai/)
 - [Cursor](https://www.cursor.com/)
 - [Devin](https://cognition.ai/)
+- [GitLab Duo](https://docs.gitlab.com/ee/user/gitlab_duo/)
 - [Greptile](https://www.greptile.com/)
 - [Semgrep](https://semgrep.dev/)
 
