@@ -4,7 +4,7 @@ Benchmark dataset evaluating code review and security analysis tools on the [Ope
 
 ## Benchmarked Tools
 
-> Last updated: February 8, 2026
+> Last updated: April 12, 2026
 
 - [DeepSource](https://deepsource.com/)
 - [Claude Code](https://claude.com/product/claude-code)
