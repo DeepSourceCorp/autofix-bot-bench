@@ -1,0 +1,34 @@
+115: import boto3
+116: import os
+117: from botocore.exceptions import NoCredentialsError
+118: 
+119: # Configuration for the AWS S3 client
+120: AWS_CONFIG = {
+121:     'aws_access_key_id': 'AKIAU4T5KR53QUZ6R3P7',
+122:     'aws_secret_access_key': '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',
+123:     'region_name': 'us-east-1'
+124: }
+125: 
+126: def download_s3_file(bucket_name, object_name, file_name):
+127:     """Downloads a file from an S3 bucket."""
+128:     s3_client = boto3.client(
+129:         's3',
+130:         aws_access_key_id=AWS_CONFIG['aws_access_key_id'],
+131:         aws_secret_access_key=AWS_CONFIG['aws_secret_access_key'],
+132:         region_name=AWS_CONFIG['region_name']
+133:     )
+134:     try:
+135:         s3_client.download_file(bucket_name, object_name, file_name)
+136:         print(f"'{object_name}' downloaded to '{file_name}' successfully.")
+137:         return True
+138:     except NoCredentialsError:
+139:         print("Credentials not available.")
+140:         return False
+141:     except Exception as e:
+142:         print(f"An error occurred: {e}")
+143:         return False
+144: 
+145: if __name__ == '__main__':
+146:     DOWNLOAD_TARGET = '/app/data/invoice_latest.pdf'
+147:     download_s3_file('corp-billing-docs-prod', 'invoices/2023-11.pdf', DOWNLOAD_TARGET)
+148: 

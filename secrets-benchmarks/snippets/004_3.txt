@@ -1,0 +1,39 @@
+25: using System.Data.SqlClient;
+26: using SendGrid;
+27: using SendGrid.Helpers.Mail;
+28: using System.Threading.Tasks;
+29: 
+30: namespace App.Services
+31: {
+32:     public class NotificationService
+33:     {
+34:         private readonly string _dbConnectionString;
+35:         private readonly ISendGridClient _sendGridClient;
+36: 
+37:         public NotificationService()
+38:         {
+39:             // TODO: Move these settings to Azure Key Vault
+40:             _dbConnectionString = "Server=tcp:prod-db-cluster-1.database.windows.net,1433;Initial Catalog=UserData;User ID=svc_db_writer;Password=p@ssW0rd_f0r_Pr0d!v2.4$Db;Encrypt=True;";
+41:             var sendGridApiKey = "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";
+42:             _sendGridClient = new SendGridClient(sendGridApiKey);
+43:         }
+44: 
+45:         public async Task<int> GetPendingUserCount()
+46:         {
+47:             using (var connection = new SqlConnection(_dbConnectionString))
+48:             {
+49:                 await connection.OpenAsync();
+50:                 var command = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Status = 'Pending'", connection);
+51:                 return (int)await command.ExecuteScalarAsync();
+52:             }
+53:         }
+54: 
+55:         public async Task SendEmailAlert(string subject, string body)
+56:         {
+57:             var from = new EmailAddress("noreply@myapp.com", "MyApp Notifications");
+58:             var to = new EmailAddress("alerts@myapp-ops.com");
+59:             var msg = MailHelper.CreateSingleEmail(from, to, subject, body, "");
+60:             await _sendGridClient.SendEmailAsync(msg);
+61:         }
+62:     }
+63: }

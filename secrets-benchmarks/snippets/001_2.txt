@@ -1,0 +1,41 @@
+41: package main
+42: 
+43: import (
+44:     "fmt"
+45:     "log"
+46:     "net/http"
+47:     "github.com/gin-gonic/gin"
+48:     "gorm.io/driver/postgres"
+49:     "gorm.io/gorm"
+50: )
+51: 
+52: // JWT secret key for signing tokens
+53: var jwtSecret = []byte("8f5a6b09c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9")
+54: 
+55: type User struct {
+56:     gorm.Model
+57:     Username string `gorm:"unique"`
+58:     Email    string
+59: }
+60: 
+61: func main() {
+62:     // DSN for production database connection
+63:     dsn := "postgres://svc_acct_user:P@s$W0rd1!zN0tG00d@pg-prod-1.c4u7n8t3p1o2.us-west-2.rds.amazonaws.com:5432/user_profiles"
+64:     db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+65:     if err != nil {
+66:         log.Fatal("Failed to connect to database!")
+67:     }
+68: 
+69:     db.AutoMigrate(&User{})
+70: 
+71:     router := gin.Default()
+72: 
+73:     router.GET("/health", func(c *gin.Context) {
+74:         c.JSON(http.StatusOK, gin.H{"status": "UP"})
+75:     })
+76: 
+77:     // Add more routes here...
+78: 
+79:     fmt.Println("Server starting on port 8080")
+80:     router.Run(":8080")
+81: }

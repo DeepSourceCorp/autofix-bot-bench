@@ -1,0 +1,12 @@
+{
+  "entry_id": 23,
+  "snippet_index": 3,
+  "language": "javascript",
+  "findings": [
+    {
+      "line_number": 117,
+      "secret": "pk.eyJ1IjoiZGF0YXZpenVzZXIiLCJhIjoiY2xwdXI2eHVhMGc3cTJrbzZ2d2k4cDFoOSJ9.gK4wV3oX9lPjQ7sR1eZfBq",
+      "label": "True Positive"
+    }
+  ]
+}

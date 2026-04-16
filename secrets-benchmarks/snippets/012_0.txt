@@ -1,0 +1,35 @@
+42: from flask import Flask, request, jsonify
+43: from sqlalchemy import create_engine
+44: from twilio.rest import Client
+45: import os
+46: 
+47: app = Flask(__name__)
+48: 
+49: # --- Database Configuration ---
+50: DATABASE_URL = "postgres://webapp_user:p$3#R7s@Q!9F@prod-db-cluster-1.c4f3g2h1i0j.us-west-2.rds.amazonaws.com:5432/main_app_db"
+51: engine = create_engine(DATABASE_URL)
+52: 
+53: # --- Twilio SMS Service Configuration ---
+54: # This credentials should be moved to a secure vault.
+55: TWILIO_ACCOUNT_SID = "AC5f8e0a1b9c3d4e5f6a7b8c9d0e1f2a3b"
+56: TWILIO_AUTH_TOKEN = "5a94025a4392a8b9f7a7751c1e95c4a1"
+57: twilio_client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+58: 
+59: @app.route('/api/v1/send-invite', methods=['POST'])
+60: def send_invite_sms():
+61:     data = request.get_json()
+62:     phone_number = data.get('phone')
+63:     message = "Welcome! Your verification code is 123456."
+64: 
+65:     try:
+66:         twilio_client.messages.create(
+67:             to=phone_number,
+68:             from_='+15017122661',
+69:             body=message
+70:         )
+71:         return jsonify({'status': 'success'}), 200
+72:     except Exception as e:
+73:         return jsonify({'error': str(e)}), 500
+74: 
+75: if __name__ == '__main__':
+76:     app.run(debug=False, host='0.0.0.0')

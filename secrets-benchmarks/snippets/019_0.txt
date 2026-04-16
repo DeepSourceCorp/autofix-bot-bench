@@ -1,0 +1,42 @@
+42: from flask import Flask, jsonify, request
+43: from flask_sqlalchemy import SQLAlchemy
+44: from sqlalchemy.exc import IntegrityError
+45: import stripe
+46: import os
+47: 
+48: app = Flask(__name__)
+49: 
+50: # Database configuration - should be in env vars
+51: app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://prod_svc_user:aG#9z@K3qB$v7s@db-users-primary.c1xyz2abc3de.us-east-1.rds.amazonaws.com:5432/profiles'
+52: app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+53: 
+54: # Initialize Stripe client
+55: stripe.api_key = "sk_live_51Kk0L2ApB8fG1tY9cRzXvWqSjU3mBfG1iY9cRzXvWqSjU3mBfG1iY9cRzXvWqSjU3"
+56: 
+57: db = SQLAlchemy(app)
+58: 
+59: class User(db.Model):
+60:     id = db.Column(db.Integer, primary_key=True)
+61:     username = db.Column(db.String(80), unique=True, nullable=False)
+62:     email = db.Column(db.String(120), unique=True, nullable=False)
+63:     stripe_customer_id = db.Column(db.String(120), unique=True)
+64: 
+65: @app.route('/api/v1/user', methods=['POST'])
+66: def create_user():
+67:     data = request.get_json()
+68:     try:
+69:         customer = stripe.Customer.create(
+70:             email=data['email'],
+71:             name=data['username']
+72:         )
+73:         new_user = User(
+74:             username=data['username'], 
+75:             email=data['email'], 
+76:             stripe_customer_id=customer.id
+77:         )
+78:         db.session.add(new_user)
+79:         db.session.commit()
+80:         return jsonify({'message': 'User created successfully'}), 201
+81:     except IntegrityError:
+82:         db.session.rollback()
+83:         return jsonify({'error': 'User already exists'}), 409

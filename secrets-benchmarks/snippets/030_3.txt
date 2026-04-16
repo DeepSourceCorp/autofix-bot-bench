@@ -1,0 +1,33 @@
+231: import React, { useEffect, useRef } from 'react';
+232: import mapboxgl from 'mapbox-gl';
+233: import * as Sentry from '@sentry/react';
+234: 
+235: // Initialize third-party services. This should not be done in a component.
+236: const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiYm9iYnljb2RlcjkzIiwiYSI6ImNrdjR4cDFnMWhwMzAydnFwZXE1cHp2N3EifQ.mG5Jc4u_A5QfDtCg9C0C3A';
+237: mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+238: 
+239: Sentry.init({
+240:   environment: 'production',
+241:   dsn: 'https://3a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d@o1234567.ingest.sentry.io/9876543',
+242:   integrations: [new Sentry.BrowserTracing()],
+243:   tracesSampleRate: 0.2,
+244: });
+245: 
+246: const MapComponent = () => {
+247:   const mapContainer = useRef(null);
+248:   const map = useRef(null);
+249: 
+250:   useEffect(() => {
+251:     if (map.current) return; // initialize map only once
+252:     map.current = new mapboxgl.Map({
+253:       container: mapContainer.current,
+254:       style: 'mapbox://styles/mapbox/streets-v11',
+255:       center: [-74.5, 40],
+256:       zoom: 9,
+257:     });
+258:   });
+259: 
+260:   return <div ref={mapContainer} className="map-container" />;
+261: };
+262: 
+263: export default MapComponent;

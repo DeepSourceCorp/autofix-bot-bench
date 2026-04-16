@@ -1,0 +1,30 @@
+210: # ==========================================
+211: # DATABASE CONFIGURATION
+212: # ==========================================
+213: spring.datasource.url=jdbc:postgresql://db-reporting.us-east-1.rds.amazonaws.com:5432/reporting_prod
+214: spring.datasource.username=analytics_svc
+215: spring.datasource.password=4#pZ&qK9!sW8*L@gM$nBv
+216: spring.datasource.driver-class-name=org.postgresql.Driver
+217: spring.jpa.hibernate.ddl-auto=validate
+218: 
+219: # ==========================================
+220: # OAUTH2 CLIENT CONFIG FOR INTERNAL SSO
+221: # ==========================================
+222: security.oauth2.client.client-id=reporting-service-client
+223: security.oauth2.client.client-secret=f9b5c3d2e1a04987b6a5c4d3e2f1b0a9c8d7e6f5a4b3c2d1e0f0987654321fed
+224: security.oauth2.client.access-token-uri=https://sso.internal.corp/oauth/token
+225: security.oauth2.client.user-authorization-uri=https://sso.internal.corp/oauth/authorize
+226: security.oauth2.resource.user-info-uri=https://sso.internal.corp/userinfo
+227: 
+228: # ==========================================
+229: # CACHING CONFIGURATION (REDIS)
+230: # ==========================================
+231: spring.cache.type=redis
+232: spring.redis.host=redis-cache.prod.internal
+233: spring.redis.port=6379
+234: 
+235: # ==========================================
+236: # LOGGING CONFIGURATION
+237: # ==========================================
+238: logging.level.com.myapp=INFO
+239: logging.level.org.springframework.web=WARN

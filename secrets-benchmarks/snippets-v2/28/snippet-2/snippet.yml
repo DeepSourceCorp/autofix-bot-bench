@@ -1,0 +1,83 @@
+# Padding: original snippet starts at line 45
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY = 'registry.hub.docker.com'
+        DOCKER_IMAGE_NAME = 'my-corp/webapp'
+        DOCKER_CREDS_ID = 'dockerhub-credentials'
+    }
+
+    stages {
+        stage('Build and Push') {
+            steps {
+                script {
+                    def dockerImage = "${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
+                    // Login and push to Docker Hub
+                    sh "docker login -u mycorp_ci_bot -p dckr_pat_f9JkLpQwErTyUiOpAsDfGhJkLzXcVbNmQwErTy"
+                    sh "docker build -t ${dockerImage} ."
+                    sh "docker push ${dockerImage}"
+                }
+            }
+        }
+        stage('Notify Deployment') {
+            steps {
+                script {
+                    def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+                    sh """
+                    curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment of ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} completed successfully!"}' ${slackWebhookUrl}
+                    """
+                }
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                sh 'docker logout'
+            }
+        }
+    }
+}

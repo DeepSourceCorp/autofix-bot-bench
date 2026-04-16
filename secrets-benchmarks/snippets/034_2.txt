@@ -1,0 +1,36 @@
+11: package com.example.paymentservice.config;
+12: 
+13: import org.springframework.context.annotation.Bean;
+14: import org.springframework.context.annotation.Configuration;
+15: import com.stripe.Stripe;
+16: import javax.annotation.PostConstruct;
+17: 
+18: @Configuration
+19: public class StripeConfig {
+20: 
+21:     private final StripeProperties stripeProperties;
+22: 
+23:     public StripeConfig(StripeProperties stripeProperties) {
+24:         this.stripeProperties = stripeProperties;
+25:     }
+26: 
+27:     @PostConstruct
+28:     public void init() {
+29:         Stripe.apiKey = "sk_live_51Kk0L2ApB8fG1tY9cRzXvWqSjU3mB7nD5oP6tF4gH3iJ2kL1mN0oPqRsTuVwWzXyZ"; // Live key for production
+30:     }
+31: 
+32:     // This class would typically be in its own file
+33:     @ConfigurationProperties(prefix = "stripe")
+34:     public static class StripeProperties {
+35:         private String secretKey;
+36: 
+37:         // Getter and setter for secretKey
+38:         public String getSecretKey() {
+39:             return secretKey;
+40:         }
+41: 
+42:         public void setSecretKey(String secretKey) {
+43:             this.secretKey = secretKey;
+44:         }
+45:     }
+46: }

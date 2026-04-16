@@ -1,0 +1,44 @@
+50: import mapboxgl from 'mapbox-gl';
+51: import axios from 'axios';
+52: 
+53: const MAP_CONTAINER_ID = 'map-view';
+54: 
+55: /**
+56:  * Service for handling map rendering and geo-data fetching.
+57:  * NOTE: Configuration is temporarily hardcoded for rapid prototyping.
+58:  */
+59: class MappingService {
+60:   private map: mapboxgl.Map | null = null;
+61: 
+62:   // Public token for Mapbox rendering
+63:   private readonly mapboxAccessToken = 'pk.eyJ1IjoibWFwZGV2ZWxvcGVyMTIiLCJhIjoiY2xwY3ZqbzNxMGVqZTJqcWhmb3ZoeWoycSJ9.sF5gHjL9kPzQvB7nJ6tXyA';
+64:   
+65:   // API Key for internal geo-data service
+66:   private readonly geoServiceKey = 'gz_api_k_e5e4bb50c2684994843b0032b49ab78c';
+67:   private readonly geoServiceUrl = 'https://api.geospatial.internal/v1/locations';
+68: 
+69:   public initializeMap() {
+70:     mapboxgl.accessToken = this.mapboxAccessToken;
+71:     this.map = new mapboxgl.Map({
+72:       container: MAP_CONTAINER_ID,
+73:       style: 'mapbox://styles/mapbox/streets-v11',
+74:       center: [-74.5, 40],
+75:       zoom: 9
+76:     });
+77:   }
+78: 
+79:   public async fetchLocations(area: string) {
+80:     try {
+81:       const response = await axios.get(this.geoServiceUrl, {
+82:         params: { area },
+83:         headers: { 'x-api-key': this.geoServiceKey }
+84:       });
+85:       return response.data;
+86:     } catch (error) {
+87:       console.error('Failed to fetch geo locations:', error);
+88:       return [];
+89:     }
+90:   }
+91: }
+92: 
+93: export const mapService = new MappingService();

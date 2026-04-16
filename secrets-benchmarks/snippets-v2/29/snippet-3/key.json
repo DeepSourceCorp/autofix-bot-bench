@@ -1,0 +1,17 @@
+{
+  "entry_id": 29,
+  "snippet_index": 2,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 102,
+      "secret": "sk_live_51Mv9L2FqA8fG1tYpKrZxvWqSjU3mH8sD7gY5bN4c3pL1kM0oJ9iR",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 105,
+      "secret": "postgres://billing_svc:aH7#kL$pQ2s!zX9@db-payments.us-east-1.rds.amazonaws.com:5432/payments_prod",
+      "label": "True Positive"
+    }
+  ]
+}

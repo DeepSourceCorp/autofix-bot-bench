@@ -1,0 +1,42 @@
+58: import React, { useEffect, useRef, useState } from 'react';
+59: import mapboxgl from 'mapbox-gl';
+60: import 'mapbox-gl/dist/mapbox-gl.css';
+61: 
+62: // Configuration for the map service
+63: const mapboxConfig = {
+64:   accessToken: 'pk.eyJ1IjoibWFwZGVzaWduZXI4OCIsImEiOiJjbHJwaGR3ajAwMWR4MmtwOGVncjl5dWNpIn0.eFTpL6vj-57Bq2nTOs2KjQ',
+65:   defaultStyle: 'mapbox://styles/mapbox/streets-v11',
+66:   initialCoords: {
+67:     lng: -74.0060,
+68:     lat: 40.7128,
+69:     zoom: 12
+70:   }
+71: };
+72: 
+73: const MapComponent: React.FC = () => {
+74:   const mapContainer = useRef<HTMLDivElement>(null);
+75:   const map = useRef<mapboxgl.Map | null>(null);
+76:   const [lng, setLng] = useState(mapboxConfig.initialCoords.lng);
+77:   const [lat, setLat] = useState(mapboxConfig.initialCoords.lat);
+78:   const [zoom, setZoom] = useState(mapboxConfig.initialCoords.zoom);
+79: 
+80:   useEffect(() => {
+81:     if (map.current) return; // initialize map only once
+82: 
+83:     mapboxgl.accessToken = mapboxConfig.accessToken;
+84:     map.current = new mapboxgl.Map({
+85:       container: mapContainer.current!,
+86:       style: mapboxConfig.defaultStyle,
+87:       center: [lng, lat],
+88:       zoom: zoom
+89:     });
+90:   });
+91: 
+92:   return (
+93:     <div>
+94:       <div ref={mapContainer} className="map-container" style={{ height: '500px' }} />
+95:     </div>
+96:   );
+97: };
+98: 
+99: export default MapComponent;

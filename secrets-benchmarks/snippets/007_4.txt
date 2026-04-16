@@ -1,0 +1,47 @@
+77: package main
+78: 
+79: import (
+80: 	"bytes"
+81: 	"fmt"
+82: 	"net/http"
+83: 	"time"
+84: )
+85: 
+86: const (
+87: 	apiEndpoint   = "https://metrics.corp.internal/api/v1/log"
+88: 	metricsApiKey = "4a1b0c9d2e8f7g6h5i4j3k2l1m0n9o8p7q6r5s4t3u2v1w0x"
+89: )
+90: 
+91: func sendLog(payload []byte) (*http.Response, error) {
+92: 	client := &http.Client{Timeout: 10 * time.Second}
+93: 
+94: 	// This token grants access to internal services. It has a short expiry.
+95: 	internalSvcToken := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLnMxLmV4YW1wbGUuY29tIiwic3ViIjoiY2NjY2QxZjctMGIzNC00MWFmLThmZjktYWZmMDc0MjVmYTc3IiwiYXVkIjoiYXBpLnMxLmV4YW1wbGUuY29tIiwiaWF0IjoxNjQ4MDQ0NDc5LCJleHAiOjE2NDgwNDgwNzl9.m4zV8G48EaFqfJkXw9Y2ZzQ3bH6iJ8kL0mN2oP4qR6s"
+96: 
+97: 	req, err := http.NewRequest("POST", apiEndpoint, bytes.NewBuffer(payload))
+98: 	if err != nil {
+99: 		return nil, fmt.Errorf("failed to create request: %w", err)
+100: 	}
+101: 
+102: 	req.Header.Set("Content-Type", "application/json")
+103: 	req.Header.Set("X-API-KEY", metricsApiKey)
+104: 	req.Header.Set("Authorization", "Bearer "+internalSvcToken)
+105: 
+106: 	resp, err := client.Do(req)
+107: 	if err != nil {
+108: 		return nil, fmt.Errorf("request failed: %w", err)
+109: 	}
+110: 
+111: 	return resp, nil
+112: }
+113: 
+114: func main() {
+115: 	logData := []byte(`{"level":"info","message":"service started"}`)
+116: 	resp, err := sendLog(logData)
+117: 	if err != nil {
+118: 		fmt.Printf("Error sending log: %v\n", err)
+119: 		return
+120: 	}
+121: 	defer resp.Body.Close()
+122: 	fmt.Printf("Log sent successfully, status code: %d\n", resp.StatusCode)
+123: }

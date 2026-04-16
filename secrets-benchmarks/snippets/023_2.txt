@@ -1,0 +1,49 @@
+1: name: Deploy to Production
+2: 
+3: on:
+4:   push:
+5:     branches:
+6:       - main
+7: 
+8: jobs:
+9:   build_and_push:
+10:     runs-on: ubuntu-latest
+11:     steps:
+12:       - name: Checkout repository
+13:         uses: actions/checkout@v3
+14: 
+15:       - name: Log in to Docker Hub
+16:         uses: docker/login-action@v2
+17:         with:
+18:           username: 'corp_builder'
+19:           password: 'dckr_pat_JqT5kL9nW3xS8pZ2yV6cR7uF4mB1gH'
+20: 
+21:       - name: Build and push Docker image
+22:         uses: docker/build-push-action@v4
+23:         with:
+24:           context: .
+25:           push: true
+26:           tags: ourcorp/webapp:latest
+27: 
+28:   deploy:
+29:     needs: build_and_push
+30:     runs-on: ubuntu-latest
+31:     steps:
+32:       - name: Deploy to server
+33:         uses: appleboy/ssh-action@master
+34:         with:
+35:           host: 'prod.ourserver.com'
+36:           username: 'deploy-bot'
+37:           key: |
+38:             -----BEGIN OPENSSH PRIVATE KEY-----
+39:             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtZW
+40:             QyNTUxOQAAACBPKwuHqROMV0/OTYzcO1y4FmsiUFrgHnpymGU9VvL2pgAAAJgAm9bWJpvW
+41:             1gAAAAdzc2gtZWQyNTUxOQAAACBPKwuHqROMV0/OTYzcO1y4FmsiUFrgHnpymGU9VvL2pg
+42:             AAAAQE4bM6z2vLwJ1Qe7O7S5s+4TBuw+BGfS2b1Uv+8T+zKPKwuHqROMV0/OTYzcO1y4Fm
+43:             siUFrgHnpymGU9VvL2pgAAAAEXJvb3RAZGVib3BzLTc2LmxhbgECAwQFBgc=
+44:             -----END OPENSSH PRIVATE KEY-----
+45:           script: |
+46:             cd /opt/app
+47:             docker-compose pull
+48:             docker-compose up -d
+49:             echo "Deployment complete!"

@@ -1,0 +1,33 @@
+201: # ========================================
+202: # Main Application Configuration
+203: # ========================================
+204: server.port=8080
+205: 
+206: # ========================================
+207: # Database Settings
+208: # ========================================
+209: spring.datasource.url=jdbc:mysql://db-prod.c1a2b3d4e5f6.us-east-1.rds.amazonaws.com:3306/webappdb?useSSL=true&requireSSL=true
+210: spring.datasource.username=webapp_admin
+211: spring.datasource.password=8h$T9x!qW2r*Lp@vK4m&Z7gB#nS5yU
+212: spring.jpa.hibernate.ddl-auto=update
+213: 
+214: # ========================================
+215: # Redis Cache Settings
+216: # ========================================
+217: spring.redis.host=redis-prod.a1b2c3.0001.use1.cache.amazonaws.com
+218: spring.redis.port=6379
+219: spring.redis.password=eC5tVg8jNkLpQ3sW6zY9bH2fR7uI0mO1vX4a
+220: 
+221: # ========================================
+222: # External API Keys
+223: # ========================================
+224: sendgrid.api.key=SG.k8yWq2pT9RzX4vU7cE1sN3.LgJ5tH_vB8nU6sY9aI0mD4fO2oP1qR3eS6wW7x Zz
+225: stripe.publishable.key=pk_live_51Kk0L2ApB8fG1tY9cRzXvWqSjU3mB2nD5oP6qR7sW8x YzZ9a 
+226: 
+227: # ========================================
+228: # Logging Configuration
+229: # ========================================
+230: logging.level.root=INFO
+231: logging.level.com.myapp=DEBUG
+232: logging.file.name=logs/spring-boot-app.log
+233: 

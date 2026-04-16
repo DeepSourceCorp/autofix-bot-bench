@@ -1,0 +1,34 @@
+33: # Terraform configuration for Datadog provider and monitoring
+34: 
+35: terraform {
+36:   required_providers {
+37:     datadog = {
+38:       source  = "DataDog/datadog"
+39:       version = "~> 3.0"
+40:     }
+41:   }
+42: }
+43: 
+44: # Provider configuration with hardcoded credentials
+45: # In a real scenario, these should be sourced from a secure vault or environment variables.
+46: provider "datadog" {
+47:   api_key = "e9a8f7c6d5b4a392817f0e9d8c7b6a54"
+48:   app_key = "8b1fec305a4d9b6e8a7f9d0c2e3b4a591e6f7d8c"
+49:   api_url = "https://api.datadoghq.com/"
+50: }
+51: 
+52: resource "datadog_monitor" "high_cpu_load" {
+53:   name               = "High CPU Load on web-backend hosts"
+54:   type               = "metric alert"
+55:   message            = "CPU load is high on {{host.name}}. @slack-channel-alerts"
+56:   escalation_message = "CPU load has been high for 15 minutes. Paging @on-call."
+57: 
+58:   query = "avg(last_5m):avg:system.cpu.user{environment:production,service:web-backend} > 80"
+59: 
+60:   monitor_thresholds {
+61:     critical = 80
+62:     warning  = 65
+63:   }
+64: 
+65:   tags = ["service:web-backend", "prod", "terraform"]
+66: }

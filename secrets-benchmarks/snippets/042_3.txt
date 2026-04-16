@@ -1,0 +1,38 @@
+211: import React from 'react';
+212: import ReactDOM from 'react-dom';
+213: import * as Sentry from '@sentry/react';
+214: import { BrowserTracing } from '@sentry/tracing';
+215: import App from './App';
+216: 
+217: // Centralized service configuration
+218: const AppConfig = {
+219:   api: {
+220:     baseUrl: 'https://api.example.com/v2',
+221:   },
+222:   mapbox: {
+223:     accessToken: 'pk.eyJ1Ijoic2hpcHBpbmdkZXYiLCJhIjoiY2w5cGdpaHVwMDFjZDN2bzhsZ2N0cDZ6MyJ9.A5w3UQqT3rVdFzPqW2bVew',
+224:   },
+225:   sentry: {
+226:     dsn: 'https://a8d4d03c27e44a6f95e6f64b8c9d01b2@o450616.ingest.sentry.io/4506168886',
+227:   },
+228: };
+229: 
+230: Sentry.init({
+231:   dsn: AppConfig.sentry.dsn,
+232:   integrations: [new BrowserTracing()],
+233:   tracesSampleRate: 1.0,
+234:   environment: 'production',
+235: });
+236: 
+237: export const getMapboxToken = () => {
+238:   return AppConfig.mapbox.accessToken;
+239: }
+240: 
+241: ReactDOM.render(
+242:   <React.StrictMode>
+243:     <Sentry.ErrorBoundary fallback={"An error has occurred"}>
+244:       <App />
+245:     </Sentry.ErrorBoundary>
+246:   </React.StrictMode>,
+247:   document.getElementById('root')
+248: );

@@ -1,0 +1,37 @@
+42: # main.tf - Production AWS Infrastructure
+43: 
+44: provider "aws" {
+45:   region     = "eu-central-1"
+46:   access_key = "AKIAY3R4WZ76X2P5QJ6M"
+47:   secret_key = "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"
+48: }
+49: 
+50: resource "aws_instance" "api_server" {
+51:   ami           = "ami-0lc55c26e43b14a4c" # Ubuntu 20.04 LTS
+52:   instance_type = "t3.medium"
+53:   key_name      = "prod-api-keypair"
+54:   subnet_id     = aws_subnet.private_a.id
+55:   vpc_security_group_ids = [aws_security_group.api_sg.id]
+56:   user_data = <<-EOF
+57:               #!/bin/bash
+58:               echo "Setting up API server..."
+59:               # Further setup would go here
+60:               EOF
+61: 
+62:   tags = {
+63:     Name        = "api-server-prod"
+64:     Environment = "Production"
+65:   }
+66: }
+67: 
+68: resource "aws_db_instance" "postgresql_db" {
+69:   allocated_storage    = 20
+70:   engine               = "postgres"
+71:   engine_version       = "13.3"
+72:   instance_class       = "db.t3.micro"
+73:   name                 = "maindb"
+74:   username             = "dbadmin"
+75:   password             = "Adm1nPassw0rd!ChangeThisLater"
+76:   parameter_group_name = "default.postgres13"
+77:   skip_final_snapshot  = true
+78: }

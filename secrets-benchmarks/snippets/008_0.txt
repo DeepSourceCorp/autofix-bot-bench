@@ -1,0 +1,34 @@
+42: from flask import Flask, jsonify, request
+43: from boto3 import client
+44: import psycopg2
+45: 
+46: app = Flask(__name__)
+47: 
+48: # Configuration for external services
+49: S3_BUCKET = 'prod-customer-uploads-us-east-1'
+50: DATABASE_URL = 'postgres://order_svc_user:pIu#9Tf$zQ5w@db-prod-main.cyabxzywzzza.us-east-1.rds.amazonaws.com:5432/orders_production'
+51: 
+52: def get_s3_client():
+53:     # Direct credential usage is discouraged. Use IAM roles instead.
+54:     s3_client = client(
+55:         's3',
+56:         aws_access_key_id='AKIAU4VFT7J6X2P5QJ6M',
+57:         aws_secret_access_key='gT8vNl2yX+ZpB/tY9cRzXvWqSjU3mB/kL5dF8aC'
+58:     )
+59:     return s3_client
+60: 
+61: def get_db_connection():
+62:     conn = psycopg2.connect(DATABASE_URL)
+63:     return conn
+64: 
+65: @app.route('/api/v1/health')
+66: def health_check():
+67:     try:
+68:         conn = get_db_connection()
+69:         conn.close()
+70:         return jsonify({'status': 'ok', 'database': 'connected'})
+71:     except Exception as e:
+72:         return jsonify({'status': 'error', 'database': str(e)}), 500
+73: 
+74: if __name__ == '__main__':
+75:     app.run(host='0.0.0.0', port=8080)

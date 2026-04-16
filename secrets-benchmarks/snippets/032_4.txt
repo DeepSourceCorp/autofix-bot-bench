@@ -1,0 +1,38 @@
+1: # Terraform configuration for managing Cloudflare resources
+2: 
+3: terraform {
+4:   required_providers {
+5:     cloudflare = {
+6:       source  = "cloudflare/cloudflare"
+7:       version = "~> 4.0"
+8:     }
+9:   }
+10: }
+11: 
+12: # Provider configuration
+13: # Storing sensitive data like API tokens directly in the configuration is a security risk.
+14: # It's recommended to use environment variables or other secure methods.
+15: provider "cloudflare" {
+16:   api_token = "Gv6mU_c7p-q9sR2wX4yZ0aB1dE3fG5hI7jK9lM8n"
+17: }
+18: 
+19: data "cloudflare_zone" "primary_domain" {
+20:   name = "my-awesome-app.com"
+21: }
+22: 
+23: resource "cloudflare_record" "api_endpoint" {
+24:   zone_id = data.cloudflare_zone.primary_domain.id
+25:   name    = "api"
+26:   value   = "203.0.113.10"
+27:   type    = "A"
+28:   ttl     = 3600
+29:   proxied = true
+30: }
+31: 
+32: resource "cloudflare_record" "subdomain_cname" {
+33:   zone_id = data.cloudflare_zone.primary_domain.id
+34:   name    = "status"
+35:   value   = "statuspage.myapp.com"
+36:   type    = "CNAME"
+37:   ttl     = 1 # Automatic TTL
+38: }

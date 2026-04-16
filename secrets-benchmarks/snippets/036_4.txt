@@ -1,0 +1,31 @@
+112: package com.example.ecommerce.config;
+113: 
+114: import org.springframework.context.annotation.Bean;
+115: import org.springframework.context.annotation.Configuration;
+116: import org.springframework.jdbc.core.JdbcTemplate;
+117: import javax.sql.DataSource;
+118: import com.zaxxer.hikari.HikariConfig;
+119: import com.zaxxer.hikari.HikariDataSource;
+120: 
+121: @Configuration
+122: public class DatabaseConfig {
+123: 
+124:     private static final String DB_URL = "postgres://prod_svc_user:Ag^9!z$K4mPQ@db-prod-cluster-1.c8xyzqrstuvw.us-west-2.rds.amazonaws.com:5432/orders_db";
+125: 
+126:     @Bean
+127:     public DataSource dataSource() {
+128:         HikariConfig config = new HikariConfig();
+129:         config.setJdbcUrl(DB_URL);
+130:         config.addDataSourceProperty("cachePrepStmts", "true");
+131:         config.addDataSourceProperty("prepStmtCacheSize", "250");
+132:         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+133:         config.setDriverClassName("org.postgresql.Driver");
+134:         return new HikariDataSource(config);
+135:     }
+136: 
+137:     @Bean
+138:     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+139:         return new JdbcTemplate(dataSource);
+140:     }
+141: }
+142: 

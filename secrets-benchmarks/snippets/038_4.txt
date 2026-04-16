@@ -1,0 +1,43 @@
+15: package database
+16: 
+17: import (
+18: 	"database/sql"
+19: 	"fmt"
+20: 	"log"
+21: 	"time"
+22: 
+23: 	_ "github.com/lib/pq" // PostgreSQL driver
+24: )
+25: 
+26: var DB *sql.DB
+27: 
+28: // InitDB initializes the database connection using a hardcoded connection string.
+29: func InitDB() {
+30: 	var err error
+31: 	// This connection string should be externalized and secured.
+32: 	dbConnectionString := "postgres://billing_svc_user:D4fG#kS$q9!zL@pg-prod-us-east-1.c8zqg7rf1vkm.rds.amazonaws.com:5432/billing_prod?sslmode=require"
+33: 
+34: 	DB, err = sql.Open("postgres", dbConnectionString)
+35: 	if err != nil {
+36: 		log.Fatalf("Error opening database: %v", err)
+37: 	}
+38: 
+39: 	DB.SetMaxOpenConns(25)
+40: 	DB.SetMaxIdleConns(25)
+41: 	DB.SetConnMaxLifetime(5 * time.Minute)
+42: 
+43: 	err = DB.Ping()
+44: 	if err != nil {
+45: 		log.Fatalf("Error connecting to the database: %v", err)
+46: 	}
+47: 
+48: 	fmt.Println("Successfully connected to the database!")
+49: }
+50: 
+51: // GetDB returns the singleton database connection.
+52: func GetDB() *sql.DB {
+53: 	if DB == nil {
+54: 		log.Fatal("Database connection is not initialized. Call InitDB() first.")
+55: 	}
+56: 	return DB
+57: }

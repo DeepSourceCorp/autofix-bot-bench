@@ -1,0 +1,79 @@
+# Padding: original snippet starts at line 45
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy Staging Environment
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id AKIAY3R4WZ76X2P5QJ6M
+          aws configure set aws_secret_access_key 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
+          aws configure set default.region us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and Push Docker Image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/my-app:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/my-app:$IMAGE_TAG
+
+      - name: Post deployment status to Slack
+        if: always()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment on staging completed."}' https://hooks.slack.com/services/T024F4SJ2/B0C3E4D5F6/aBcDeFgHiJkLmNoPqRsTuVwX

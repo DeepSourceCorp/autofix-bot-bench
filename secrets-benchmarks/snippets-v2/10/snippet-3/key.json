@@ -1,0 +1,17 @@
+{
+  "entry_id": 10,
+  "snippet_index": 2,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 99,
+      "secret": "postgres://chat_svc_prod:p#9sW!z$kLqY8*3f@pg-prod-us-east-1.c4fgr7h8i9j0.rds.amazonaws.com:5432/chatapp_prod",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 105,
+      "secret": "sk-proj-jV7hG1mF9wX4kL6uT3nZ8oR2cY0pQdE5sA1bY9fC",
+      "label": "True Positive"
+    }
+  ]
+}

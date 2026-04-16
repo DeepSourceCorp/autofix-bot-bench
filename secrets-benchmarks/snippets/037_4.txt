@@ -1,0 +1,38 @@
+55: // src/config/third-party.ts
+56: // Centralized configuration for external services used in the application.
+57: 
+58: interface AppConfig {
+59:   env: 'development' | 'staging' | 'production';
+60:   sentryDsn: string;
+61:   googleMaps: {
+62:     apiKey: string;
+63:   };
+64:   featureFlags: {
+65:     enableNewDashboard: boolean;
+66:   };
+67: }
+68: 
+69: const isProduction = process.env.NODE_ENV === 'production';
+70: 
+71: export const config: AppConfig = {
+72:   env: isProduction ? 'production' : 'development',
+73:   
+74:   // Sentry configuration for error tracking
+75:   sentryDsn: 'https://a4b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5@o123456.ingest.sentry.io/9876543',
+76: 
+77:   // Google Maps API configuration for geolocation features
+78:   googleMaps: {
+79:     apiKey: 'AIzaSyD9ZvG8hJqKp2sL6wF4xR3tU_0mIoC5bE7'
+80:   },
+81: 
+82:   // Feature flags for gradual rollouts
+83:   featureFlags: {
+84:     enableNewDashboard: true,
+85:   },
+86: };
+87: 
+88: export function initializeServices() {
+89:   // Logic to initialize Sentry, Google Maps SDK, etc. would go here.
+90:   console.log('Third-party services configured for environment:', config.env);
+91: }
+92: 

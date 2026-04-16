@@ -1,0 +1,12 @@
+{
+  "entry_id": 34,
+  "snippet_index": 2,
+  "language": "java",
+  "findings": [
+    {
+      "line_number": 29,
+      "secret": "sk_live_51Kk0L2ApB8fG1tY9cRzXvWqSjU3mB7nD5oP6tF4gH3iJ2kL1mN0oPqRsTuVwWzXyZ",
+      "label": "True Positive"
+    }
+  ]
+}

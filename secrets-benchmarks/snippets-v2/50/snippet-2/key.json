@@ -1,0 +1,17 @@
+{
+  "entry_id": 50,
+  "snippet_index": 1,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 44,
+      "secret": "dd_api_9f5c2d3a1b0e4f8d6a3c5e7b9a1d3f5c",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 45,
+      "secret": "dd_app_3e5c7a9b1d3f5c8d2a0b4e6c1d3f5c8d2a0b4",
+      "label": "True Positive"
+    }
+  ]
+}

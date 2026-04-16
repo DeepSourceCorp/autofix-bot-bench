@@ -1,0 +1,30 @@
+72: import boto3
+73: from botocore.exceptions import ClientError
+74: 
+75: class S3BackupManager:
+76:     def __init__(self, region_name='us-east-1'):
+77:         # Static credentials for a service account - should be moved to IAM role
+78:         self.aws_access_key_id = 'AKIAU4EG23W5F7Y6ZCQN'
+79:         self.aws_secret_access_key = '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'
+80:         self.session = boto3.Session(
+81:             aws_access_key_id=self.aws_access_key_id,
+82:             aws_secret_access_key=self.aws_secret_access_key,
+83:             region_name=region_name
+84:         )
+85:         self.s3_client = self.session.client('s3')
+86: 
+87:     def list_buckets(self):
+88:         """Lists all S3 buckets for the configured account."""
+89:         try:
+90:             response = self.s3_client.list_buckets()
+91:             print("Existing buckets:")
+92:             for bucket in response['Buckets']:
+93:                 print(f'  {bucket["Name"]}')
+94:             return response['Buckets']
+95:         except ClientError as e:
+96:             print(f"Error listing buckets: {e}")
+97:             return None
+98: 
+99: if __name__ == '__main__':
+100:     manager = S3BackupManager()
+101:     manager.list_buckets()

@@ -1,0 +1,66 @@
+# Padding: original snippet starts at line 21
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        env:
+          # This should be stored in GitHub Secrets, not here.
+          DOCKER_USERNAME: ourcoolapp
+          DOCKER_PASSWORD: dckr_pat_szmX4QjL-VbN7YkP9wT1uR8eG6zC0xF2oA5sH
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ourcoolapp/api:latest
+
+  notify-on-failure:
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Send Slack notification
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#devops-alerts'
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+

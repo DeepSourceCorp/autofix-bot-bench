@@ -1,0 +1,42 @@
+{
+  "stage": "stage-2 false-positive classifier (standalone eval)",
+  "dataset": "golden-set.jsonl (513 of 518 samples returned parseable predictions)",
+  "summary": {
+    "total_processed": 513,
+    "perfect_matches": 476,
+    "imperfect_matches": 37,
+    "missing_ground_truth": 0,
+    "overall_accuracy": 0.9278752436647173,
+    "perfect_match_rate": 0.9278752436647173
+  },
+  "field_accuracy": {
+    "line_number": 1.0,
+    "label": 0.9551656920077972,
+    "secret_value": 0.9707602339181286
+  },
+  "classification_metrics": {
+    "true_positives": 490,
+    "false_positives": 0,
+    "true_negatives": 0,
+    "false_negatives": 23,
+    "precision": 1.0,
+    "recall": 0.9551656920077972,
+    "f1_score": 0.9770687936191425,
+    "classification_accuracy": 0.9551656920077972
+  },
+  "error_breakdown": {
+    "line_only_wrong": 0,
+    "label_only_wrong": 22,
+    "value_only_wrong": 14,
+    "line_and_label_wrong": 0,
+    "line_and_value_wrong": 0,
+    "label_and_value_wrong": 1,
+    "all_wrong": 0
+  },
+  "notes": [
+    "Evaluated as a standalone detector on the all-TP golden set.",
+    "precision=1.0 only reflects the all-TP nature of the eval set;",
+    "it is NOT a measurement of how well the classifier rejects scanner FPs.",
+    "See results/deepsource.json for the combined pipeline numbers."
+  ]
+}

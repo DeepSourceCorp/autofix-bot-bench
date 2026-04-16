@@ -1,0 +1,38 @@
+name: Deploy Production to AWS S3 & Notify Slack
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id AKIA4ZUXFGY736J2L5PQ
+          aws configure set aws_secret_access_key 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
+          aws configure set default.region us-west-2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Static Site
+        run: npm run build
+
+      - name: Deploy to S3
+        run: aws s3 sync ./build s3://my-production-webapp-bucket --delete
+
+      - name: Notify Slack on Success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment to production successful!"}' https://hooks.slack.com/services/T01B2C3D4E5/B6F7G8H9I0J/aBcDeFgHiJkLmNoPqRsTuVwX
+
+      - name: Notify Slack on Failure
+        if: failure()
+        run: >
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment failed! Check the logs."}' https://hooks.slack.com/services/T01B2C3D4E5/B6F7G8H9I0J/aBcDeFgHiJkLmNoPqRsTuVwX

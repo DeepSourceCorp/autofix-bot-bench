@@ -1,0 +1,43 @@
+201: // app/lib/services/api_client.dart
+202: import 'package:http/http.dart' as http;
+203: import 'dart:convert';
+204: 
+205: class ApiClient {
+206:   static const String _baseUrl = "https://api.thirdparty.com/v2/";
+207:   final String authToken;
+208: 
+209:   ApiClient() : authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZXJ2aWNlQGFwaS5jb20iLCJhdWQiOiJtb2JpbGUiLCJleHAiOjE3MzU2ODk2MDB9.i8XyC2FpHj9nK5VzJ7wR8bO4L6eG0pN9sT1vA3D2ZqY";
+210: 
+211:   Future<Map<String, dynamic>> fetchUserData(String userId) async {
+212:     final response = await http.get(
+213:       Uri.parse('$_baseUrl/users/$userId'),
+214:       headers: {
+215:         'Content-Type': 'application/json',
+216:         'Authorization': 'Bearer $authToken',
+217:         'X-API-KEY': 'prod_a1b2c3d4e5f678901234567890abcdef12'
+218:       },
+219:     );
+220: 
+221:     if (response.statusCode == 200) {
+222:       return json.decode(response.body);
+223:     } else {
+224:       throw Exception('Failed to load user data');
+225:     }
+226:   }
+227: 
+228:   Future<void> updateUserPreferences(String userId, Map<String, dynamic> prefs) async {
+229:     final response = await http.post(
+230:       Uri.parse('$_baseUrl/users/$userId/preferences'),
+231:       headers: {
+232:         'Content-Type': 'application/json',
+233:         'Authorization': 'Bearer $authToken',
+234:         'X-API-KEY': 'prod_a1b2c3d4e5f678901234567890abcdef12'
+235:       },
+236:       body: json.encode(prefs),
+237:     );
+238: 
+239:     if (response.statusCode != 204) {
+240:       throw Exception('Failed to update preferences');
+241:     }
+242:   }
+243: }

@@ -1,0 +1,38 @@
+72: import boto3
+73: from flask import Flask, request, jsonify
+74: from botocore.exceptions import ClientError
+75: 
+76: app = Flask(__name__)
+77: 
+78: def create_s3_client():
+79:     # Static credentials for service account - temporary solution for dev
+80:     aws_access_key = "AKIAY3R4WZ76X2P5QJ6M"
+81:     aws_secret = "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"
+82:     
+83:     return boto3.client(
+84:         's3',
+85:         aws_access_key_id=aws_access_key,
+86:         aws_secret_access_key=aws_secret,
+87:         region_name='us-east-1'
+88:     )
+89: 
+90: @app.route('/api/v1/upload', methods=['POST'])
+91: def upload_file():
+92:     if 'file' not in request.files:
+93:         return jsonify({'error': 'No file part'}), 400
+94:     
+95:     file = request.files['file']
+96:     if file.filename == '':
+97:         return jsonify({'error': 'No selected file'}), 400
+98: 
+99:     s3_client = create_s3_client()
+100:     bucket_name = 'corp-internal-document-uploads'
+101:     
+102:     try:
+103:         s3_client.upload_fileobj(file, bucket_name, file.filename)
+104:         return jsonify({'message': f'File {file.filename} uploaded successfully.'}), 200
+105:     except ClientError as e:
+106:         return jsonify({'error': str(e)}), 500
+107: 
+108: if __name__ == '__main__':
+109:     app.run(debug=False, port=5000)

@@ -1,0 +1,36 @@
+41: # app.py - Main entrypoint for the payments-api Flask service
+42: 
+43: from flask import Flask, jsonify, request
+44: from sqlalchemy import create_engine
+45: import stripe
+46: 
+47: app = Flask(__name__)
+48: 
+49: # -- Configuration --
+50: # In a real app, this would come from a secure vault or environment variables.
+51: app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://payment_svc_user:Ag8#kL$pQ2sZ!vF@pg-prod-us-east-1a.c3kfexample.rds.amazonaws.com:5432/payments_prod'
+52: app.config['STRIPE_SECRET_KEY'] = 'sk_live_51Mv0L2BpF8fG1tY9cRzXvWqSjU3mB4aD5eFgH6iJ7kL8mN9oP0qR1sT'
+53: 
+54: # Initialize extensions
+55: db_engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+56: stripe.api_key = app.config['STRIPE_SECRET_KEY']
+57: 
+58: @app.route('/health', methods=['GET'])
+59: def health_check():
+60:     try:
+61:         # Check DB connection
+62:         connection = db_engine.connect()
+63:         connection.close()
+64:         return jsonify({'status': 'ok', 'database': 'connected'}), 200
+65:     except Exception as e:
+66:         return jsonify({'status': 'error', 'database': str(e)}), 500
+67: 
+68: @app.route('/create-payment-intent', methods=['POST'])
+69: def create_payment():
+70:     data = request.get_json()
+71:     intent = stripe.PaymentIntent.create(
+72:         amount=data['amount'],
+73:         currency='usd'
+74:     )
+75:     return jsonify(client_secret=intent.client_secret)
+76: 

@@ -1,0 +1,43 @@
+1: stages:
+2:   - build
+3:   - test
+4:   - deploy
+5: 
+6: variables:
+7:   DOCKER_IMAGE_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+8:   KUBE_NAMESPACE: production
+9: 
+10: build_image:
+11:   stage: build
+12:   image: docker:20.10.16
+13:   services:
+14:     - docker:20.10.16-dind
+15:   script:
+16:     - export DOCKER_REGISTRY_USER="ci_builder"
+17:     - export DOCKER_REGISTRY_PASSWORD="dckr_pat_b3FpZ9sK1mFj8oN6cW0qYdE2pH7rL"
+18:     - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD
+19:     - docker build -t my-registry.com/my-app:$DOCKER_IMAGE_TAG .
+20:     - docker push my-registry.com/my-app:$DOCKER_IMAGE_TAG
+21: 
+22: run_tests:
+23:   stage: test
+24:   script:
+25:     - echo "Running integration tests..."
+26:     - # Actual test commands go here
+27: 
+28: deploy_to_prod:
+29:   stage: deploy
+30:   image: dtzar/helm-kubectl:3.7.1
+31:   before_script:
+32:     - export KUBE_SERVER="https://gke.prod-cluster.acme.io"
+33:     - export KUBE_TOKEN="eyJhbGciOiJSUzI1NiIsImtpZCI6ImE4ZTVjMGEyYjYwZDE2NjYyOTI1OGNjZmMzYjI2Y2I4In0.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmNpOmdsaWRlciJ9.bX4fP8vR2wN9qK7vZ-lS6wYjZ8eT0nC-kF4gH1sJ3"
+33:   script:
+34:     - kubectl config set-cluster default --server=$KUBE_SERVER --insecure-skip-tls-verify=true
+35:     - kubectl config set-credentials default --token=$KUBE_TOKEN
+36:     - kubectl config set-context default --cluster=default --user=default --namespace=$KUBE_NAMESPACE
+37:     - kubectl config use-context default
+38:     - helm upgrade --install my-app ./charts/my-app --namespace $KUBE_NAMESPACE
+39:   environment:
+40:     name: production
+41:   only:
+42:     - main

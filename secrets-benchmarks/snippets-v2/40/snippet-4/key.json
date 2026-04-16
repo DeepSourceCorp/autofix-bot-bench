@@ -1,0 +1,22 @@
+{
+  "entry_id": 40,
+  "snippet_index": 3,
+  "language": "javascript",
+  "findings": [
+    {
+      "line_number": 122,
+      "secret": "https://b4a3c2d1e0f9a8b7c6d5e4f3a2b1c0d9@o450604.ingest.sentry.io/45060453321",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 123,
+      "secret": "pk.eyJ1IjoiYmVuamFtaW5kZXYiLCJhIjoiY2xwOXA0bHUxMGZoeTJqcDkyMmh3ZDA0bCJ9.aK5fG4hT3jE2sC1dF8gH7i",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 146,
+      "secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZXJ2aWNlX2FjY291bnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiaWF0IjoxNjcxNTQwMjM5fQ.oF9gR1vW3cZ4xS8eP5kL7sB6tD0fA2uJ1cK8iL5dN9g",
+      "label": "True Positive"
+    }
+  ]
+}

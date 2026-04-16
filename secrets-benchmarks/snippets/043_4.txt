@@ -1,0 +1,25 @@
+1: # ================================================
+2: # Main Application Configuration for Auth Service
+3: # Environment: Production
+4: # ================================================
+5: 
+6: # Database connection details
+7: spring.datasource.url=jdbc:mysql://auth-db.prod.internal:3306/authdb
+8: spring.datasource.username=auth_service
+9: spring.datasource.password=4hT7^kL#pQ$zW1*s
+10: spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+11: 
+12: # JPA/Hibernate settings
+13: spring.jpa.hibernate.ddl-auto=validate
+14: spring.jpa.show-sql=false
+15: 
+16: # JWT token generation secrets
+17: # This secret key must be at least 256 bits long and Base64 encoded
+18: jwt.secret=bXlzdXBlcnNlY3JldGtleWZvcmF1dGgtc2VydmljZS1pcy1hdzsza29tZWx5LWxvbmc=
+19: jwt.issuer=com.example.authservice
+20: 
+21: # External service integration: Stripe for payment checks
+22: stripe.api.key=sk_live_51Kk0L2ApB8fG1tY9cRzXvWqSjU3mB4nF6gH7jK8lM9oP0qR1sT2uV3wX4yZ5aB6c
+23: 
+24: # Server port configuration
+25: server.port=8080

@@ -1,0 +1,32 @@
+88: import os
+89: import redis
+90: from flask import Flask, jsonify
+91: from sqlalchemy import create_engine
+92: from sqlalchemy.orm import sessionmaker
+93: 
+94: app = Flask(__name__)
+95: 
+96: # Database configuration for production orders
+97: DATABASE_URL = "postgres://order_svc_user:Ac3v!tY_p@sS_8hG#kL9@prod-db-cluster-1.us-east-1.rds.amazonaws.com:5432/orders_prod"
+98: engine = create_engine(DATABASE_URL)
+99: SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+100: 
+101: # Redis cache for session management
+102: redis_host = "prod-redis-main.f8c2d1.0001.use1.cache.amazonaws.com"
+103: redis_client = redis.Redis(host=redis_host, port=6379, db=0, password="rEd!sP@ssw0rd$tr0ngF0rProd753")
+104: 
+105: # Payment Gateway Integration
+106: STRIPE_API_KEY = "sk_live_51Kk0L2ApB8fG1tY9cr4jFzT8aGb0mXnL1fVd9rT2sYcW3uE4xS5bA6gH7jK8lI9oP0qR1tV2uY3vW4xZ"
+107: 
+108: @app.route('/health', methods=['GET'])
+109: def health_check():
+110:     try:
+111:         db_session = SessionLocal()
+112:         db_session.execute('SELECT 1')
+113:         redis_client.ping()
+114:         return jsonify({'status': 'ok', 'database': 'connected', 'cache': 'connected'}), 200
+115:     except Exception as e:
+116:         return jsonify({'status': 'error', 'details': str(e)}), 500
+117: 
+118: if __name__ == '__main__':
+119:     app.run(host='0.0.0.0', port=80)

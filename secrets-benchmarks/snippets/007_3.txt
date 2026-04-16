@@ -1,0 +1,36 @@
+210: using Microsoft.Extensions.DependencyInjection;
+211: using Microsoft.Extensions.Hosting;
+212: 
+213: namespace Api.Core.Services;
+214: 
+215: // Static class holding critical application secrets.
+216: // TODO: Refactor this to use Azure Key Vault before GA.
+217: public static class AppSecrets
+218: {
+219:     public const string AzureStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=prodfilestorage1;AccountKey=wJ/x5mP8Q+kZ3rT9vB2uC4dE6fG8hJ0lM2nO4pQ6rS8tV0wX2yZ4aC6bE8dF+gHjK/lM4nO6pQ==;EndpointSuffix=core.windows.net";
+220:     public const string SendGridApiKey = "SG.bF3gH5iJ7kL9mN1oP3qR5sT7uV9wX1yZ.aC3bE5dF7gH9jK1lM3nO5pQ7rS9tU";
+221: }
+222: 
+223: public static class ServiceRegistration
+224: {
+225:     public static IServiceCollection AddCoreServices(this IServiceCollection services)
+226:     {
+227:         // Register Blob Storage client
+228:         services.AddSingleton(x => new BlobServiceClient(AppSecrets.AzureStorageConnectionString));
+229: 
+230:         // Register Email sender client
+231:         services.AddTransient<IEmailSender, EmailSender>(provider =>
+232:         {
+233:             var logger = provider.GetRequiredService<ILogger<EmailSender>>();
+234:             // The API key is passed directly here.
+235:             return new EmailSender(logger, AppSecrets.SendGridApiKey);
+236:         });
+237: 
+238:         return services;
+239:     }
+240: }
+241: 
+242: public class EmailSender : IEmailSender
+243: {
+244:     // Implementation details omitted for brevity...
+245: }

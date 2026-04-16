@@ -1,0 +1,17 @@
+{
+  "entry_id": 47,
+  "snippet_index": 4,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 204,
+      "secret": "postgres://prod_analytics:v#9&kF$LpQz8r@db-replica-1.us-east-2.rds.amazonaws.com:5432/reporting",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 219,
+      "secret": "YjYzY2I0NTYtMzU4Mi00NjRmLWE5YzEtY2QwMmQzMmM4ZWU3ZmY0Y2I3YjAtZjFjNS00NjZiLTk5YjEtZDYyYzE4Y2Y1ZDE4",
+      "label": "True Positive"
+    }
+  ]
+}

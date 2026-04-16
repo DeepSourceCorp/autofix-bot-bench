@@ -1,0 +1,17 @@
+{
+  "entry_id": 23,
+  "snippet_index": 4,
+  "language": "json",
+  "findings": [
+    {
+      "line_number": 14,
+      "secret": "SG.rTk8wX3qS7iE9fG2hJ5kL.pZ6xV7yW1zB4cE6fG8hJ0kM2nO4qR6sT8uV9wY1zA3b",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 23,
+      "secret": "DefaultEndpointsProtocol=https;AccountName=prodblobstore987;AccountKey=zXcVbN6mPqR9sT2uW4xY7zC3jB5aN4mD6fG8hJ0kM2nO4qR6sT8uV9wY1zA3bE5fG7hJ8kL+A==;EndpointSuffix=core.windows.net",
+      "label": "True Positive"
+    }
+  ]
+}

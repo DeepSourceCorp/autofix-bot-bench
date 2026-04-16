@@ -1,0 +1,46 @@
+45: name: Deploy Staging Environment
+46: 
+47: on:
+48:   push:
+49:     branches:
+50:       - develop
+51: 
+52: jobs:
+53:   build-and-deploy:
+54:     runs-on: ubuntu-latest
+55:     steps:
+56:       - name: Checkout code
+57:         uses: actions/checkout@v3
+58: 
+59:       - name: Set up Node.js
+60:         uses: actions/setup-node@v3
+61:         with:
+62:           node-version: '18'
+63: 
+64:       - name: Install dependencies and build
+65:         run: |
+66:           npm install
+67:           npm run build
+68: 
+69:       - name: Deploy to Staging Server
+70:         uses: appleboy/ssh-action@master
+71:         with:
+72:           host: staging.example-hosting.com
+73:           username: deploy_bot
+74:           key: |
+75:             -----BEGIN OPENSSH PRIVATE KEY-----
+76:             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+77:             NhAAAAAwEAAQAAAYEA1H5s2b9r8fH8P2Z7g3d4s5v7t8w9A6B2C4E6fGgHhJkL1M3N5... 
+78:             ...base64 encoded private key data... 
+79:             G3hJkL1M3N5n9p0q2r4s6t8v9w0x2y3z5A7B9C1D3F5H7J9L1N3P5R7T9V1X3Z5B7D9F1H
+80:             -----END OPENSSH PRIVATE KEY-----
+81:           port: 22
+82:           script: |
+83:             cd /var/www/staging-app
+84:             git pull origin develop
+85:             docker compose down && docker compose up -d --build
+86: 
+87:       - name: Notify Slack on success
+88:         if: success()
+89:         run: |
+90:           curl -X POST -H 'Content-type: application/json' --data '{"text":"Staging deployment succeeded!"}' https://hooks.slack.com/services/T00ABCDEF/B00GHIJKL/mN7pQ8rS6tU5vW4xY3z2A1B0

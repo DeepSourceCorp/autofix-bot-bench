@@ -1,0 +1,64 @@
+# Padding: original snippet starts at line 33
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Build and Deploy Next.js App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Application
+        run: npm run build
+        env:
+          ALGOLIA_API_KEY: 9f8e7d6c5b4a3a2a1a0b9c8d7e6f5a4b
+          NEXT_PUBLIC_API_URL: https://api.prod.my-app.com
+
+      - name: Notify Slack on Success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment to production succeeded!"}' https://hooks.slack.com/services/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

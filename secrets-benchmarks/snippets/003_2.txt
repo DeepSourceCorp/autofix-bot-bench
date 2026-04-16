@@ -1,0 +1,37 @@
+15: name: CI/CD Pipeline for Microservice
+16: 
+17: on:
+18:   push:
+19:     branches:
+20:       - main
+21: 
+22: jobs:
+23:   build-and-push:
+24:     runs-on: ubuntu-latest
+25:     steps:
+26:       - name: Checkout repository
+27:         uses: actions/checkout@v3
+28: 
+29:       - name: Login to Docker Hub
+30:         uses: docker/login-action@v2
+31:         with:
+32:           username: myapp_service_account
+33:           password: "dckr_pat_aB7-cDef_gHiJkL-mNop_qRsT"
+34: 
+35:       - name: Build and push Docker image
+36:         uses: docker/build-push-action@v4
+37:         with:
+38:           context: .
+39:           push: true
+40:           tags: myapp/production:latest
+41: 
+42:   notify-on-failure:
+43:     runs-on: ubuntu-latest
+44:     if: failure()
+45:     steps:
+46:       - name: Send Slack notification
+47:         uses: rtCamp/action-slack-notify@v2
+48:         env:
+49:           SLACK_WEBHOOK: https://hooks.slack.com/services/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
+50:           SLACK_TITLE: 'Build Failed: Microservice'
+51:           SLACK_MESSAGE: 'The build for the main branch has failed. Please investigate.'

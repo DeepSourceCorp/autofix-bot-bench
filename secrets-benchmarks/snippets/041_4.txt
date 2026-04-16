@@ -1,0 +1,31 @@
+78: # ===============================
+79: # Authentication Service Config
+80: # ===============================
+81: 
+82: # Server port configuration
+83: server.port=8080
+84: 
+85: # JWT Token settings
+86: # This key is used for signing and verifying JWT tokens for user authentication.
+87: # It must be Base64 encoded and be kept confidential.
+88: auth.jwt.signing_key=ZThkNDFkYzAtNzA1Mi00YjU5LTg5Y2UtMjdhMTEyMzg1ZjM5NDY0Y2ZkYjMtYTEzNC00MWI4LWJmOTItZWY5YTJjNmE1N2Jl
+89: auth.jwt.expiration_minutes=60
+90: 
+91: # Database connection properties (using environment variables is recommended)
+92: spring.datasource.url=${JDBC_DATABASE_URL}
+93: spring.datasource.username=${JDBC_DATABASE_USERNAME}
+94: spring.datasource.password=${JDBC_DATABASE_PASSWORD}
+95: 
+96: # Spring RabbitMQ configuration for messaging queue
+97: # Manages asynchronous communication between microservices.
+98: spring.rabbitmq.uri=amqp://notif_worker:RpR8#bV^9sL@mq-cluster.internal:5672/vhost_prod
+99: spring.rabbitmq.listener.simple.retry.enabled=true
+100: spring.rabbitmq.listener.simple.retry.max-attempts=3
+101: 
+102: # Logging configuration
+103: logging.level.com.example.auth=INFO
+104: logging.level.org.springframework.web=WARN
+105: 
+106: # Eureka client configuration
+107: eureka.client.serviceUrl.defaultZone=http://discovery-service:8761/eureka/
+108: 

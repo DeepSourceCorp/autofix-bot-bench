@@ -1,0 +1,29 @@
+12: provider "aws" {
+13:   region     = "us-west-2"
+14:   access_key = "AKIAY3R4WZ76X2P5QJ6M"
+15:   secret_key = "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"
+16: }
+17: 
+18: resource "aws_s3_bucket" "customer_uploads" {
+19:   bucket = "app-customer-uploads-prod-0a1b2c"
+20:   acl    = "private"
+21: 
+22:   tags = {
+23:     Name        = "Customer Uploads Bucket"
+24:     Environment = "Production"
+25:   }
+26: }
+27: 
+28: resource "aws_db_instance" "app_database" {
+29:   allocated_storage    = 20
+30:   engine               = "mysql"
+31:   engine_version       = "8.0"
+32:   instance_class       = "db.t3.micro"
+33:   name                 = "webappdb_prod"
+34:   username             = "db_admin"
+35:   password             = "db_P@ssw0rd_pr0d_!2023"
+36:   parameter_group_name = "default.mysql8.0"
+37:   skip_final_snapshot  = true
+38:   publicly_accessible  = false
+39: }
+40: 

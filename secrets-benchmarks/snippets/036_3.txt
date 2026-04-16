@@ -1,0 +1,36 @@
+21: import SwiftUI
+22: import Sentry
+23: import MapboxMaps
+24: 
+25: struct AppConfig {
+26:     struct Sentry {
+27:         static let dsn = "https://a4d9aa8c6e3b4a2ab9b8b3b8c3d9aa3c@o123456.ingest.sentry.io/789012"
+28:     }
+29: 
+30:     struct Mapbox {
+31:         static let accessToken = "pk.eyJ1IjoibXl1c2VybmFtZTEyMyIsImEiOiJjazg3ZzA2ZWgwYXQyM21wZHRpZTI1a2QzIn0.nB9m_gZ2vXl0qY5uP3r7Ww"
+32:     }
+33: }
+34: 
+35: @main
+36: struct MyApp: App {
+37:     init() {
+38:         self.setupIntegrations()
+39:     }
+40: 
+41:     private func setupIntegrations() {
+42:         SentrySDK.start {
+43:             options in options.dsn = AppConfig.Sentry.dsn
+44:             options.tracesSampleRate = 1.0
+45:         }
+46: 
+47:         ResourceOptionsManager.default.resourceOptions.accessToken = AppConfig.Mapbox.accessToken
+48:     }
+49: 
+50:     var body: some Scene {
+51:         WindowGroup {
+52:             ContentView()
+53:         }
+54:     }
+55: }
+56: 

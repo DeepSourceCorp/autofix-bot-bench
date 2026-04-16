@@ -1,0 +1,31 @@
+15: name: Deploy to Staging
+16: 
+17: on:
+18:   push:
+19:     branches:
+20:       - develop
+21: 
+22: jobs:
+23:   build-and-deploy:
+24:     runs-on: ubuntu-latest
+25:     steps:
+26:       - name: Checkout repository
+27:         uses: actions/checkout@v3
+28: 
+29:       - name: Build Docker Image
+30:         run: |
+31:           docker build -t my-app:staging .
+32: 
+33:       - name: Deploy to Kubernetes Cluster
+34:         env:
+35:           KUBE_CONFIG_DATA: "apiVersion: v1\nclusters:\n- cluster:\n    server: https://k8s-staging.mycompany.dev\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURaekNDQWsrZ0F3SUJBZ0lCQVRBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpMV05oYlhCaGNuUnZkMjVzYVdJdGMyVm5jbWx1VEhCRGNISXRVRk5sYm5acFkyRXViV0Z5YTJVdApjR1Z5WVc0dGMyVmpkWEpwZEhrdE1CNFhEVEl4TURnd05qQXlPREl6TmxvWERUSXhNRGd3TmpBeU9ESXpObG93CkZURVRNQkVHQTFVRUF4TUthM1ZpY0dGblp5QkRaWEowYVdacFkyRjBhVzVuTVJvd0dBWURWUVFERXhGMVlXNWsKWXpCeldYSnliMnhsTG1OdmJURWNNQm9HQTFVRUF4UVVkakV1TG1Gc2JEb2dSWGRsWVhScGIyNGdkR2hsY2pBSgpCZ05WQkFvTUIxZGxaSEp2Ym5RdFkyRXdIaGNOTWpNd09UWTVNVFkyTURBMVdoY05Nak13T1RZeU1UWTJNREExCldqQVZNUk13RVFZRFZRUURFd3ByZFdKbGNtNWxkR1Z6TFdOaGJYQmhjblJ2ZDI1c2FXSXRjMlZuY21sdVRIQkQKc0hJdFVGTmxiblpwWTJFdWJXRnlhMlV0Y0dWeVlXNHRjMlZqZFhKcGRoa3RNQjRYRFRJeE1EZ3dOalF5TURJek4KbG9YRFRJeE1EZ3dOalF5TURJek5sb3dGVEVUTUJFR0ExVUVBeE1LYTNWaWNHzG5aeUJEWlhKMGFXWnBZMkYwCmFXNW5NU2t3SndZRFZRUUREQmR5WVc1bElFTmxjblJwWm1sallYUnBiMjR4RkRBU0JnTlZCQWNNQzFOaGJuUmwKWm00dGNIVjBaWEp6TG1OdmJUSXdNUnd3R1dZRFZRUUREQnBqWVc1bExtTnZiVEJaTUJNR0J5cUxlbEZvTEF1TQpNRGN3SmdZSktvWklodmNOQVFrQkZoZGxaSEp2Ym5RdFkyRXdEUVlKS29aSWh2Y05BUUVGQlFBZ2dra0JBSUVwCllpU0p2eU9rV0ZpZDJnZ0lQeW55bklwZWZpb1Rpa2ZpUGlpa2lQeWtlUGlUZ2Zpd1BTZ2tQSWZpZ2lwaWsKZ2ZQc0dnZ2ZQaVBHZ2ZpcGtpa1BnaVBHZ2lQaWdQaVBHZ2ZHUGlQaWtQaVBHZ2ZpUGlQaWtQaVBHZ2ZQaWcKUGlQaWtQaWtQaVBHUGlpZ1BnaWtQaVBHZ2ZpUGlQaWtQaVBHZ2ZpUGlQaVBHZ2ZHUGlQaWtQaVBHZ2ZHUGkKUGlQaWtQaVBHZ2ZHUGlQaWtQaWtQaVBHUGlpZ1BnaWtQaVBHZ2ZpUGlQaWtQaVBHZ2ZpUGlQaVBHZ2ZQaWcKUGlQaWtQaWtQaVBHUGlpZ1BnaWtQaVBHZ2ZpUGlQaWtQaVBHZ2ZQaWdQaVBHZ2ZQaWlQaWtQaVBHZ2ZGUGkKUGlQaWtQaWtQaVBHUGlpZ1BnaWtQaVBHZ2ZpUGlQaWtQZ2lwaWtnZlBzR2lnUGlQZ2ZpZ2lQaWtnZlBpcCgKaWtQZ2ZpcGtpa1BnaVBHZ2lQZ2lQZ2Zpd1BTZ2tQSWZpZ2lwaWtnZlBzR2dnZlBpUEgLZGdnaUtpUGlQaWsKUGlQaWtQaVBHZ2ZQaWdQaVBHZ2ZpUGlQaWtQaVBHZ2ZpUGlQaVBHZ2ZQaWdQaVBHZ2ZpUGlQaWtQaVBHZ2ZQaWcKUGlpZ1BnaWtQaVBHZ2ZpUGlQaWtQaVBHZ2ZpUGlQaWtQaVBHZ2ZQaWdQaVBHZ2ZpUGlQaWtQaVBHZ2ZpUGlQaWsKUGlwaWtQaVBHZ2ZQaWdQaVBHZ2ZpUGlQaWtQaVBHZ2ZpUGlQaVBHZ2ZQaWdQaVBHZ2ZpUGlQaWtQaVBHZ2lQaWtnCmZQaVBHZ2ZpUGlQaWtQaWtQaVBHUGlpZ1BnaWtQaVBHZ2ZpUGlQaWtQZ2lwaWtnZlA==\n  name: k8s-staging\ncontexts:\n- context:\n    cluster: k8s-staging\n    user: cicd-user\n  name: k8s-staging\ncurrent-context: k8s-staging\nkind: Config\npreferences: {}\nusers:\n- name: cicd-user\n  user:\n    token: tok_v3_a7b8e1f5d3c2a1b0e4f6d7c8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8\n"
+36:         run: |
+37:           echo "$KUBE_CONFIG_DATA" > ./kubeconfig
+38:           export KUBECONFIG=./kubeconfig
+39:           kubectl apply -f k8s/deployment-staging.yaml
+40: 
+41:       - name: Notify on Slack
+42:         if: success()
+43:         run: |
+44:           curl -X POST -H 'Content-type: application/json' --data '{"text":"Staging deployment successful."}' https://hooks.slack.com/services/T01ABCD4E5F/B02FGHIJ3K4/aBcDeFg1hIjKlMnOpQrStUvWxYzA543210
+45: 

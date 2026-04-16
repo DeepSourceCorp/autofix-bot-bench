@@ -1,0 +1,35 @@
+112: # Terraform configuration for provisioning a web server and a database
+113: 
+114: terraform {
+115:   required_providers {
+116:     digitalocean = {
+117:       source = "digitalocean/digitalocean"
+118:       version = "~> 2.0"
+119:     }
+120:   }
+121: }
+122: 
+123: provider "digitalocean" {
+124:   token = "dop_v1_8a3f5b210c4e7d9f6a2b01c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3"
+125: }
+126: 
+127: resource "digitalocean_droplet" "web_app" {
+128:   image    = "ubuntu-20-04-x64"
+129:   name     = "web-prod-1"
+130:   region   = "nyc3"
+131:   size     = "s-1vcpu-1gb"
+132:   ssh_keys = [data.digitalocean_ssh_key.main.id]
+133: }
+134: 
+135: data "digitalocean_ssh_key" "main" {
+136:   name = "prod-deploy-key"
+137: }
+138: 
+139: resource "digitalocean_database_cluster" "postgres_db" {
+140:   name       = "prod-db-cluster"
+141:   engine     = "pg"
+142:   version    = "13"
+143:   size       = "db-s-2vcpu-4gb"
+144:   region     = "nyc3"
+145:   node_count = 1
+146: }

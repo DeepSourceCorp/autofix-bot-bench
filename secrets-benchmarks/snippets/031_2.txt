@@ -1,0 +1,40 @@
+115: import React from 'react';
+116: import { MapContainer, TileLayer } from 'react-leaflet';
+117: import * as Sentry from '@sentry/react';
+118: import { BrowserTracing } from '@sentry/tracing';
+119: 
+120: // Centralized configuration for external services
+121: const serviceConfig = {
+122:   mapbox: {
+123:     accessToken: 'pk.eyJ1IjoibWFwYWRtaW4iLCJhIjoiY2t1b2Q4c3M2MWY4aTJ2bnZkaXA2b2YzeSJ9.wG8fQzR6v4kXpL7yC9jTqA',
+124:     style: 'mapbox://styles/mapbox/streets-v11'
+125:   },
+126:   sentry: {
+127:     dsn: 'https://a9f3b8e7d6c54a108f9b9c0e2d1a3c7f@o112233.ingest.sentry.io/45056789012345',
+128:     tracesSampleRate: 1.0,
+129:   },
+130:   apiBaseUrl: '/api/v1'
+131: };
+132: 
+133: // Initialize error tracking
+134: Sentry.init({
+135:   dsn: serviceConfig.sentry.dsn,
+136:   integrations: [new BrowserTracing()],
+137:   tracesSampleRate: serviceConfig.sentry.tracesSampleRate
+138: });
+139: 
+140: const LocationMapView = () => {
+141:   const position = [51.505, -0.09];
+142: 
+143:   return (
+144:     <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+145:       <TileLayer
+146:         attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
+147:         url={`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${serviceConfig.mapbox.accessToken}`}
+148:         id={serviceConfig.mapbox.style.split('//')[1]}
+149:       />
+150:     </MapContainer>
+151:   );
+152: };
+153: 
+154: export default LocationMapView;

@@ -1,0 +1,42 @@
+15: provider "aws" {
+16:   region = "eu-central-1"
+17: }
+18: 
+19: resource "aws_db_instance" "application_db" {
+20:   allocated_storage    = 20
+21:   engine               = "mysql"
+22:   engine_version       = "8.0.28"
+23:   instance_class       = "db.t3.micro"
+24:   name                 = "appdbprod"
+25:   username             = "db_admin_master"
+26:   password             = "S3cuRe_dBP@ssw0rd-f0R-Pr0d!2023"
+27:   parameter_group_name = "default.mysql8.0"
+28:   skip_final_snapshot  = true
+29:   publicly_accessible  = false
+30: 
+31:   vpc_security_group_ids = [aws_security_group.db_sg.id]
+32:   db_subnet_group_name   = aws_db_subnet_group.default.name
+33: }
+34: 
+35: resource "aws_security_group" "db_sg" {
+36:   name        = "db-security-group"
+37:   description = "Allow traffic from application servers"
+38:   vpc_id      = var.vpc_id
+39: 
+40:   ingress {
+41:     from_port   = 3306
+42:     to_port     = 3306
+43:     protocol    = "tcp"
+44:     cidr_blocks = ["10.0.1.0/24"]
+45:   }
+46: }
+47: 
+48: resource "aws_db_subnet_group" "default" {
+49:   name       = "main"
+50:   subnet_ids = var.private_subnet_ids
+51: }
+52: 
+53: variable "vpc_id" {}
+54: variable "private_subnet_ids" {
+55:   type = list(string)
+56: }

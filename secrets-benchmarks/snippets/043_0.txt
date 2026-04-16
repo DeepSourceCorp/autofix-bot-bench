@@ -1,0 +1,34 @@
+112: from flask import Flask, jsonify, request
+113: from flask_sqlalchemy import SQLAlchemy
+114: import os
+115: import redis
+116: 
+117: app = Flask(__name__)
+118: 
+119: # --- Database Configuration ---
+120: # Postgres connection for primary data store
+121: app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://prod_user_rw:8!hG#kL$pQ2s@db-pg-prod-01.c3k4l5m6.us-east-1.rds.amazonaws.com:5432/main_app_db'
+122: app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+123: 
+124: db = SQLAlchemy(app)
+125: 
+126: # --- Cache Configuration ---
+127: # Connect to our ElastiCache Redis cluster
+128: try:
+129:     redis_client = redis.StrictRedis(
+130:         host='prod-redis-cluster.ab123c.0001.use1.cache.amazonaws.com',
+131:         port=6379, 
+132:         password='eYp3s6v9y$B&E)H@McQfTjWnZr4u7x!A',
+133:         decode_responses=True
+134:     )
+135:     redis_client.ping()
+136: except redis.exceptions.ConnectionError as e:
+137:     print(f"Could not connect to Redis: {e}")
+138:     redis_client = None
+139: 
+140: @app.route('/health')
+141: def health_check():
+142:     return jsonify({'status': 'ok'}), 200
+143: 
+144: if __name__ == '__main__':
+145:     app.run(host='0.0.0.0', port=80)

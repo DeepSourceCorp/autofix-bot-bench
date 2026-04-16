@@ -1,0 +1,17 @@
+{
+  "entry_id": 26,
+  "snippet_index": 3,
+  "language": "csharp",
+  "findings": [
+    {
+      "line_number": 208,
+      "secret": "Endpoint=sb://myeventhub-prod.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jV3zK9bR4sP7xG1fH5vD2uM8qY6wL0aT+AbC=dEfGhI=",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 228,
+      "secret": "SG.aV4gH9rT2pL7.xJ5sK1mF3bZ8oN6cW0qYdEaV4gH9rT2pL7xJ5sK1mF3bZ8oN",
+      "label": "True Positive"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+112: # /etc/docker/daemon.json - Docker daemon configuration file
+113: # This configures the daemon to use a private registry and sets log rotation.
+114: {
+115:   "insecure-registries": [],
+116:   "registry-mirrors": ["https://mirror.gcr.io"],
+117:   "log-driver": "json-file",
+118:   "log-opts": {
+119:     "max-size": "10m",
+120:     "max-file": "3"
+121:   },
+122:   "bip": "172.18.0.1/16",
+123:   "live-restore": true,
+124:   "default-runtime": "nvidia",
+125:   "runtimes": {
+126:     "nvidia": {
+127:       "path": "nvidia-container-runtime",
+128:       "runtimeArgs": []
+129:     }
+130:   },
+131:   "auths": {
+132:     "https://internal.registry.corp": {
+133:       "auth": "dXNlcl9kZXBsb3k6Zkc5amwzTTl2WjRuNCEyQw=="
+134:     }
+135:   },
+136:   "api-cors-header": "*",
+137:   "debug": false
+138: }

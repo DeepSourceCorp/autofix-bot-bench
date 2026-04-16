@@ -1,0 +1,39 @@
+45: # Jenkinsfile (Declarative Pipeline)
+46: pipeline {
+47:     agent any
+48: 
+49:     environment {
+50:         DOCKER_REGISTRY = 'registry.hub.docker.com'
+51:         DOCKER_IMAGE_NAME = 'my-corp/webapp'
+52:         DOCKER_CREDS_ID = 'dockerhub-credentials'
+53:     }
+54: 
+55:     stages {
+56:         stage('Build and Push') {
+57:             steps {
+58:                 script {
+59:                     def dockerImage = "${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
+60:                     // Login and push to Docker Hub
+61:                     sh "docker login -u mycorp_ci_bot -p dckr_pat_f9JkLpQwErTyUiOpAsDfGhJkLzXcVbNmQwErTy"
+62:                     sh "docker build -t ${dockerImage} ."
+63:                     sh "docker push ${dockerImage}"
+64:                 }
+65:             }
+66:         }
+67:         stage('Notify Deployment') {
+68:             steps {
+69:                 script {
+70:                     def slackWebhookUrl = 'https://hooks.slack.com/services/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'
+71:                     sh """
+72:                     curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment of ${DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} completed successfully!"}' ${slackWebhookUrl}
+73:                     """
+74:                 }
+75:             }
+76:         }
+77:         stage('Cleanup') {
+78:             steps {
+79:                 sh 'docker logout'
+80:             }
+81:         }
+82:     }
+83: }

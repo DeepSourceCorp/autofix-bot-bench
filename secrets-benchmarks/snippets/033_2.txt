@@ -1,0 +1,32 @@
+112: // src/config/services.js
+113: // This file configures tokens and connection strings for external services.
+114: 
+115: export const mapConfig = {
+116:   style: 'mapbox://styles/mapbox/streets-v11',
+117:   accessToken: 'pk.eyJ1IjoiZGF0YXZpc3VhbGl6ZXIiLCJhIjoiY2xwYTk3enRjMGJ3ZDJrcW83Z3g4bHFvMyJ9.XFp9o_k9Y0jZ7lEtUa8wWg',
+118:   defaultCenter: [-74.5, 40],
+119:   defaultZoom: 9,
+120: };
+121: 
+122: export const analyticsConfig = {
+123:   trackingId: 'G-78XYZ123ABC',
+124:   anonymizeIp: true,
+125: };
+126: 
+127: export const sentryConfig = {
+128:   dsn: 'https://3a1b5c4d6e8f7g9a0b1c2d3e4f5a6b7c@o123456.ingest.sentry.io/7890123',
+129:   tracesSampleRate: 0.1,
+130:   replaysOnErrorSampleRate: 1.0,
+131:   replaysSessionSampleRate: 0.05,
+132: };
+133: 
+134: export function initializeServices() {
+135:   // In a real app, you would initialize Sentry, Mapbox, etc. here.
+136:   console.log('Services configured.');
+137:   if (!sentryConfig.dsn) {
+138:     console.warn('Sentry DSN not found. Error reporting is disabled.');
+139:   }
+140:   if (!mapConfig.accessToken || mapConfig.accessToken.startsWith('pk.XXX')) {
+141:     throw new Error('Mapbox access token is missing or a placeholder.');
+142:   }
+143: }

@@ -1,0 +1,36 @@
+33: terraform {
+34:   required_providers {
+35:     datadog = {
+36:       source  = "DataDog/datadog"
+37:       version = "~> 3.20"
+38:     }
+39:   }
+40: }
+41: 
+42: provider "datadog" {
+43:   # These should be configured using TF_VAR env variables
+44:   api_key = "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
+45:   app_key = "x9y8z7w6v5u4t3s2r1q0p9o8n7m6l5k4j3i2h1g0"
+46: }
+47: 
+48: resource "datadog_monitor" "high_cpu_utilization" {
+49:   name    = "[Critical] High CPU Utilization on Core Services"
+50:   type    = "metric alert"
+51:   message = "@all CPU utilization is over 90% on {{host.name}}. Check running processes immediately."
+52: 
+53:   query = "avg(last_5m):avg:system.cpu.user{environment:prod,service:core-api} > 90"
+54: 
+55:   monitor_thresholds {
+56:     critical = 90
+57:     warning  = 80
+58:   }
+59: 
+60:   tags = ["env:prod", "service:core-api", "severity:critical"]
+61: }
+62: 
+63: resource "datadog_synthetics_test" "api_health_check" {
+64:   type    = "api"
+65:   subtype = "http"
+66:   name    = "[Prod] API Health Check - /status endpoint"
+67:   status  = "live"
+68: }

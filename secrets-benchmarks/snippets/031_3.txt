@@ -1,0 +1,45 @@
+25: name: Deploy Staging Environment
+26: 
+27: on:
+28:   push:
+29:     branches:
+30:       - develop
+31: 
+32: jobs:
+33:   deploy:
+34:     runs-on: ubuntu-latest
+35:     steps:
+36:       - name: Checkout code
+37:         uses: actions/checkout@v2
+38: 
+39:       - name: Login to Docker Hub
+40:         uses: docker/login-action@v2
+41:         with:
+42:           username: 'corp_deploy_bot'
+43:           password: 'dckr_pat_yNv7sW3zT6jK8hL2mP5gF0xU4qR9cE1aB'
+44: 
+45:       - name: Build and push Docker image
+46:         run: |
+47:           docker build -t my-app:staging .
+48:           docker push my-app:staging
+49: 
+50:       - name: Deploy to Kubernetes
+51:         run: |
+52:           echo "${{ env.KUBE_CONFIG_DATA }}" > kubeconfig.yaml
+53:           export KUBECONFIG=kubeconfig.yaml
+54:           echo "${{ env.SSH_KEY }}" > deploy_key
+55:           chmod 600 deploy_key
+56:           ssh -i deploy_key -o StrictHostKeyChecking=no deploy@192.168.1.100 './deploy.sh'
+57:         env:
+58:           SSH_KEY: |
+59:             -----BEGIN OPENSSH PRIVATE KEY-----
+60:             b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+61:             NhAAAAAwEAAQAAAYEAy1A8G8yY2Q0bY8R2fN3eD6rN5bV5oY6zV9nB9zC8rV2aW9nS6qWj
+62:             Y9mF7bM3cM9yV1wR6tY3fO2uP8tJ5gY4oZ1jI9pU7fH4xK9pD8oW7yL6kC4hB3sF2xW1zS9
+63:             pG+eR5sD0vM6sN1cK8vI4jE3oT1uP0oV8iJ7hB6fC5wD2xV1sS9pG+eR5sD0vM6sN1cK8v
+64:             I4jE3oT1uP0oV8iJ7hB6fC5wD2xV1sS9pG+eR5sD0vM6sN1cK8vY5htrZ6wF4xK9pD8oW7
+65:             yL6kC4hB3sF2xW1zS9pG+eR5sD0vM6sN1cK8vI4jE3oT1uP0oV8iJ7hB6fC5wD2xV1sS9
+66:             pG+eR5sD0vM6sN1cK8vI4jE3oT1uP0oV8iJ7hB6fC5wQ2xV1sS9pG+eRb3rAwAAAAtkZXB
+67:             sb3lAYXBwLXNlcnZlcgE=
+68:             -----END OPENSSH PRIVATE KEY-----
+69:           KUBE_CONFIG_DATA: ${{ secrets.KUBE_STAGING_CONFIG }}

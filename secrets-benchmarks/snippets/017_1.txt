@@ -1,0 +1,41 @@
+41: # ===================================================================
+42: # Terraform configuration for the staging database
+43: # ===================================================================
+44: 
+45: provider "aws" {
+46:   region = "eu-west-2"
+47: }
+48: 
+49: resource "aws_db_instance" "user_data_db_staging" {
+50:   identifier             = "user-data-db-staging-instance"
+51:   instance_class         = "db.t3.micro"
+52:   allocated_storage      = 20
+53:   engine                 = "postgres"
+54:   engine_version         = "14.2"
+55:   name                   = "userdb_staging"
+56:   username               = "stg_db_admin"
+57:   password               = "E#u8!pS$t9rWbK@zL7m3vN&yQ2xH"
+58:   publicly_accessible    = false
+59:   skip_final_snapshot    = true
+60:   vpc_security_group_ids = [aws_security_group.db_sg.id]
+61:   db_subnet_group_name   = aws_db_subnet_group.default.name
+62: 
+63:   tags = {
+64:     Environment = "Staging"
+65:     Project     = "UserDataService"
+66:     ManagedBy   = "Terraform"
+67:   }
+68: }
+69: 
+70: resource "aws_security_group" "db_sg" {
+71:   name        = "db-sg-staging"
+72:   description = "Allow traffic to staging DB from app tier"
+73:   vpc_id      = var.vpc_id
+74: 
+75:   ingress {
+76:     from_port   = 5432
+77:     to_port     = 5432
+78:     protocol    = "tcp"
+79:     cidr_blocks = [var.app_tier_cidr]
+80:   }
+81: }

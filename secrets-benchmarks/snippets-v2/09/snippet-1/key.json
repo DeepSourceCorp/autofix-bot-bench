@@ -1,0 +1,17 @@
+{
+  "entry_id": 9,
+  "snippet_index": 0,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 50,
+      "secret": "postgres://prod_user_rw:2$fP#qZ9!sW7@db.customer-api.prod.aws-us-east-1.rds.amazonaws.com:5432/payments_db",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 54,
+      "secret": "sk_live_51Kk0L2ApB8fG1tY9cRzXvWqSjU3mB7oL5dE6aF4gH2iJ1kC0pP9sT8yU2oO3zN7lI5xR4vG3bA2eC1d00jK6bM4lP",
+      "label": "True Positive"
+    }
+  ]
+}

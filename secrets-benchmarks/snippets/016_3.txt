@@ -1,0 +1,34 @@
+112: import React, { useEffect } from 'react';
+113: import * as Sentry from '@sentry/react';
+114: import { BrowserTracing } from '@sentry/tracing';
+115: import mapboxgl from 'mapbox-gl';
+116: 
+117: export const initializeThirdPartyServices = () => {
+118:   // Sentry Initialization for error tracking
+119:   Sentry.init({
+120:     dsn: "https://a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6@o123456.ingest.sentry.io/7890123",
+121:     integrations: [new BrowserTracing()],
+122:     tracesSampleRate: 0.2,
+123:     environment: process.env.NODE_ENV,
+124:   });
+125: 
+126:   // Mapbox GL JS configuration
+127:   // This token is used to authenticate with Mapbox's APIs.
+128:   mapboxgl.accessToken = 'pk.eyJ1IjoibXljb29sZGV2IiwiYSI6ImNrdjRzM2l2ZDBsYjQyd3M0cGszbTNnNHAifQ.H9f_zAbCdEfGhIjKlMnOpQ';
+129: };
+130: 
+131: const MapComponent = () => {
+132:   useEffect(() => {
+133:     const map = new mapboxgl.Map({
+134:       container: 'map-container', // container ID
+135:       style: 'mapbox://styles/mapbox/streets-v11',
+136:       center: [-74.5, 40], // starting position
+137:       zoom: 9 // starting zoom
+138:     });
+139:     return () => map.remove();
+140:   }, []);
+141: 
+142:   return <div id="map-container" style={{ height: '400px' }} />;
+143: };
+144: 
+145: export default MapComponent;

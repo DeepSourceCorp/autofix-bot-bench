@@ -1,0 +1,69 @@
+# Padding: original snippet starts at line 25
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy Staging Environment
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: 'corp_deploy_bot'
+          password: 'dckr_pat_yNv7sW3zT6jK8hL2mP5gF0xU4qR9cE1aB'
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t my-app:staging .
+          docker push my-app:staging
+
+      - name: Deploy to Kubernetes
+        run: |
+          echo "${{ env.KUBE_CONFIG_DATA }}" > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
+          echo "${{ env.SSH_KEY }}" > deploy_key
+          chmod 600 deploy_key
+          ssh -i deploy_key -o StrictHostKeyChecking=no deploy@192.168.1.100 './deploy.sh'
+        env:
+          SSH_KEY: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+            NhAAAAAwEAAQAAAYEAy1A8G8yY2Q0bY8R2fN3eD6rN5bV5oY6zV9nB9zC8rV2aW9nS6qWj
+            Y9mF7bM3cM9yV1wR6tY3fO2uP8tJ5gY4oZ1jI9pU7fH4xK9pD8oW7yL6kC4hB3sF2xW1zS9
+            pG+eR5sD0vM6sN1cK8vI4jE3oT1uP0oV8iJ7hB6fC5wD2xV1sS9pG+eR5sD0vM6sN1cK8v
+            I4jE3oT1uP0oV8iJ7hB6fC5wD2xV1sS9pG+eR5sD0vM6sN1cK8vY5htrZ6wF4xK9pD8oW7
+            yL6kC4hB3sF2xW1zS9pG+eR5sD0vM6sN1cK8vI4jE3oT1uP0oV8iJ7hB6fC5wD2xV1sS9
+            pG+eR5sD0vM6sN1cK8vI4jE3oT1uP0oV8iJ7hB6fC5wQ2xV1sS9pG+eRb3rAwAAAAtkZXB
+            sb3lAYXBwLXNlcnZlcgE=
+            -----END OPENSSH PRIVATE KEY-----
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_STAGING_CONFIG }}

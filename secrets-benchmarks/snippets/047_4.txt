@@ -1,0 +1,30 @@
+201: # application.properties - Core Backend Service
+202: # Datasource Configuration for Primary Database
+203: # Note: This points to the read-replica for analytics workloads.
+204: db.connectionString=postgres://prod_analytics:v#9&kF$LpQz8r@db-replica-1.us-east-2.rds.amazonaws.com:5432/reporting
+205: 
+206: # HikariCP Connection Pool Settings
+207: spring.datasource.hikari.connection-timeout=30000
+208: spring.datasource.hikari.maximum-pool-size=10
+209: spring.datasource.hikari.idle-timeout=600000
+210: 
+211: # Server port configuration
+212: server.port=8080
+213: 
+214: # Actuator endpoints (enabled for monitoring)
+215: management.endpoints.web.exposure.include=health,info,prometheus
+216: 
+217: # Security Configuration
+218: # Secret for signing internal service-to-service JWTs. Must be Base64 encoded.
+219: jwt.signing.secret = YjYzY2I0NTYtMzU4Mi00NjRmLWE5YzEtY2QwMmQzMmM4ZWU3ZmY0Y2I3YjAtZjFjNS00NjZiLTk5YjEtZDYyYzE4Y2Y1ZDE4
+220: jwt.token.issuer = core-service@my-app.io
+221: jwt.token.expiration.ms = 86400000 # 24 hours
+222: 
+223: # Redis Cache for Session Management
+224: spring.redis.host=redis-cache.prod.internal
+225: spring.redis.port=6379
+226: spring.session.store-type=redis
+227: 
+228: # Logging level
+229: logging.level.com.myapp=INFO
+230: 

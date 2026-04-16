@@ -1,0 +1,31 @@
+88: # main.tf - AWS Infrastructure for the reporting service
+89: 
+90: provider "aws" {
+91:   region     = "us-east-1"
+92:   access_key = "AKIA44JGL55QT6L72Q57"
+93:   secret_key = "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"
+94: }
+95: 
+96: resource "aws_instance" "reporting_worker" {
+97:   ami           = "ami-0c55b159cbfafe1f0"
+98:   instance_type = "t2.micro"
+99:   tags = {
+100:     Name = "ReportingWorker-Prod"
+101:   }
+102: }
+103: 
+104: resource "aws_db_instance" "reporting_db" {
+105:   allocated_storage    = 20
+106:   engine               = "mysql"
+107:   engine_version       = "8.0"
+108:   instance_class       = "db.t2.micro"
+109:   db_name              = "reportingdb"
+110:   username             = "reportadmin"
+111:   password             = "hJ$9!zK@bD3pG*sV"
+112:   parameter_group_name = "default.mysql8.0"
+113:   skip_final_snapshot  = true
+114: }
+115: 
+116: output "db_endpoint" {
+117:   value = aws_db_instance.reporting_db.endpoint
+118: }

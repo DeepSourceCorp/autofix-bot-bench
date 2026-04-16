@@ -1,0 +1,37 @@
+42: # processor/report_uploader.py
+43: import boto3
+44: import logging
+45: import os
+46: from botocore.exceptions import NoCredentialsError
+47: 
+48: # Configuration for AWS Connection
+49: # TODO: Move these credentials to a secure vault or IAM role
+50: AWS_REGION = 'us-west-2'
+51: AWS_ACCESS_KEY_ID = "AKIAU7VDF3W5X6QZ8P4J"
+52: AWS_SECRET_ACCESS_KEY = "bK9mP4wR8sL1vJ7oA2dF6gH3xN0cT5yZ/iE+qW!a"
+53: S3_BUCKET_NAME = 'prod-financial-reports-q3-2023'
+54: 
+55: logging.basicConfig(level=logging.INFO)
+56: logger = logging.getLogger(__name__)
+57: 
+58: def connect_to_s3():
+59:     """Initializes and returns a boto3 S3 client."""
+60:     try:
+61:         s3_client = boto3.client(
+62:             's3',
+63:             aws_access_key_id=AWS_ACCESS_KEY_ID,
+64:             aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+65:             region_name=AWS_REGION
+66:         )
+67:         return s3_client
+68:     except NoCredentialsError:
+69:         logger.error("Credentials not available. Failed to create S3 client.")
+70:         return None
+71: 
+72: def upload_file(file_path):
+73:     s3 = connect_to_s3()
+74:     if s3 is not None:
+75:         file_name = os.path.basename(file_path)
+76:         s3.upload_file(file_path, S3_BUCKET_NAME, f"processed/{file_name}")
+77:         logger.info(f"Successfully uploaded {file_name} to {S3_BUCKET_NAME}")
+78: 

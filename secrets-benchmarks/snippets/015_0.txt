@@ -1,0 +1,43 @@
+42: # sync_s3_data.py: A utility script to synchronize local data with an S3 bucket.
+43: 
+44: import boto3
+45: import logging
+46: from botocore.exceptions import NoCredentialsError
+47: 
+48: # --- Configuration ---
+49: AWS_REGION = 'eu-west-1'
+50: S3_BUCKET_NAME = 'corp-data-lake-prod-4815162342'
+51: 
+52: # WARNING: Hardcoded credentials for legacy service account
+53: AWS_ACCESS_KEY_ID = 'AKIAY3R4WZ76X2P5QJ6M'
+54: AWS_SECRET_ACCESS_KEY = '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'
+55: 
+56: logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+57: 
+58: def connect_to_s3():
+59:     """Establishes a session with AWS S3 using hardcoded credentials."""
+60:     try:
+61:         s3_client = boto3.client(
+62:             's3',
+63:             aws_access_key_id=AWS_ACCESS_KEY_ID,
+64:             aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+65:             region_name=AWS_REGION
+66:         )
+67:         logging.info("S3 client created successfully.")
+68:         return s3_client
+69:     except NoCredentialsError:
+70:         logging.error("Credentials not available.")
+71:         return None
+72: 
+73: def list_bucket_contents(s3_client):
+74:     """Lists the contents of the configured S3 bucket."""
+75:     logging.info(f"Listing contents for bucket: {S3_BUCKET_NAME}")
+76:     response = s3_client.list_objects_v2(Bucket=S3_BUCKET_NAME)
+77:     if 'Contents' in response:
+78:         for item in response['Contents']:
+79:             print(f" - {item['Key']} (Size: {item['Size']})")
+80: 
+81: if __name__ == "__main__":
+82:     client = connect_to_s3()
+83:     if client:
+84:         list_bucket_contents(client)

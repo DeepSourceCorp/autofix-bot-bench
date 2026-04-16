@@ -1,0 +1,56 @@
+# Padding: original snippet starts at line 11
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy to Production Kubernetes Cluster
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: 'us-east-1'
+  ECR_REPOSITORY: 'my-app-repo'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id AKIA4F5K6L7M8N9P0Q1R
+          aws configure set aws_secret_access_key 7hGjKlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrSt
+          aws configure set default.region $AWS_REGION
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push the Docker image
+        run: |
+          docker build -t $ECR_REPOSITORY .
+          docker tag $ECR_REPOSITORY:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+
+  notify-slack:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to Slack channel
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: 'Deployment to production succeeded.'
+        env:
+          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T01B2C3D4E5/F6G7H8I9J0K/l1m2n3o4p5q6r7s8t9u0v1w2"
+

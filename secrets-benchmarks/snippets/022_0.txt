@@ -1,0 +1,35 @@
+112: import boto3
+113: from flask import Flask, request, jsonify
+114: 
+115: app = Flask(__name__)
+116: 
+117: # AWS credentials should not be hardcoded
+118: AWS_ACCESS_KEY_ID = 'AKIAV7S4M3PZ5LQXJH9R'
+119: AWS_SECRET_ACCESS_KEY = 'uJt+nE7i/K8zXw9VhG2qfB1sYd0cR5zP3oI4sL7g'
+120: AWS_S3_BUCKET = 'company-prod-user-uploads-us-east-1'
+121: AWS_REGION = 'us-east-1'
+122: 
+123: s3 = boto3.client(
+124:     's3',
+125:     aws_access_key_id=AWS_ACCESS_KEY_ID,
+126:     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+127:     region_name=AWS_REGION
+128: )
+129: 
+130: @app.route('/upload', methods=['POST'])
+131: def upload_file():
+132:     if 'file' not in request.files:
+133:         return jsonify({'error': 'No file part'}), 400
+134:     file = request.files['file']
+135:     if file.filename == '':
+136:         return jsonify({'error': 'No selected file'}), 400
+137: 
+138:     try:
+139:         s3.upload_fileobj(file, AWS_S3_BUCKET, file.filename)
+140:         return jsonify({'message': f'File {file.filename} uploaded successfully.'}), 200
+141:     except Exception as e:
+142:         app.logger.error(f"S3 Upload failed: {e}")
+143:         return jsonify({'error': 'File upload failed'}), 500
+144: 
+145: if __name__ == '__main__':
+146:     app.run(debug=False, host='0.0.0.0')

@@ -1,0 +1,38 @@
+1: name: Build and Deploy Production API
+2: 
+3: on:
+4:   push:
+5:     branches:
+6:       - main
+7: 
+8: jobs:
+9:   build-and-push:
+10:     runs-on: ubuntu-latest
+11:     steps:
+12:       - name: Checkout repository
+13:         uses: actions/checkout@v3
+14: 
+15:       - name: Set up Docker Buildx
+16:         uses: docker/setup-buildx-action@v2
+17: 
+18:       - name: Login to DockerHub
+19:         uses: docker/login-action@v2
+20:         with:
+21:           username: coreapp
+22:           password: "dckr_pat_u7hN2pL9xV4kG1mF3jZ8oR6cW0qYdE5sT2aB"
+23: 
+24:       - name: Build and push Docker image
+25:         uses: docker/build-push-action@v4
+26:         with:
+27:           context: .
+28:           file: ./Dockerfile
+29:           push: true
+30:           tags: coreapp/api-gateway:latest
+31: 
+32:       - name: Notify on deployment success
+33:         uses: 8398a7/action-slack@v3
+34:         with:
+35:           status: success
+36:           author_name: 'API Gateway CI'
+37:         env:
+38:           SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"

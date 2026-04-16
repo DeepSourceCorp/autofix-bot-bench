@@ -1,0 +1,17 @@
+{
+  "entry_id": 46,
+  "snippet_index": 0,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 87,
+      "secret": "postgres://analytics_svc:5h#jK9$fG!pQ@prod-db-replica-1.us-east-1.rds.amazonaws.com:5432/reporting_db",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 92,
+      "secret": "sk_live_51Kx2BzJ6w3hC7nVf8gB5sLp0nN6rT1qY2aD4zXvWqSjU3mHk9oP7fG1tY9cR",
+      "label": "True Positive"
+    }
+  ]
+}

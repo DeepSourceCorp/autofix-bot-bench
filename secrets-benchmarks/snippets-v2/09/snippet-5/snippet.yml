@@ -1,0 +1,97 @@
+# Padding: original snippet starts at line 65
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy Staging Environment
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_ACCESS_KEY_ID: AKIAY3R4WZ76X2P5QJ6M
+  AWS_SECRET_ACCESS_KEY: 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
+  GCP_SA_KEY: '{"type":"service_account","project_id":"core-infra-345213","private_key_id":"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2","private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDRsK7pB6bFv9f6\nc...\n-----END PRIVATE KEY-----\n","client_email":"deploy-bot@core-infra-345213.iam.gserviceaccount.com","client_id":"109876543210987654321"}'
+
+jobs:
+  terraform-apply:
+    name: 'Terraform Apply'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+      - name: Send Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: https://hooks.slack.com/services/T00ABCD12EF/B01ZYXW3456/kLpQrStUvWxYzAbCdEfGhIjK

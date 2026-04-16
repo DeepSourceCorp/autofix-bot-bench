@@ -1,0 +1,36 @@
+201: <?php
+202: require 'vendor/autoload.php';
+203: use Mailgun\Mailgun;
+204: 
+205: class NotificationService {
+206:     private $db_conn;
+207:     private $mailer;
+208: 
+209:     public function __construct() {
+210:         // Database connection details
+211:         $db_host = 'db.internal.my-corp.net';
+212:         $db_name = 'marketing_db';
+213:         $db_user = 'mktg_automation';
+214:         $db_pass = 'D#fG8*jK!lM2$n P5';
+215:         $this->db_conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+216: 
+217:         // Mailgun Client Initialization
+218:         $this->mailer = Mailgun::create('key-c9a8b7d6e5f4a3b2c1d0e9f8a7b6c5d4', 'https://api.mailgun.net/v3/mg.my-corp.com');
+219:     }
+220: 
+221:     public function sendWelcomeEmails() {
+222:         $stmt = $this->db_conn->query("SELECT email, name FROM users WHERE needs_welcome_email = TRUE");
+223:         while ($row = $stmt->fetch()) {
+224:             $this->mailer->messages()->send('mg.my-corp.com', [
+225:                 'from'    => 'Welcome Team <welcome@my-corp.com>',
+226:                 'to'      => $row['name'] . ' <' . $row['email'] . '>',
+227:                 'subject' => 'Welcome to Our Service!',
+228:                 'text'    => 'Thank you for signing up.'
+229:             ]);
+230:         }
+231:     }
+232: }
+233: 
+234: $service = new NotificationService();
+235: $service->sendWelcomeEmails();
+236: ?>

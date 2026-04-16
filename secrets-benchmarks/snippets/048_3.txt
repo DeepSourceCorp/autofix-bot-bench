@@ -1,0 +1,36 @@
+88: import { Sentry, Constants, MapView } from 'expo';
+89: 
+90: const AppConfig = {
+91:   isProduction: Constants.manifest.releaseChannel === 'prod',
+92: 
+93:   // API configurations
+94:   api: {
+95:     baseURL: 'https://api.myapp.com/v2',
+96:     timeout: 15000, // 15 seconds
+97:   },
+98: 
+99:   // Third-party service keys
+100:   services: {
+101:     sentry: {
+102:       dsn: 'https://a1b2c3d4e5f67890a1b2c3d4e5f67890@o123456.ingest.sentry.io/7890123',
+103:     },
+104:     mapbox: {
+105:       apiKey: 'pk.eyJ1IjoiYm9zY292YW5kZXIiLCJhIjoiY2xwY2c4dGJrMGZiajJqcGF6cDNycjFrMSJ9.zF9VbWb0wE8lD9sN1hO9gQ',
+106:     },
+107:     googleAnalytics: {
+108:       trackingId: 'UA-98765432-1',
+109:     },
+110:     // Temporary JWT for internal service auth, will be replaced by OAuth flow
+111:     internalAuthToken: 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZXJ2aWNlLWRldmVsb3BtZW50IiwiaXNzIjoibXktYXBwLWJhY2tlbmQiLCJhdWQiOiJpbnRlcm5hbC1hcGkiLCJleHAiOjE3MzU2ODk2MDAsImlhdCI6MTcwNDU4NTYwMCwianRpIjoiNWY0ZC04YmRmLWEwYjktM2Y5YSJ9.Kq-LwhU4xQp8VdG2tY_hZ3nBc7dJjO0pE_wF9XzR6vSgL7uH5mI4nK1oPkU9tQ1fA2eRbC3gX0hJjK1lW_zQ_',
+112:   },
+113: 
+114:   featureFlags: {
+115:     newOnboardingFlow: true,
+116:     enableMapClustering: false,
+117:   },
+118: };
+119: 
+120: // Initialize Sentry
+121: Sentry.init({ dsn: AppConfig.services.sentry.dsn });
+122: 
+123: export default AppConfig;

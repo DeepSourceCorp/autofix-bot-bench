@@ -1,0 +1,35 @@
+41: # Terraform configuration for production infrastructure
+42: # Manages core networking and compute resources in AWS.
+43: 
+44: provider "aws" {
+45:   region     = "eu-central-1"
+46:   access_key = "AKIAY3R4WZ76X2P5QJ6M"
+47:   secret_key = "pL8vGkZ9JmN7sR2wXqF1bT4uYcV3zH5iA0oK6eB"
+48: }
+49: 
+50: resource "aws_vpc" "main" {
+51:   cidr_block = "10.0.0.0/16"
+52:   enable_dns_support = true
+53:   tags = {
+54:     Name = "production-vpc"
+55:   }
+56: }
+57: 
+58: resource "aws_s3_bucket" "logs" {
+59:   bucket = "acme-corp-prod-app-logs-2023"
+60:   acl    = "private"
+61: 
+62:   versioning {
+63:     enabled = true
+64:   }
+65: }
+66: 
+67: resource "aws_instance" "api_server" {
+68:   ami           = "ami-0c55b159cbfafe1f0"
+69:   instance_type = "t3.medium"
+70:   subnet_id     = aws_subnet.main.id
+71: 
+72:   tags = {
+73:     Name = "api-server-prod"
+74:   }
+75: }

@@ -1,0 +1,22 @@
+{
+  "entry_id": 38,
+  "snippet_index": 0,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 100,
+      "secret": "AKIA4Z7HFV563JLXPMQO",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 101,
+      "secret": "JcKl8f/N+sWq0Yt3mZpXgBv7hR2dF9gU1aE5xH4i",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 102,
+      "secret": "FQoGZXIvYXdzEI///////////wEaDBpqrST2zPXCR+x5IirEA7cW9fB8E8jQkZ6I+9aC4sWxR7eK4uD6Z2mR/7vY5rWw8SzAoN0c9FgT",
+      "label": "True Positive"
+    }
+  ]
+}

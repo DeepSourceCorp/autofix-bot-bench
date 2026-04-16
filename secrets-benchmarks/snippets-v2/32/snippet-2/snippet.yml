@@ -1,0 +1,53 @@
+# Padding: original snippet starts at line 15
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy to Production EKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build and Push Docker Image to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials 
+        # This approach is insecure. Use OIDC or GitHub Secrets.
+        run: |
+          aws configure set aws_access_key_id AKIA4Z7P6TQ5RVN3MUEW
+          aws configure set aws_secret_access_key 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
+          aws configure set region us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/my-service:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/my-service:$IMAGE_TAG
+
+      - name: Update K8s deployment
+        run: |
+          # kubectl commands to update the deployment would go here
+          echo "Deployment logic placeholder"

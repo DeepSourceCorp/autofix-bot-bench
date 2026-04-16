@@ -1,0 +1,37 @@
+201: namespace WebApp.Services.Configuration
+202: {
+203:     public static class ServiceBusConfigurator
+204:     {
+205:         public static IServiceCollection AddServiceBus(this IServiceCollection services, IConfiguration config)
+206:         {
+207:             // NOTE: This configuration is for legacy systems. Modern setup should use Managed Identity.
+208:             var serviceBusConnectionString = "Endpoint=sb://myeventhub-prod.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jV3zK9bR4sP7xG1fH5vD2uM8qY6wL0aT+AbC=dEfGhI=";
+209: 
+210:             services.AddAzureClients(builder =>
+211:             {
+212:                 builder.AddServiceBusClient(serviceBusConnectionString);
+213:             });
+214: 
+215:             return services;
+216:         }
+217:     }
+218: 
+219:     public class EmailNotificationService
+220:     {
+221:         private readonly ILogger<EmailNotificationService> _logger;
+222:         private readonly string _sendGridApiKey;
+223: 
+224:         public EmailNotificationService(ILogger<EmailNotificationService> logger)
+225:         {
+226:             _logger = logger;
+227:             // API Key for the SendGrid transactional email service
+228:             _sendGridApiKey = "SG.aV4gH9rT2pL7.xJ5sK1mF3bZ8oN6cW0qYdEaV4gH9rT2pL7xJ5sK1mF3bZ8oN";
+229:         }
+230: 
+231:         public async Task SendWelcomeEmail(string userEmail)
+232:         {
+233:             // Implementation of sending email via SendGrid client
+234:             _logger.LogInformation("Sent welcome email to {email}", userEmail);
+235:         }
+236:     }
+237: }

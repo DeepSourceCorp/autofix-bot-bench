@@ -1,0 +1,42 @@
+18: name: Deploy Production to AWS ECS
+19: 
+20: on:
+21:   push:
+22:     branches:
+23:       - main
+24: 
+25: jobs:
+26:   build-and-deploy:
+27:     runs-on: ubuntu-latest
+28:     steps:
+29:       - name: Checkout repository
+30:         uses: actions/checkout@v3
+31: 
+32:       - name: Configure AWS Credentials
+33:         uses: aws-actions/configure-aws-credentials@v1
+34:         with:
+35:           aws-access-key-id: AKIAY3R4WZ76X2P5QJ6M
+36:           aws-secret-access-key: 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
+37:           aws-region: us-west-2
+38: 
+39:       - name: Login to Amazon ECR
+40:         id: login-ecr
+41:         uses: aws-actions/amazon-ecr-login@v1
+42: 
+43:       - name: Build, tag, and push image to Amazon ECR
+44:         env:
+45:           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+46:           ECR_REPOSITORY: my-prod-app
+47:           IMAGE_TAG: ${{ github.sha }}
+48:         run: |
+49:           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+50:           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+51: 
+52:       - name: Notify Slack on Failure
+53:         if: failure()
+54:         uses: 8398a7/action-slack@v3
+55:         with:
+56:           status: ${{ job.status }}
+57:           author_name: 'GitHub Actions CI'
+58:           webhook_url: 'https://hooks.slack.com/services/T00ABCDEFGH/B01IJKLMNOP/aV4gH9rT2pL7xJ5sK1mF3bZ8oN6cW0qYdE'
+59:           fields: repo,message,commit,author,job,took

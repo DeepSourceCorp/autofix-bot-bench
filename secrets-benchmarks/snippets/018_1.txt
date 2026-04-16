@@ -1,0 +1,40 @@
+45: name: Deploy Staging Environment
+46: 
+47: on:
+48:   push:
+49:     branches:
+50:       - staging
+51: 
+52: jobs:
+53:   build-and-deploy:
+54:     runs-on: ubuntu-latest
+55:     env:
+56:       DOCKER_REGISTRY: docker.pkg.github.com
+57:       DOCKERHUB_TOKEN: "dckr_pat_1kIuR9vO7mS3xZ5yQ2jF8bN6pL4cH0gA9dE"
+58:       KUBE_CONFIG_DATA: "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lKQU9ocFlVbEpxdEVsTUEwR0NTcUdTSWIzRFFFQkN3VUFNQWd4Q3pBSkJnTlYKQkFZVEFrTk9NUkV3RHdZRFZRUUhFd2xQYms1dllteHZZMkZzYUc5emREb0tNQk1HQTFVRUNnd01SR1ZzYkc5egpjeUJCYkdGaVlXMGlhSFl4RURBT0JnTlZCQWNUQjBKc2IyRmtiaUJrYjI1amIyNHdIaGNOTWpFd05qRTFNRGc1CldqQm5aGFk5TWpZeU9ERXhNVFV3V2pBTUJnOHdDUVlEVlFRR0V3SlZVekVSTUE4R0ExVUVDQXdJVGs5eWVTQkIKZFhSb2IzSnBlbVJOZVhOMFpXUkJjblZsY21sbklqcDdNQ01HQTFVRUN3d01SR1ZzYkc5emN5QkJiR0ZpWVcwMQpMWFJ2SUZCQmdrcWhraUc5dzBCQVFzRkFBT0NBUThBTUlJQkNnS0NBUUVBNzJSM2x4VmhYUXFvbU55U3U3V3UKU0J3aEVyY2tlcVp3YXdJbmd0VzFwK2J2RjJ0em80VnFmcE5kSG53N2sxcFp0a1FtbUtHcHdLVGxtV295b2lCCnhaYlhmTlpzQzF6OGprVUtzZncrL2x3emJ4K0d4TmVqYzdqQnhwVnJ0VnQ1aWJCVllWc3J0K25wV1B5ZEZnOAphRjU2SlNuS081R3BqV0YwZkhGdzN3bFlmZ3JGYXBCMzQ4K3Bqam1FSE1wUkZkQmltUXh2MjQxb05kQ3l0VgppaE9sT090R3Y2ajN4dkw1Rkt3a3d5ZzR0VmFydG14N3VlMWxVSHRFV0FwWWVvUHVVbFFuN1N5K2Z4M0RVSDEKU2dGWWJ2V0w1VFFQdEtJb1JpWXhQd0lEQVFBQm8xTXdVVEFkQmdOVkhRNEVGZ1FVeEtTMmZHRStpZEtGZ3pvCkhCMUo3akU2MzhNd0N3WURWUjBQQkFRREFnRUdNQThHQTFVZEV3RUIvd1FGTUFvR0NDc0dBUVVCRndNQ01BOEcKQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01DQmdnckJnRUZCUWNEQWdZSUt3WUJCUVVIQXdFd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBSjZJekNid1B6dE9XbHhEVWw3bnd3bW14enVqV0d5UFNkY1FkSXZyTmM2UWhvYkZ4bgpHMVl1WllKdkdYQ2ZpZ3BvSlhpUmRuc0x6M2hTNVpSN0lXNnduNkZ6d2x1U3Z6TWltdENnQy8xSkJ2aG9tSwp0NzlJOG05S2Q3dHZ0QWZvRytzNFNUeWdndzN5VnhIdVAvUHV1c2hJbTNQWEt6MVZlZ1E1MWp0ckVlSWU4MjgKQyt2VnBLd1d5QmpMUE9sV3g2b1U5akd1MXNWSldYV210VFF0N3hBcVJkMVdJMEV4YW5iSmZ0TzJtQ2t2eGtrClR0ZUVtMzdIbnZkK3dOOUQ3dVRiYjBwLyt3d3N0T2cvQVVtb1B2Lyt3TG5PQVp6QklYUk1BMG89Ci0tLS0tRU5EIENFUlRJTklDQVRFLS0tLS0K    server: https://1a2b3c4d-e5f6-7890.k8s.ondigitalocean.com\n  name: do-sfo2-prod-cluster\ncontexts:\n- context:\n    cluster: do-sfo2-prod-cluster\n    user: do-sfo2-prod-cluster-admin\n  name: do-sfo2-prod-cluster\ncurrent-context: do-sfo2-prod-cluster\nkind: Config\npreferences: {}\nusers:\n- name: do-sfo2-prod-cluster-admin\n  user:\n    token: dop_v1_a738c2f10d9e8b6d4c5b9f7a8e2d1c0b3a4f5d6e7g8h9i0j1k_prod_token\n"
+59: 
+60:     steps:
+61:       - name: Checkout Code
+62:         uses: actions/checkout@v3
+63: 
+64:       - name: Configure kubectl
+65:         run: |
+66:           mkdir -p $HOME/.kube
+67:           echo "$KUBE_CONFIG_DATA" | base64 --decode > $HOME/.kube/config
+68:           chmod 600 $HOME/.kube/config
+69: 
+70:       - name: Login to DockerHub
+71:         uses: docker/login-action@v2
+72:         with:
+73:           username: 'my-app-bot'
+74:           password: ${{ env.DOCKERHUB_TOKEN }}
+75: 
+76:       - name: Build and Push Docker Image
+77:         run: |
+78:           docker build -t my-app-bot/my-app:${{ github.sha }} .
+79:           docker push my-app-bot/my-app:${{ github.sha }}
+80: 
+81:       - name: Deploy to Kubernetes
+82:         run: |
+83:           kubectl apply -f k8s/deployment.yaml
+84:           kubectl set image deployment/my-app-deployment my-app=my-app-bot/my-app:${{ github.sha }}

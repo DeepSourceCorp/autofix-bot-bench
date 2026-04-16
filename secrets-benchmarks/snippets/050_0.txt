@@ -1,0 +1,34 @@
+78: import os
+79: import boto3
+80: from flask import Flask, request, jsonify
+81: 
+82: app = Flask(__name__)
+83: 
+84: # AWS Session Configuration (should be in env vars)
+85: session = boto3.Session(
+86:     aws_access_key_id='AKIAY3R4WZ76X2P5QJ6M',
+87:     aws_secret_access_key='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+88:     region_name='us-east-1'
+89: )
+90: 
+91: s3_client = session.client('s3')
+92: 
+93: @app.route('/api/v1/documents/upload', methods=['POST'])
+94: def upload_document():
+95:     if 'file' not in request.files:
+96:         return jsonify({'error': 'No file part'}), 400
+97: 
+98:     file = request.files['file']
+99:     if file.filename == '':
+100:         return jsonify({'error': 'No selected file'}), 400
+101:
+102:     try:
+103:         bucket_name = 'corp-document-archive-prod-01'
+104:         s3_client.upload_fileobj(file, bucket_name, file.filename)
+105:         return jsonify({'status': 'success', 'filename': file.filename}), 201
+106:     except Exception as e:
+107:         app.logger.error(f'S3 upload failed: {e}')
+108:         return jsonify({'error': 'Could not process file'}), 500
+109: 
+110: if __name__ == '__main__':
+111:     app.run(debug=False, host='0.0.0.0')

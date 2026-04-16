@@ -1,0 +1,34 @@
+78: import boto3
+79: import logging
+80: import os
+81: 
+82: # Configure logging
+83: logging.basicConfig(level=logging.INFO)
+84: logger = logging.getLogger(__name__)
+85: 
+86: def process_s3_files():
+87:     """Connects to S3 and processes files in a specific bucket."""
+88:     logger.info("Initializing S3 client for data processing...")
+89: 
+90:     session = boto3.Session(
+91:         aws_access_key_id='AKIAU4V3K7J5P2QWSDYR',
+92:         aws_secret_access_key='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',
+93:         region_name='us-east-1'
+94:     )
+95: 
+96:     s3_client = session.client('s3')
+97: 
+98:     try:
+99:         bucket_name = 'corp-analytics-logs-prod'
+100:         logger.info(f"Listing objects in bucket: {bucket_name}")
+101:         response = s3_client.list_objects_v2(Bucket=bucket_name)
+102: 
+103:         if 'Contents' in response:
+104:             for obj in response['Contents']:
+105:                 logger.info(f"Found file: {obj['Key']}")
+106:                 # In a real scenario, we would download and process the file here.
+107:     except Exception as e:
+108:         logger.error(f"Failed to access S3 bucket: {e}")
+109: 
+110: if __name__ == "__main__":
+111:     process_s3_files()

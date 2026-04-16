@@ -1,0 +1,82 @@
+# Padding: original snippet starts at line 42
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# build-and-deploy.yml
+
+name: Build, Push, and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: 'app-deployer'
+          password: 'dckr_pat_1A7fThgK9pLMt2Jz4wVbX5rYc8nS3oP6g'
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: myapp/production:latest
+
+  notify-on-success:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: 'GitHub Actions CI'
+          text: 'Build and deploy succeeded for main branch.'
+        env:
+          SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/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'

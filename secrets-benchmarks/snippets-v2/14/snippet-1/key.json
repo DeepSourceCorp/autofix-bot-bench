@@ -1,0 +1,22 @@
+{
+  "entry_id": 14,
+  "snippet_index": 0,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 99,
+      "secret": "postgresql://order_svc:pL3#cV8@dK!zN@prod-db-eu-west-1.c4jwk9zabcdef.rds.amazonaws.com:5432/orders_prod",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 101,
+      "secret": "sk_live_51Mv4xEAklC1kABi8gqYtY9eBpJc7dFwZ7yX2vH3uL5bNqD6kRzT0fA9gS1hJk0bVcGfI4oE3mNlP2rWqAbcDef123",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 117,
+      "secret": "SG.s5h4z9k8TqO6y2n7v1m3pA.c4fGkRpLwE9xVbU3zJ8aQoI7tYdD5sW2iH6uX0O",
+      "label": "True Positive"
+    }
+  ]
+}

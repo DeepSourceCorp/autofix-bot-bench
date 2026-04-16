@@ -1,0 +1,12 @@
+{
+  "entry_id": 47,
+  "snippet_index": 2,
+  "language": "typescript",
+  "findings": [
+    {
+      "line_number": 118,
+      "secret": "pk.eyJ1IjoiYmFja2VuZGRldjE5IiwiYSI6ImNsdWpwbDFrZDFhaWgyaW54aThxaGYwNWgifQ.bO9F2zA-y8wU1rC6gV4qLw",
+      "label": "True Positive"
+    }
+  ]
+}

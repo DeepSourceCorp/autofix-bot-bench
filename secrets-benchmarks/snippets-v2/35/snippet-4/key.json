@@ -1,0 +1,17 @@
+{
+  "entry_id": 35,
+  "snippet_index": 3,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 75,
+      "secret": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn\nNhAAAAAwEAAQAAAYEA1H5s2b9r8fH8P2Z7g3d4s5v7t8w9A6B2C4E6fGgHhJkL1M3N5... \n...base64 encoded private key data... \nG3hJkL1M3N5n9p0q2r4s6t8v9w0x2y3z5A7B9C1D3F5H7J9L1N3P5R7T9V1X3Z5B7D9F1H\n-----END OPENSSH PRIVATE KEY-----",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 90,
+      "secret": "https://hooks.slack.com/services/T00ABCDEF/B00GHIJKL/mN7pQ8rS6tU5vW4xY3z2A1B0",
+      "label": "True Positive"
+    }
+  ]
+}

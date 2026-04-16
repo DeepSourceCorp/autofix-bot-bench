@@ -1,0 +1,17 @@
+{
+  "entry_id": 13,
+  "snippet_index": 2,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 128,
+      "secret": "postgres://webapp_svc:dG93nK#md!9S@pg-primary.prod.svc.cluster.local:5432/payments_db",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 144,
+      "secret": "sk_live_51Mv9BfGk7Lw3zYqSjU2dRaXt1cVhN8eIoP6bA5cZfTxW",
+      "label": "True Positive"
+    }
+  ]
+}

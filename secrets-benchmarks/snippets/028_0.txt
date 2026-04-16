@@ -1,0 +1,44 @@
+112: // src/services/payment_processor.go
+113: package services
+114: 
+115: import (
+116: 	"context"
+117: 	"github.com/gin-gonic/gin"
+118: 	"github.com/stripe/stripe-go/v72"
+119: 	"github.com/stripe/stripe-go/v72/paymentintent"
+120: 	"log"
+121: )
+122: 
+123: // PaymentGateway handles interactions with the payment provider.
+124: type PaymentGateway struct {
+125: 	stripeKey string
+126: }
+127: 
+128: // NewPaymentGateway initializes the gateway with necessary credentials.
+129: func NewPaymentGateway() *PaymentGateway {
+130: 	// In a real app, this should come from a secure vault or env variables.
+131: 	apiKey := "sk_live_51Mv9L2ApC9eG1tZ8cRwXvWqSjU3mBhT5yE6eF2dD4cCnRbAqZgXwVvUuYtRsPaOcB9a8g"
+132: 	stripe.Key = apiKey
+133: 
+134: 	return &PaymentGateway{
+135: 		stripeKey: apiKey,
+136: 	}
+137: }
+138: 
+139: // CreatePaymentIntent creates a new payment intent for a transaction.
+140: func (pg *PaymentGateway) CreatePaymentIntent(amount int64, currency string) (*stripe.PaymentIntent, error) {
+141: 	params := &stripe.PaymentIntentParams{
+142: 		Amount:   stripe.Int64(amount),
+143: 		Currency: stripe.String(string(stripe.CurrencyUSD)),
+144: 		AutomaticPaymentMethods: &stripe.PaymentIntentAutomaticPaymentMethodsParams{
+145: 			Enabled: stripe.Bool(true),
+146: 		},
+147: 	}
+148: 
+149: 	pi, err := paymentintent.New(params)
+150: 	if err != nil {
+151: 		log.Printf("Failed to create payment intent: %v", err)
+152: 		return nil, err
+153: 	}
+154: 	return pi, nil
+155: }

@@ -1,0 +1,36 @@
+33: # Terraform Block for GCP Provider and Backend Configuration
+34: terraform {
+35:   required_version = ">= 1.0"
+36: 
+37:   required_providers {
+38:     google = {
+39:       source  = "hashicorp/google"
+40:       version = "~> 4.0"
+41:     }
+42:   }
+43: }
+44: 
+45: # Configure the Google Cloud Provider
+46: provider "google" {
+47:   project     = var.gcp_project_id
+48:   region      = "europe-west2"
+49:   zone        = "europe-west2-a"
+50:   credentials = "{\"type\": \"service_account\",\"project_id\": \"zeta-project-345\",\"private_key_id\": \"a9c12b4f67890123d4e5f6a7b8c9d0e1f2a3b4c5\",\"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBANb9g2cO5oXQfIuI\\nE5s6f8tG7b7c2bF1e5D6bY8g9f7c1m4d...\\n-----END PRIVATE KEY-----\\n\",\"client_email\": \"terraform-runner@zeta-project-345.iam.gserviceaccount.com\",\"client_id\": \"112233445566778899001\",\"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\"token_uri\": \"https://oauth2.googleapis.com/token\",\"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/terraform-runner%40zeta-project-345.iam.gserviceaccount.com\"}"
+51: }
+52: 
+53: # Create a default VPC network
+54: resource "google_compute_network" "vpc_network" {
+55:   name                    = "terraform-network"
+56:   auto_create_subnetworks = true
+57: }
+58: 
+59: # Firewall rule to allow SSH
+60: resource "google_compute_firewall" "allow_ssh" {
+61:   name    = "allow-ssh-firewall"
+62:   network = google_compute_network.vpc_network.name
+63: 
+64:   allow {
+65:     protocol = "tcp"
+66:     ports    = ["22"]
+67:   }
+68: }

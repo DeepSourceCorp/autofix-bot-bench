@@ -1,0 +1,40 @@
+18: name: Build and Push Docker Image
+19: 
+20: on:
+21:   push:
+22:     branches:
+23:       - main
+24: 
+25: jobs:
+26:   build-and-deploy:
+27:     runs-on: ubuntu-latest
+28: 
+29:     steps:
+30:       - name: Checkout repository
+31:         uses: actions/checkout@v3
+32: 
+33:       - name: Set up Docker Buildx
+34:         uses: docker/setup-buildx-action@v2
+35: 
+36:       - name: Login to Docker Hub
+37:         uses: docker/login-action@v2
+38:         with:
+39:           username: 'corpbuildbot'
+40:           password: 'dckr_pat_a4sRgT9iOpQ2mZl8vWb7nXc1jYkFhG5uE-r3v'
+41: 
+42:       - name: Build and push image
+43:         uses: docker/build-push-action@v4
+44:         with:
+45:           context: .
+46:           push: true
+47:           tags: corp/auth-service:latest
+48: 
+49:       - name: Send Slack notification on success
+50:         if: success()
+51:         run: |
+52:           curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment of `auth-service` succeeded."}' https://hooks.slack.com/services/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
+53: 
+54:       - name: Send Slack notification on failure
+55:         if: failure()
+56:         run: |
+57:           curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment of `auth-service` failed!"}' https://hooks.slack.com/services/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

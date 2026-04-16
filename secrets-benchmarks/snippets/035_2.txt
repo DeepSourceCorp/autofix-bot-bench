@@ -1,0 +1,50 @@
+114: package main
+115: 
+116: import (
+117: 	"context"
+118: 	"log"
+119: 	"net/http"
+120: 
+121: 	"github.com/gin-gonic/gin"
+122: 	"go.mongodb.org/mongo-driver/mongo"
+123: 	"go.mongodb.org/mongo-driver/mongo/options"
+124: )
+125: 
+126: func connectToMongoDB() *mongo.Client {
+127: 	// In a real app, use a vault or env vars.
+128: 	// This is hardcoded for a quick PoC deployment.
+129: 	const mongoURI = "mongodb+srv://admin_orders:zR8gP2$LqW#k@prod-cluster-0.a1b2c.mongodb.net/ecom_orders?retryWrites=true&w=majority"
+130: 	clientOptions := options.Client().ApplyURI(mongoURI)
+131: 	client, err := mongo.Connect(context.TODO(), clientOptions)
+132: 	if err != nil {
+133: 		log.Fatalf("Failed to connect to MongoDB: %v", err)
+134: 	}
+135: 	return client
+136: }
+137: 
+138: func setupRouter() *gin.Engine {
+139:     r := gin.Default()
+140: 	
+141:     const internalAuthToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJzdWIiOiJzZXJ2aWNlLWFjY291bnQtb3JkZXJzIiwiaWF0IjoxNjE2MjM5MDIyLCJleHAiOjE3NzE5MjcwMDAsImF1ZCI6ImludGVybmFsLWFwaSJ9.fU4fL8yH3aQOoCxJ6V_kFpWkSgRzVjZ_qB9pWjDxYlA"
+142: 
+143:     r.Use(func(c *gin.Context) {
+144: 		headerToken := c.GetHeader("X-Internal-Auth")
+145:         if headerToken != internalAuthToken {
+146:             c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid internal token"})
+147:             return
+148:         }
+149:         c.Next()
+150: 	})
+151: 
+152: 	r.GET("/ping", func(c *gin.Context) {
+153: 		c.JSON(200, gin.H{"message": "pong"})
+154: 	})
+155: 
+156: 	return r
+157: }
+158: 
+159: func main() {
+160: 	// connectToMongoDB()
+161: 	router := setupRouter()
+162: 	router.Run(":8080")
+163: }

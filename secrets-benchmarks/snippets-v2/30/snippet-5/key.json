@@ -1,0 +1,17 @@
+{
+  "entry_id": 30,
+  "snippet_index": 4,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 16,
+      "secret": "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",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 23,
+      "secret": "f1tY9cRzXvWqSjU3mB2sL4hK7dE0a#Z@p^K",
+      "label": "True Positive"
+    }
+  ]
+}

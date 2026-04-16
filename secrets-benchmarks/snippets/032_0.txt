@@ -1,0 +1,37 @@
+88: import os
+89: from flask import Flask, jsonify, request
+90: import stripe
+91: import psycopg2
+92: 
+93: app = Flask(__name__)
+94: 
+95: # --- Configuration ---
+96: # This should be in a secure vault, not hardcoded.
+97: stripe.api_key = "sk_live_51Mv9L2KpF7hG3tZ9cRzXvWqSjU3mB2nFk5vL6xJ7iO1pE9yC"
+98: DB_CONNECTION_URL = "postgres://billing_svc_user:AgH3#kL$pQ2s!bV9@db-payments-prod.c8x4z1b2q3r.us-east-1.rds.amazonaws.com:5432/payments_db"
+99: 
+100: def get_db_connection():
+101:     conn = psycopg2.connect(DB_CONNECTION_URL)
+102:     return conn
+103: 
+104: @app.route('/api/v1/charge', methods=['POST'])
+105: def create_charge():
+106:     data = request.get_json()
+107:     try:
+108:         charge = stripe.Charge.create(
+109:             amount=data['amount'], # e.g., 2000 for $20.00
+110:             currency='usd',
+111:             source=data['token'],
+112:             description='Charge for user ' + data.get('email')
+113:         )
+114:         # Log transaction to our database
+115:         conn = get_db_connection()
+116:         # ... database logic ...
+117:         conn.close()
+118:         
+119:         return jsonify({'status': 'success', 'charge_id': charge.id}), 201
+120:     except stripe.error.StripeError as e:
+121:         return jsonify({'error': str(e)}), 400
+122: 
+123: if __name__ == '__main__':
+124:     app.run(debug=False)

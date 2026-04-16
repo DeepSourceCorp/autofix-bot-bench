@@ -1,0 +1,36 @@
+42: name: Deploy Staging Environment
+43: 
+44: on:
+45:   push:
+46:     branches:
+47:       - develop
+48: 
+49: jobs:
+50:   build-and-deploy:
+51:     runs-on: ubuntu-latest
+52:     steps:
+53:       - name: Checkout repository
+54:         uses: actions/checkout@v3
+55: 
+56:       - name: Configure AWS Credentials
+57:         run: |
+58:           aws configure set aws_access_key_id AKIA4WM7G3QZL5PJU7YF
+59:           aws configure set aws_secret_access_key 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
+60:           aws configure set default.region us-west-2
+61: 
+62:       - name: Login to Amazon ECR
+63:         id: login-ecr
+64:         uses: aws-actions/amazon-ecr-login@v1
+65: 
+66:       - name: Build and push Docker image
+67:         env:
+68:           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+69:           IMAGE_TAG: ${{ github.sha }}
+70:         run: |
+71:           docker build -t $ECR_REGISTRY/my-app:$IMAGE_TAG .
+72:           docker push $ECR_REGISTRY/my-app:$IMAGE_TAG
+73: 
+74:       - name: Notify on Slack
+75:         if: success()
+76:         run: |
+77:           curl -X POST -H 'Content-type: application/json' --data '{"text":"Staging deployment successful!"}' https://hooks.slack.com/services/T00ABCD1EFG/B00HIJK5LMN/aBcDeFgHiJkLmNoPqRsTuVwXyZ

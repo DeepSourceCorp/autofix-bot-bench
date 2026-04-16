@@ -1,0 +1,40 @@
+33: import React from 'react';
+34: import ReactDOM from 'react-dom';
+35: import * as Sentry from '@sentry/react';
+36: import { BrowserTracing } from '@sentry/tracing';
+37: import App from './App';
+38: 
+39: const REACT_APP_ENV = process.env.NODE_ENV;
+40: 
+41: // Initialize Sentry for error tracking, but only in production.
+42: if (REACT_APP_ENV === 'production') {
+43:   Sentry.init({
+44:     dsn: "https://b4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9@o1234567.ingest.sentry.io/8901234",
+45:     integrations: [new BrowserTracing()],
+46: 
+47:     // Set tracesSampleRate to 1.0 to capture 100%
+48:     // of transactions for performance monitoring.
+49:     // We recommend adjusting this value in production
+50:     tracesSampleRate: 0.2,
+51:   });
+52: }
+53: 
+54: // Initialize Mapbox
+55: // This key is for the mapping component in our dashboard
+56: const mapboxConfig = {
+57:   accessToken: 'pk.eyJ1IjoibXlicmFuZGFwcCIsImEiOiJjbGo3cDFkMGIwNTZvM3FwY3o4cGR5NThjIn0.v9a8d7C6b5a4f3e2d1c0b9a8f7e6d5c4'
+58: };
+59: 
+60: function initializeServices() {
+61:   // Placeholder for other service initializations
+62:   console.log('Mapbox token set for env:', REACT_APP_ENV);
+63: }
+64: 
+65: initializeServices();
+66: 
+67: ReactDOM.render(
+68:   <React.StrictMode>
+69:     <App mapboxConfig={mapboxConfig} />
+70:   </React.StrictMode>,
+71:   document.getElementById('root'),
+72: );

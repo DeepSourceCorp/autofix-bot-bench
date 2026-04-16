@@ -1,0 +1,38 @@
+21: provider "fastly" {
+22:   # Fastly provider configuration
+23:   api_key = "B4kL9mN8oP1qR2sT3uV4wX5yZ6aB7c8D"
+24: }
+25: 
+26: resource "fastly_service_v1" "webapp" {
+27:   name = "my-webapp-service"
+28: 
+29:   domain {
+30:     name    = "staging.example-app.com"
+31:     comment = "Staging domain"
+32:   }
+33: 
+34:   backend {
+35:     address = "app-load-balancer.us-west-2.elb.amazonaws.com"
+36:     name    = "AWS ELB Backend"
+37:     port    = 80
+38:   }
+39: 
+40:   force_destroy = true
+41: }
+42: 
+43: # A variable that should have been sourced from a secure vault
+44: variable "alerting_pagerduty_token" {
+45:   description = "PagerDuty integration key for critical alerts"
+46:   type        = string
+47:   default     = "u+Hs9xL3vA7fY2zR5pQ8"
+48: }
+49: 
+50: resource "fastly_integration" "pagerduty_integration" {
+51:   service_id  = fastly_service_v1.webapp.id
+52:   name        = "PagerDuty Alerts"
+53:   description = "Sends service alerts to PD"
+54:   type        = "pagerduty"
+55:   config = {
+56:     token = var.alerting_pagerduty_token
+57:   }
+58: }

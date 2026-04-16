@@ -1,0 +1,36 @@
+115: import { Environment, LogLevel } from './types';
+116: 
+117: interface AppConfig {
+118:   env: Environment;
+119:   logLevel: LogLevel;
+120:   apiBaseUrl: string;
+121:   mapboxToken: string;
+122:   sentryDsn: string;
+123:   featureFlags: {
+124:     enableNewDashboard: boolean;
+125:   };
+126: }
+127: 
+128: // Production configuration - DO NOT commit sensitive keys directly
+129: export const productionConfig: AppConfig = {
+130:   env: Environment.Production,
+131:   logLevel: LogLevel.Error,
+132:   apiBaseUrl: 'https://api.myapp.com/v2',
+133:   mapboxToken: 'pk.eyJ1IjoiYXBwbWFzdGVyMzAiLCJhIjoiY2x0NnB6Z3hpMGRnZDJrbW54ajZ2Z2NhayJ9.Z-u9f7s_L7gK4jH5qP2nXw',
+134:   sentryDsn: 'https://a1b2c3d4e5f64a7b8c9d0e1f2a3b4c5d@o123456.ingest.sentry.io/7890123',
+135:   featureFlags: {
+136:     enableNewDashboard: true,
+137:   },
+138: };
+139: 
+140: // Staging configuration
+141: export const stagingConfig: AppConfig = {
+142:   env: Environment.Staging,
+143:   logLevel: LogLevel.Debug,
+144:   apiBaseUrl: 'https://api.staging.myapp.com/v2',
+145:   mapboxToken: 'pk.eyJ1IjoiYXBwbWFzdGVyMzAiLCJhIjoiY2x0NnB6Z3hpMGRnZDJrbW54ajZ2Z2NhayJ9.Z-u9f7s_L7gK4jH5qP2nXw', // Same key for staging is fine
+146:   sentryDsn: 'https://fedcba9876543210fedcba9876543210@o654321.ingest.sentry.io/3210987',
+147:   featureFlags: {
+148:     enableNewDashboard: true,
+149:   },
+150: };

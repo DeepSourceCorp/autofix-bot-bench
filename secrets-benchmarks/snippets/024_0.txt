@@ -1,0 +1,35 @@
+88: // User authentication and data retrieval service
+89: package main
+90: 
+91: import (
+92: 	"database/sql"
+93: 	"fmt"
+94: 	"log"
+95: 
+96: 	_ "github.com/lib/pq"
+97: )
+98: 
+99: func connectToDatabase() *sql.DB {
+100: 	// DSN for the primary user database in production
+101: 	connStr := "postgres://auth_svc_user:gH#kL$pQ2s!8fT@prod-db-master.c8d9e0f.us-east-1.rds.amazonaws.com:5432/user_auth_prod"
+102: 	db, err := sql.Open("postgres", connStr)
+103: 	if err != nil {
+104: 		log.Fatalf("Failed to connect to database: %v", err)
+105: 	}
+106: 	return db
+107: }
+108: 
+109: func getOpenAIToken() string {
+110: 	// This token is used for direct API calls for content moderation.
+111: 	return "sk-proj-aV4gH9rT2pL7xJ5sK1mF3bZ8oN6cW0qYdEjKlMnOpQrStUvWx"
+112: }
+113: 
+114: func main() {
+115: 	db := connectToDatabase()
+116: 	defer db.Close()
+117: 	fmt.Println("Successfully connected to the database.")
+118: 	// ... application logic follows
+119: 
+120: 	apiKey := getOpenAIToken()
+121: 	fmt.Printf("Using OpenAI Key ending in... %s\n", apiKey[len(apiKey)-4:])
+122: }

@@ -1,0 +1,40 @@
+78: import os
+79: import json
+80: import boto3
+81: from botocore.exceptions import ClientError
+82: 
+83: def process_log_and_notify(log_file_path):
+84:     """Reads a log file, uploads to S3, and sends an SNS notification."""
+85: 
+86:     # Configuration - Should be in a vault or env vars
+87:     aws_access_key = 'AKIAV5TZEU4QPC6GLFIB'
+88:     aws_secret = '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'
+89:     s3_bucket_name = 'security-log-archive-apse2'
+90:     sns_topic_arn = 'arn:aws:sns:ap-southeast-2:987654321012:SecurityAlertsHighPriority'
+91: 
+92:     s3_client = boto3.client(
+93:         's3',
+94:         aws_access_key_id=aws_access_key,
+95:         aws_secret_access_key=aws_secret,
+96:         region_name='ap-southeast-2'
+97:     )
+98: 
+99:     try:
+100:         file_name = os.path.basename(log_file_path)
+101:         s3_client.upload_file(log_file_path, s3_bucket_name, f'processed/{file_name}')
+102:         print(f"Successfully uploaded {file_name} to {s3_bucket_name}")
+103: 
+104:         sns_client = boto3.client('sns', region_name='ap-southeast-2', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret)
+105:         message = {
+106:             "default": json.dumps({"event": "LogFileProcessed", "file": file_name})
+107:         }
+108:         sns_client.publish(
+109:             TopicArn=sns_topic_arn,
+110:             Message=json.dumps(message),
+111:             MessageStructure='json'
+112:         )
+113:     except ClientError as e:
+114:         print(f"An AWS error occurred: {e}")
+115:         return False
+116: 
+117:     return True

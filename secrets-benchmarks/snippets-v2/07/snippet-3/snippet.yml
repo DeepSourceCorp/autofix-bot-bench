@@ -1,0 +1,53 @@
+# Padding: original snippet starts at line 15
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: myapp-prod-bot
+          password: "dckr_pat_bC9hFvG5jL1kM4nO7pQ9rS2uV5wX8yZ1aC"
+
+      - name: Build and push container
+        id: build_and_push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: myapp/prod-server:latest
+
+      - name: Send notification to Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: 'Deployment to production finished.'
+        env:
+          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T012ABCDEF3/B01GHIJKLM4/vP5qR6sT7uV8wX9yZ0aB1c"
+

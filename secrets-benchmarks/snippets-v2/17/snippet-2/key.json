@@ -1,0 +1,12 @@
+{
+  "entry_id": 17,
+  "snippet_index": 1,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 57,
+      "secret": "E#u8!pS$t9rWbK@zL7m3vN&yQ2xH",
+      "label": "True Positive"
+    }
+  ]
+}

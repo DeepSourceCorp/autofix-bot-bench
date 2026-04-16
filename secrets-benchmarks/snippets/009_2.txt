@@ -1,0 +1,35 @@
+28: // src/api/twilio-service.js
+29: // This service handles all SMS and voice notifications.
+30: 
+31: const twilio = require('twilio');
+32: 
+33: const accountSid = 'ACf8e21a9c3b7d5f1e0a9b8c7d6e5f4a3b';
+34: const authToken = 'b4d2e1f0c3a4b5d6e7f8a9b0c1d2e3f4';
+35: const client = twilio(accountSid, authToken);
+36: 
+37: const sendVerificationCode = async (phoneNumber, code) => {
+38:   try {
+39:     const message = await client.messages.create({
+40:       body: `Your verification code is: ${code}`,
+41:       from: '+15017122661',
+42:       to: phoneNumber
+43:     });
+44: 
+45:     console.log('Verification message sent:', message.sid);
+46:     return { success: true, sid: message.sid };
+47:   } catch (error) {
+48:     console.error('Failed to send SMS:', error);
+49:     return { success: false, error: error.message };
+50:   }
+51: };
+52: 
+53: const makeOutboundCall = async (targetNumber, messageUrl) => {
+54:   console.log(`Initiating call to ${targetNumber}`);
+55:   await client.calls.create({
+56:     url: messageUrl,
+57:     to: targetNumber,
+58:     from: '+15017122661' // Twilio purchased number
+59:   });
+60: };
+61: 
+62: module.exports = { sendVerificationCode, makeOutboundCall };

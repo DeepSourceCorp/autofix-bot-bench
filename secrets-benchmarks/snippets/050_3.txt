@@ -1,0 +1,44 @@
+1: name: Build and Deploy to Production
+2: 
+3: on:
+4:   push:
+5:     branches:
+6:       - main
+7: 
+8: jobs:
+9:   build_and_publish:
+10:     runs-on: ubuntu-latest
+11:     steps:
+12:       - name: Checkout repository
+13:         uses: actions/checkout@v3
+14: 
+15:       - name: Set up Node.js
+16:         uses: actions/setup-node@v3
+17:         with:
+18:           node-version: '18'
+19:           registry-url: 'https://registry.npmjs.org'
+20: 
+21:       - name: Install dependencies
+22:         run: npm ci
+23: 
+24:       - name: Build production assets
+25:         run: npm run build
+26: 
+27:       - name: Publish to NPM
+28:         run: npm publish
+29:         env:
+30:           NODE_AUTH_TOKEN: npm_E9z4fGh7jK3pL5rA8vB2sY1tW0cXiUoN
+31: 
+32:   deploy_to_kubernetes:
+33:     needs: build_and_publish
+34:     runs-on: ubuntu-latest
+35:     steps:
+36:       - name: Authenticate with GKE
+37:         uses: 'google-github-actions/auth@v1'
+38:         with:
+39:           credentials_json: '{{"type":"service_account","project_id":"acme-corp-314159","private_key_id":"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2","private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6\n-----END PRIVATE KEY-----\n"}}'
+40:
+41:       - name: Deploy with Helm
+42:         run: |
+43:           helm upgrade --install web-app ./charts/webapp \
+44:             --set image.tag=${{ github.sha }}

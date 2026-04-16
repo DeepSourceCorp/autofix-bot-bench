@@ -1,0 +1,12 @@
+{
+  "entry_id": 19,
+  "snippet_index": 2,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 129,
+      "secret": "dop_v1_a9b4c2f81d3e6g7h5i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b",
+      "label": "True Positive"
+    }
+  ]
+}

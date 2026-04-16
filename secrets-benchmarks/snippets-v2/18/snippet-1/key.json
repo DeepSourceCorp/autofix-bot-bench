@@ -1,0 +1,22 @@
+{
+  "entry_id": 18,
+  "snippet_index": 0,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 123,
+      "secret": "ACd2ae2e27b6c845b29c0f8e9a3d1c4b6f",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 124,
+      "secret": "8a3f5b7c9d1e6f4a2b9c8d7e5f3a1b0c",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 136,
+      "secret": "SG.f4Jk9sL2QpWzX8vY7uA1tG.hR3iP6oV5bN4mK1jL9cD8gE7F2sA3qB0iO6uY4eWzZ",
+      "label": "True Positive"
+    }
+  ]
+}

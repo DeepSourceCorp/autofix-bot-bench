@@ -1,0 +1,39 @@
+21: #!/usr/bin/env python
+22: # -*- coding: utf-8 -*-
+23: # A script to provision a new user and send a welcome email.
+24: 
+25: import boto3
+26: import smtplib
+27: from email.mime.text import MIMEText
+28: 
+29: def provision_aws_user(username):
+30:     iam_client = boto3.client(
+31:         'iam',
+32:         region_name='us-east-1',
+33:         aws_access_key_id='AKIAY3R4WZ76X2P5QJ6M',
+34:         aws_secret_access_key='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'
+35:     )
+36:     iam_client.create_user(UserName=username)
+37:     print(f"User {username} created successfully.")
+38: 
+39: def send_welcome_email(recipient):
+40:     sender = 'admin@system.internal'
+41:     smtp_server = 'smtp.office365.com'
+42:     smtp_port = 587
+43:     smtp_user = 'automation@corp-email.com'
+44:     smtp_password = "P@ssw0rd!Feb2024*!"
+45: 
+46:     msg = MIMEText('Welcome to the platform!')
+47:     msg['Subject'] = 'Your New Account'
+48:     msg['From'] = sender
+49:     msg['To'] = recipient
+50: 
+51:     with smtplib.SMTP(smtp_server, smtp_port) as server:
+52:         server.starttls()
+53:         server.login(smtp_user, smtp_password)
+54:         server.send_message(msg)
+55:         print(f"Welcome email sent to {recipient}")
+56: 
+57: if __name__ == "__main__":
+58:     provision_aws_user('new_developer')
+59:     send_welcome_email('dev@example.com')

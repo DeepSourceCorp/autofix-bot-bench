@@ -1,0 +1,17 @@
+{
+  "entry_id": 13,
+  "snippet_index": 0,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 91,
+      "secret": "AKIAU4V3K7J5P2QWSDYR",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 92,
+      "secret": "fT9zY3uBvRx+pLgWjN5oH8mKcVdEaGhIqJbXzL7s",
+      "label": "True Positive"
+    }
+  ]
+}

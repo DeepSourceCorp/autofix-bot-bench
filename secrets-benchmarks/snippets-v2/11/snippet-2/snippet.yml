@@ -1,0 +1,87 @@
+# Padding: original snippet starts at line 45
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy Staging Environment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: AKIAU3Z4X5R6Y7I2QJ8M
+          aws-secret-access-key: 9vR/mK1jLpFzXgY8cBu7DwEa4SdF2gH3iKlJnOp+
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t my-app .
+          docker tag my-app:latest 123456789012.dkr.ecr.us-west-2.amazonaws.com/my-app:latest
+          docker push 123456789012.dkr.ecr.us-west-2.amazonaws.com/my-app:latest
+
+      - name: Deploy to ECS
+        run: aws ecs update-service --cluster my-cluster --service my-service --force-new-deployment
+
+      - name: Post deployment notification to Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: 'Staging Deploy Bot'
+          text: 'Deployment to staging finished.'
+        env:
+          SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/T00AB1CD2EF/B01GH2JK3LM/xyZAbcDEfgHIjklMNOpQRSTuvwXy'
+

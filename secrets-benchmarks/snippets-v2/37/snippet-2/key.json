@@ -1,0 +1,17 @@
+{
+  "entry_id": 37,
+  "snippet_index": 1,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 59,
+      "secret": "glpat-sBv3yZ8xWq9kLpGfJ1cR",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 72,
+      "secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRsYWIuY29tIiwic3ViIjoiZGVwbG95LXVzZXIiLCJhdWQiOiJkZXBsb3ltZW50LXNlcnZpY2UiLCJpYXQiOjE2NzI1MzEyMDAsImV4cCI6MTcwNDA2NzIwMH0.uLp-J7aBf8tYgPz3tQ9kRwN6eV0bV1zHhJ5aF4gC2sE",
+      "label": "True Positive"
+    }
+  ]
+}

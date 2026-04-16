@@ -1,0 +1,17 @@
+{
+  "entry_id": 37,
+  "snippet_index": 4,
+  "language": "typescript",
+  "findings": [
+    {
+      "line_number": 75,
+      "secret": "https://a4b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5@o123456.ingest.sentry.io/9876543",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 79,
+      "secret": "AIzaSyD9ZvG8hJqKp2sL6wF4xR3tU_0mIoC5bE7",
+      "label": "True Positive"
+    }
+  ]
+}

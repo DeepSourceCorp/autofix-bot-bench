@@ -1,0 +1,12 @@
+{
+  "entry_id": 36,
+  "snippet_index": 4,
+  "language": "java",
+  "findings": [
+    {
+      "line_number": 124,
+      "secret": "postgres://prod_svc_user:Ag^9!z$K4mPQ@db-prod-cluster-1.c8xyzqrstuvw.us-west-2.rds.amazonaws.com:5432/orders_db",
+      "label": "True Positive"
+    }
+  ]
+}

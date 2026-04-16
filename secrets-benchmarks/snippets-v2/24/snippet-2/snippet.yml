@@ -1,0 +1,77 @@
+# Padding: original snippet starts at line 45
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+name: Deploy Staging Environment
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id AKIAUVXWR6Y7ZJ2P5QSD
+          aws configure set aws_secret_access_key mX9vB4nD3fG6hK2jL5pQ8rT1uW4yZ7+a0bCDEFg
+          aws configure set default.region us-west-2
+
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 784512345678.dkr.ecr.us-west-2.amazonaws.com
+
+      - name: Build and Push Docker Image
+        run: |
+          # ... docker build and push commands ...
+          echo "Build complete"
+
+      - name: Send Slack Notification on Success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Staging deployment succeeded!"}' https://hooks.slack.com/services/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
+

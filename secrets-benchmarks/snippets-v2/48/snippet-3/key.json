@@ -1,0 +1,22 @@
+{
+  "entry_id": 48,
+  "snippet_index": 2,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 33,
+      "secret": "AKIAY3R4WZ76X2P5QJ6M",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 34,
+      "secret": "7jH2kL5mN8pQ3sW9vX1yZ4aB6cD8eF0gH2jK4lM5",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 44,
+      "secret": "P@ssw0rd!Feb2024*!",
+      "label": "True Positive"
+    }
+  ]
+}

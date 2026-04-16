@@ -1,0 +1,34 @@
+88: provider "aws" {
+89:   region     = "us-east-1"
+90:   access_key = "AKIAV7S4M3N2O1P6Q5R8"
+91:   secret_key = "uG+hJkLpQwErTyUiOpAsDfGhJkLzXcVbNmQwErTy"
+92: }
+93: 
+94: resource "aws_s3_bucket" "logs" {
+95:   bucket = "my-app-production-logs-20240315"
+96: 
+97:   tags = {
+98:     Name        = "Application Logs Bucket"
+99:     Environment = "Production"
+100:     ManagedBy   = "Terraform"
+101:   }
+102: }
+103: 
+104: resource "aws_s3_bucket_public_access_block" "logs_public_access" {
+105:   bucket = aws_s3_bucket.logs.id
+106: 
+107:   block_public_acls       = true
+108:   block_public_policy     = true
+109:   ignore_public_acls      = true
+110:   restrict_public_buckets = true
+111: }
+112: 
+113: resource "aws_instance" "bastion" {
+114:   ami           = "ami-0c55b159cbfafe1f0"
+115:   instance_type = "t2.micro"
+116:   subnet_id     = "subnet-0a1b2c3d4e5f6g7h8"
+117: 
+118:   tags = {
+119:     Name = "bastion-host-prod"
+120:   }
+121: }

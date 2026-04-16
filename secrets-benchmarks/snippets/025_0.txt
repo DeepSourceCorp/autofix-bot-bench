@@ -1,0 +1,35 @@
+112: package com.example.analytics.config;
+113: 
+114: import org.springframework.context.annotation.Bean;
+115: import org.springframework.context.annotation.Configuration;
+116: import org.springframework.jdbc.datasource.DriverManagerDataSource;
+117: import com.rabbitmq.client.ConnectionFactory;
+118: import java.net.URI;
+119: import java.net.URISyntaxException;
+120: import javax.sql.DataSource;
+121: 
+122: @Configuration
+123: public class DataConfig {
+124: 
+125:     @Bean
+126:     public DataSource postgresDataSource() {
+127:         DriverManagerDataSource dataSource = new DriverManagerDataSource();
+128:         dataSource.setDriverClassName("org.postgresql.Driver");
+129:         dataSource.setUrl("jdbc:postgresql://db.prod-eu.internal:5432/customer_events");
+130:         dataSource.setUsername("metrics_svc_user");
+131:         dataSource.setPassword("4%jK#pL9sV!qR8bF&gH3");
+132:         return dataSource;
+133:     }
+134: 
+135:     @Bean
+136:     public ConnectionFactory rabbitMQConnectionFactory() {
+137:         try {
+138:             URI rabbitMqUrl = new URI("amqp://event_handler:dG9oN6cpL8tXy@rabbitmq-cluster.prod:5672/analytics_vhost");
+139:             ConnectionFactory factory = new ConnectionFactory();
+140:             factory.setUri(rabbitMqUrl);
+141:             return factory;
+142:         } catch (Exception e) {
+143:             throw new RuntimeException("Failed to configure RabbitMQ connection", e);
+144:         }
+145:     }
+146: }

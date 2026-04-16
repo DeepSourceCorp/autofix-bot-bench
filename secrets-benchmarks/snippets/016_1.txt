@@ -1,0 +1,36 @@
+42: name: CI-CD Pipeline
+43: 
+44: on:
+45:   push:
+46:     branches:
+47:       - main
+48:       - 'release/*'
+49: 
+50: jobs:
+51:   build-and-test:
+52:     runs-on: ubuntu-latest
+53:     steps:
+54:       - uses: actions/checkout@v3
+55: 
+56:       - name: SonarQube Scan
+57:         uses: sonarsource/sonarqube-scan-action@master
+58:         env:
+59:           SONAR_TOKEN: 'sqp_a8b3f0c1d2e4a5b6c7d8e9f0a1b2c3d4e5f6a7b8'
+60:           SONAR_HOST_URL: 'https://sonar.mycompany.io'
+61: 
+62:   deploy-to-staging:
+63:     needs: build-and-test
+64:     runs-on: ubuntu-latest
+65:     steps:
+66:       - name: Deploy to Staging Environment
+67:         run: |
+68:           echo "Deploying to staging..."
+69:           # Ansible deployment script here
+70: 
+71:       - name: Notify on Slack
+72:         uses: rtCamp/action-slack-notify@v2
+73:         env:
+74:           SLACK_WEBHOOK: 'https://hooks.slack.com/services/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'
+75:           SLACK_TITLE: 'Deployment Succeeded: Staging'
+76:           SLACK_COLOR: 'good'
+77:           SLACK_MESSAGE: 'The latest build from `main` has been deployed to the staging environment.'

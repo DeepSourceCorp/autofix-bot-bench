@@ -1,0 +1,17 @@
+{
+  "entry_id": 23,
+  "snippet_index": 2,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 19,
+      "secret": "dckr_pat_JqT5kL9nW3xS8pZ2yV6cR7uF4mB1gH",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 38,
+      "secret": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtZW\nQyNTUxOQAAACBPKwuHqROMV0/OTYzcO1y4FmsiUFrgHnpymGU9VvL2pgAAAJgAm9bWJpvW\n1gAAAAdzc2gtZWQyNTUxOQAAACBPKwuHqROMV0/OTYzcO1y4FmsiUFrgHnpymGU9VvL2pg\nAAAAQE4bM6z2vLwJ1Qe7O7S5s+4TBuw+BGfS2b1Uv+8T+zKPKwuHqROMV0/OTYzcO1y4Fm\nsiUFrgHnpymGU9VvL2pgAAAAEXJvb3RAZGVib3BzLTc2LmxhbgECAwQFBgc=\n-----END OPENSSH PRIVATE KEY-----",
+      "label": "True Positive"
+    }
+  ]
+}

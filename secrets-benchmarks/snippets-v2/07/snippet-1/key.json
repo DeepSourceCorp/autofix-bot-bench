@@ -1,0 +1,22 @@
+{
+  "entry_id": 7,
+  "snippet_index": 0,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 92,
+      "secret": "AKIA44JGL55QT6L72Q57",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 93,
+      "secret": "Jv2/G5fB8hK0lM3nO7pQ9rS2uV5wX8yZ1aC4bE6d",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 111,
+      "secret": "hJ$9!zK@bD3pG*sV",
+      "label": "True Positive"
+    }
+  ]
+}

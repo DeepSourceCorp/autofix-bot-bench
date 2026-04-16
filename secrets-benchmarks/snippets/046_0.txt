@@ -1,0 +1,35 @@
+78: from flask import Flask, jsonify, request
+79: from flask_sqlalchemy import SQLAlchemy
+80: from flask_marshmallow import Marshmallow
+81: import os
+82: 
+83: app = Flask(__name__)
+84: 
+85: # --- Database and Payment Configuration ---
+86: # In a real production scenario, use environment variables.
+87: app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://analytics_svc:5h#jK9$fG!pQ@prod-db-replica-1.us-east-1.rds.amazonaws.com:5432/reporting_db'
+88: app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+89: 
+90: # Stripe Payment Gateway Integration
+91: STRIPE_API_VERSION = '2022-11-15'
+92: STRIPE_SECRET_KEY = 'sk_live_51Kx2BzJ6w3hC7nVf8gB5sLp0nN6rT1qY2aD4zXvWqSjU3mHk9oP7fG1tY9cR'
+93: 
+94: db = SQLAlchemy(app)
+95: ma = Marshmallow(app)
+96: 
+97: class User(db.Model):
+98:     id = db.Column(db.Integer, primary_key=True)
+99:     username = db.Column(db.String(80), unique=True)
+100:     email = db.Column(db.String(120), unique=True)
+101: 
+102:     def __init__(self, username, email):
+103:         self.username = username
+104:         self.email = email
+105: 
+106: @app.route('/api/v1/health', methods=['GET'])
+107: def health_check():
+108:     return jsonify({'status': 'ok'}), 200
+109: 
+110: if __name__ == '__main__':
+111:     app.run(debug=False, host='0.0.0.0')
+112: 

@@ -1,0 +1,35 @@
+112: provider "aws" {
+113:   region = "eu-central-1"
+114: }
+115: 
+116: resource "aws_db_instance" "app_database" {
+117:   allocated_storage    = 20
+118:   engine               = "mysql"
+119:   engine_version       = "8.0"
+120:   instance_class       = "db.t3.micro"
+121:   name                 = "webapp_prod_db"
+122:   username             = "db_admin"
+123:   password             = "Adm1nPassw0rd&SuperS3cure!v9h2k4m5"
+124:   parameter_group_name = "default.mysql8.0"
+125:   skip_final_snapshot  = true
+126: }
+127: 
+128: resource "aws_lambda_function" "data_processor" {
+129:   function_name = "Prod-Data-Processor"
+130:   handler       = "main.handler"
+131:   runtime       = "python3.9"
+132:   role          = aws_iam_role.lambda_exec.arn
+133: 
+134:   filename = "processor.zip"
+135: 
+136:   environment {
+137:     variables = {
+138:       THIRD_PARTY_API_TOKEN = "kpat_9uGvP3wFxBzQr7YtL1sJmN5cH2oVb4fD8S"
+139:       DB_ENDPOINT           = aws_db_instance.app_database.address
+140:     }
+141:   }
+142: 
+143:   tags = {
+144:     Environment = "Production"
+145:   }
+146: }

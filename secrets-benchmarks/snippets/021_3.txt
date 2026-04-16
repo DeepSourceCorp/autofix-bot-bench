@@ -1,0 +1,33 @@
+112: import React, { useEffect } from 'react';
+113: import * as Sentry from '@sentry/react';
+114: import mapboxgl from 'mapbox-gl';
+115: import { BrowserTracing } from '@sentry/tracing';
+116: 
+117: export const initializeThirdPartyServices = () => {
+118:   // Sentry Initialization for error tracking
+119:   Sentry.init({
+120:     dsn: 'https://b3c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7@o123456.ingest.sentry.io/7890123',
+121:     integrations: [new BrowserTracing()],
+122:     tracesSampleRate: 0.2,
+123:     environment: 'production',
+124:   });
+125: 
+126:   // Mapbox GL JS configuration
+127:   mapboxgl.accessToken = 'pk.eyJ1IjoibXlicmFuZGFwcCIsImEiOiJjbGo3cDF3cDAxM2QzM2VwMnR4bzBqemVyIn0.hZl8pAqK5n9bC2eR1fG0oQ';
+128: };
+129: 
+130: const AnalyticsWrapper = ({ children }) => {
+131:   useEffect(() => {
+132:     console.log('Initializing external services...');
+133:     initializeThirdPartyServices();
+134:   }, []);
+135: 
+136:   return <>{children}</>;
+137: };
+138: 
+139: export default AnalyticsWrapper;
+140: 
+141: // This component ensures that services like Sentry and Mapbox
+142: // are configured once when the application loads.
+143: // It should be placed high up in the component tree.
+144: 

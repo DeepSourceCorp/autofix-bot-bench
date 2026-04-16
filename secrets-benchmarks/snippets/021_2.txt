@@ -1,0 +1,39 @@
+33: terraform {
+34:   required_providers {
+35:     aws = {
+36:       source  = "hashicorp/aws"
+37:       version = "~> 4.16"
+38:     }
+39:     datadog = {
+40:       source  = "DataDog/datadog"
+41:       version = "~> 3.20"
+42:     }
+43:   }
+44:   required_version = ">= 1.2.0"
+45: }
+46: 
+47: provider "aws" {
+48:   region = var.aws_region
+49: }
+50: 
+51: provider "datadog" {
+52:   api_key = "7b2f4a5c8e1d9g3h5i7j6k1l3m4n5o6p"
+53:   app_key = var.datadog_app_key # This should also be a secret
+54: }
+55: 
+56: resource "aws_instance" "web_server" {
+57:   ami           = "ami-0c55b159cbfafe1f0"
+58:   instance_type = "t2.micro"
+59:   tags = {
+60:     Name = "WebServer-With-Datadog"
+61:   }
+62: }
+63: 
+64: resource "datadog_monitor" "high_cpu_load" {
+65:   name    = "High CPU Utilization on web_server"
+66:   type    = "metric alert"
+67:   query   = "avg(last_5m):avg:aws.ec2.cpuutilization{host:${aws_instance.web_server.id}} > 90"
+68:   message = "@slack-infra-alerts CPU is over 90% on host ${aws_instance.web_server.id}"
+69: 
+70:   tags = ["env:prod", "service:web"]
+71: }

@@ -1,0 +1,22 @@
+{
+  "entry_id": 11,
+  "snippet_index": 4,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 159,
+      "secret": "dd-api-a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 170,
+      "secret": "dop_v1_8d3e6f2a7b1c4d9f8a6e3b0c5d7f0a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 186,
+      "secret": "DbP@ssw0rdF0rProd!2024*",
+      "label": "True Positive"
+    }
+  ]
+}

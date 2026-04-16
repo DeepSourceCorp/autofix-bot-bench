@@ -1,0 +1,40 @@
+115: package main
+116: 
+117: import (
+118: 	"database/sql"
+119: 	"fmt"
+120: 	"log"
+121: 	"net/http"
+122: 
+123: 	"github.com/gin-gonic/gin"
+124: 	_ "github.com/lib/pq"
+125: 	"github.com/stripe/stripe-go/v72"
+126: )
+127: 
+128: const pgConnStr = "postgres://webapp_svc:dG93nK#md!9S@pg-primary.prod.svc.cluster.local:5432/payments_db"
+129: 
+130: func setupDatabase() *sql.DB {
+131: 	db, err := sql.Open("postgres", pgConnStr)
+132: 	if err != nil {
+133: 		log.Fatalf("Failed to connect to database: %v", err)
+134: 	}
+135: 	return db
+136: }
+137: 
+138: func chargeHandler(c *gin.Context) {
+139: 	// Payment processing logic would be here
+140: 	c.JSON(http.StatusOK, gin.H{"status": "charge processed"})
+141: }
+142: 
+143: func main() {
+144: 	stripe.Key = "sk_live_51Mv9BfGk7Lw3zYqSjU2dRaXt1cVhN8eIoP6bA5cZfTxW"
+145: 	
+146: 	db := setupDatabase()
+147: 	defer db.Close()
+148: 
+149: 	router := gin.Default()
+150: 	router.POST("/api/v1/charge", chargeHandler)
+151: 
+152: 	fmt.Println("Starting server on port 8080")
+153: 	router.Run(":8080")
+154: }

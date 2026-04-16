@@ -1,0 +1,35 @@
+42: # main.tf - Datadog Monitor for API Gateway Latency
+43: 
+44: provider "datadog" {
+45:   # Credentials configured via environment variables
+46: }
+47: 
+48: resource "aws_api_gateway_rest_api" "main_api" {
+49:   name        = "example-api"
+50:   description = "Primary API for service X"
+51: }
+52: 
+53: resource "aws_cloudwatch_log_group" "api_logs" {
+54:   name              = "/aws/api-gateway/${aws_api_gateway_rest_api.main_api.name}"
+55:   retention_in_days = 30
+56: }
+57: 
+58: # This monitor checks for high latency on our main entrypoint.
+59: resource "datadog_monitor" "p99_latency_monitor" {
+60:   name    = "[Critical] High P99 Latency on API Gateway"
+61:   type    = "metric alert"
+62:   message = "@devops-alerts P99 latency is over 2s. Check API Gateway performance."
+63:   tags    = ["env:prod", "service:api-gateway"]
+64: 
+65:   query = "avg(last_5m):p99:aws.apigateway.latency.count{*} by {apiname} > 2000"
+66: 
+67:   monitor_thresholds {
+68:     critical = 2000
+69:     warning  = 1500
+70:   }
+71: 
+72:   // TODO: This should be moved to a var file or Vault
+73:   options {
+74:     api_key = "4a8f15d7e5b6c93f0a12e4d3c5f6b8a1"
+75:   }
+76: }

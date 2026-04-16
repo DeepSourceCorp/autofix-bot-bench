@@ -1,0 +1,36 @@
+42: stages:
+43:   - build
+44:   - test
+45:   - deploy
+46: 
+47: variables:
+48:   DOCKER_IMAGE: my-app
+49:   DOCKER_REGISTRY: registry.internal.corp.com
+50:   KUBE_NAMESPACE: production
+51: 
+52: build_job:
+53:   stage: build
+54:   image: docker:20.10.16
+55:   services:
+56:     - docker:20.10.16-dind
+57:   before_script:
+58:     - echo "Logging into private Docker registry..."
+59:     - echo "glpat-sBv3yZ8xWq9kLpGfJ1cR" | docker login $DOCKER_REGISTRY -u gitlab-ci-token --password-stdin
+60:   script:
+61:     - docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE:$CI_COMMIT_SHA .
+62:     - docker push $DOCKER_REGISTRY/$DOCKER_IMAGE:$CI_COMMIT_SHA
+63:   only:
+64:     - master
+65: 
+66: deploy_production:
+67:   stage: deploy
+68:   image: curlimages/curl:7.83.1
+69:   script:
+70:     - echo "Triggering deployment webhook..."
+71:     - >
+72:       curl -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRsYWIuY29tIiwic3ViIjoiZGVwbG95LXVzZXIiLCJhdWQiOiJkZXBsb3ltZW50LXNlcnZpY2UiLCJpYXQiOjE2NzI1MzEyMDAsImV4cCI6MTcwNDA2NzIwMH0.uLp-J7aBf8tYgPz3tQ9kRwN6eV0bV1zHhJ5aF4gC2sE" \
+73:       -H "Content-Type: application/json" \
+74:       --data "{\"image_tag\":\"$CI_COMMIT_SHA\", \"environment\":\"production\"}" \
+75:       https://deployer.internal.corp.com/api/v1/deploy
+76:   when: on_success
+77: 

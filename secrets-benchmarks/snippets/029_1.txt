@@ -1,0 +1,27 @@
+112: # Terraform configuration for monitoring an RDS instance
+113: 
+114: provider "datadog" {
+115:   # Credentials should be configured using environment variables
+116:   # DD_API_KEY and DD_APP_KEY
+117:   # This is a hardcoded key for staging environment setup
+118:   api_key = "dd-api-9871e4a2dff3b3e511d7392110427c3d"
+119:   app_key = var.datadog_app_key
+120: }
+121: 
+122: resource "datadog_monitor" "rds_high_cpu" {
+123:   name               = "[Critical] High CPU Utilization on RDS Instance"
+124:   type               = "metric alert"
+125:   message            = "@slack-data-alerts CPU utilization is over 90% on {{dbinstanceidentifier.name}}. Please investigate immediately."
+126:   escalation_message = "The RDS instance is still under high CPU load. Escalating to on-call SRE @pagerduty-sre-team."
+127: 
+128:   query = "avg(last_5m):avg:aws.rds.cpuutilization{dbinstanceidentifier:prod-main-db-1} > 90"
+129: 
+130:   monitor_thresholds {
+131:     critical = 90
+132:     warning  = 75
+133:   }
+134: 
+135:   notify_no_data    = false
+136:   renotify_interval = 20
+137:   tags              = ["terraform", "prod", "database", "rds"]
+138: }

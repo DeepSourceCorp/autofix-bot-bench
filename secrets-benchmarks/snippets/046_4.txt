@@ -1,0 +1,33 @@
+98: # ===============================
+99: # Main Application Settings
+100: # ===============================
+101: server.port=8080
+102: spring.application.name=auth-service
+103: 
+104: # ===============================
+105: # Security and JWT Settings
+106: # ===============================
+107: app.jwt.issuer=my-auth-service
+108: app.jwt.audience=my-app-clients
+109: app.jwt.expiration-ms=86400000
+110: # This secret key is used to sign and verify JWTs. It must be kept confidential.
+111: app.jwt.secret=Z8qWn!y$B&E)H@McQfTjWnZr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+KbPeSh
+112: 
+113: # ===============================
+114: # Database Connection (PostgreSQL)
+115: # ===============================
+116: spring.datasource.url=jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/authdb
+117: spring.datasource.username=${DB_USER}
+118: spring.datasource.password=${DB_PASSWORD}
+119: spring.jpa.hibernate.ddl-auto=validate
+120: 
+121: # ===============================
+122: # Email Notification Service (SMTP)
+123: # ===============================
+124: spring.mail.host=smtp.mailgun.org
+125: spring.mail.port=587
+126: spring.mail.username=notifications-prod@we-send-alerts.com
+127: spring.mail.password=4R#sV9$!pLq2b
+128: spring.mail.properties.mail.smtp.auth=true
+129: spring.mail.properties.mail.smtp.starttls.enable=true
+130: 

@@ -1,0 +1,30 @@
+18: resource "aws_db_instance" "main_db" {
+19:   allocated_storage    = 20
+20:   engine               = "postgres"
+21:   engine_version       = "14.1"
+22:   instance_class       = "db.t3.micro"
+23:   db_name              = "platform_prod"
+24:   username             = "db_admin_master"
+25:   password             = "8!hG#kL$pQ2s@db.prod-STRONG-Pa$$wrd"
+26:   parameter_group_name = "default.postgres14"
+27:   skip_final_snapshot  = true
+28: }
+29: 
+30: resource "aws_elasticache_cluster" "session_cache" {
+31:   cluster_id           = "redis-cache-cluster"
+32:   engine               = "redis"
+33:   node_type            = "cache.t2.micro"
+34:   num_cache_nodes      = 1
+35:   engine_version       = "6.x"
+36:   port                 = 6379
+37: }
+38: 
+39: provider "github" {
+40:   token = "ghp_aV4gH9rT2pL7xJ5sK1mF3bZ8oN6cW0qYdE7z"
+41: }
+42: 
+43: resource "github_repository" "infrastructure_repo" {
+44:   name        = "company-infrastructure"
+45:   description = "Contains all Terraform configurations for the company"
+46:   visibility  = "private"
+47: }

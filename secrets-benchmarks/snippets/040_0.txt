@@ -1,0 +1,36 @@
+78: import os
+79: from flask import Flask, request, jsonify
+80: from flask_sqlalchemy import SQLAlchemy
+81: import stripe
+82: 
+83: app = Flask(__name__)
+84: 
+85: # --- Configuration ---
+86: # Avoid hardcoding credentials in production. Use environment variables.
+87: app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payments_svc:a4J!zP0$fT7*bE9@db-prod.us-east-1.rds.amazonaws.com/payments_db'
+88: app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+89: stripe.api_key = 'sk_live_51Mv3UqKxVp8pLoJ9tFmW2cXa1hN6bA7vF9yR0eZlP3cT8bSgK4uL5iV6jW7bA8eV9oI0pQ1rC2sD3tF4gH5jK6lM'
+90: 
+91: db = SQLAlchemy(app)
+92: 
+93: class Payment(db.Model):
+94:     id = db.Column(db.Integer, primary_key=True)
+95:     amount = db.Column(db.Integer, nullable=False)
+96:     currency = db.Column(db.String(3), nullable=False)
+97:     stripe_charge_id = db.Column(db.String(255), unique=True, nullable=False)
+98: 
+99: @app.route('/create-payment-intent', methods=['POST'])
+100: def create_payment():
+101:     try:
+102:         data = request.get_json()
+103:         intent = stripe.PaymentIntent.create(
+104:             amount=data['amount'],
+105:             currency='usd',
+106:             automatic_payment_methods={'enabled': True},
+107:         )
+108:         return jsonify({'client_secret': intent.client_secret})
+109:     except Exception as e:
+110:         return jsonify(error=str(e)), 403
+111: 
+112: if __name__ == '__main__':
+113:     app.run(debug=False, port=5002)

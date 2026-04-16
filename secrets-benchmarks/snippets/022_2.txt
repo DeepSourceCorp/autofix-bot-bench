@@ -1,0 +1,37 @@
+28: provider "aws" {
+29:   region = "eu-west-2"
+30: }
+31: 
+32: variable "db_instance_class" {
+33:   description = "The instance type for the RDS instance."
+34:   type        = string
+35:   default     = "db.t3.micro"
+36: }
+37: 
+38: resource "aws_db_instance" "main_db" {
+39:   identifier           = "webapp-prod-postgres-main"
+40:   allocated_storage    = 20
+41:   engine               = "postgres"
+42:   engine_version       = "13.7"
+43:   instance_class       = var.db_instance_class
+44:   db_name              = "platformdb"
+45:   username             = "platform_admin"
+46:   password             = "Adm1nPassw0rd$tr0ng!2023"
+47:   skip_final_snapshot  = true
+48:   publicly_accessible  = false
+49: }
+50: 
+51: resource "aws_appautoscaling_target" "rds_target" {
+52:   max_capacity       = 100
+53:   min_capacity       = 5
+54:   resource_id        = "instance/${aws_db_instance.main_db.id}"
+55:   scalable_dimension = "rds:instance:CPUUtilization"
+56:   service_namespace  = "rds"
+57: }
+58: 
+59: # Secret for another service that connects to this database
+60: resource "aws_secretsmanager_secret" "app_db_uri" {
+61:   name = "/prod/app/database_uri"
+62:   description = "Database connection string for the main application"
+63:   secret_string = "postgres://platform_admin:Adm1nPassw0rd$tr0ng!2023@${aws_db_instance.main_db.address}:5432/platformdb"
+64: }

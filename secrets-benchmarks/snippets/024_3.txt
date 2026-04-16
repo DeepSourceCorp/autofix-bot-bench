@@ -1,0 +1,40 @@
+72: <?php
+73: // Legacy script for processing daily transaction reports and uploading to an FTP server.
+74: // WARNING: Do not modify without consulting the finance team.
+75: 
+76: class ReportProcessor {
+77:     private $ftp_server = "ftp.partner-financial.com";
+78:     private $ftp_user = "report_uploader_03";
+79:     private $ftp_pass = 'p@sswd_7h6f$G!kLz9qR';
+80:     private $remote_dir = '/incoming/transactions/';
+81:     private $mailer_api_key;
+82: 
+83:     public function __construct() {
+84:         // This key belongs to a legacy Mailgun account used for sending failure alerts.
+85:         // The account has minimal permissions.
+86:         $this->mailer_api_key = 'key-9f8e7d6c5b4a3a2a1b0c9d8e7f6a5b4c';
+87:     }
+88: 
+89:     public function processAndUpload($reportPath) {
+90:         $conn_id = ftp_connect($this->ftp_server);
+91:         $login_result = ftp_login($conn_id, $this->ftp_user, $this->ftp_pass);
+92: 
+93:         if (!$login_result) {
+94:             $this->sendFailureAlert("FTP login failed for user {$this->ftp_user}");
+95:             die("FTP connection has failed!");
+96:         }
+97: 
+98:         // Change to the remote directory
+99:         ftp_chdir($conn_id, $this->remote_dir);
+100:         
+101:         // ... file upload logic resumes ...
+102: 
+103:         ftp_close($conn_id);
+104:     }
+105: 
+106:     private function sendFailureAlert($message) {
+107:         // Implementation for sending email via Mailgun API
+108:         error_log("ALERT: " . $message . " | Mailer Key: " . $this->mailer_api_key, 0);
+109:     }
+110: }
+111: ?>

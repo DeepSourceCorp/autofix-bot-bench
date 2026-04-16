@@ -1,0 +1,45 @@
+{
+  "stage": "stage-1 scanner (pattern + high-entropy heuristics)",
+  "dataset": "golden-set.jsonl",
+  "summary": {
+    "total_processed": 518,
+    "perfect_matches": 377,
+    "partial_matches": 76,
+    "missed_secrets": 65,
+    "false_positives": 696,
+    "overall_accuracy": 0.7277992277992278,
+    "perfect_match_rate": 0.7277992277992278
+  },
+  "classification_metrics": {
+    "true_positives": 453,
+    "false_positives": 696,
+    "false_negatives": 65,
+    "precision": 0.39425587467362927,
+    "recall": 0.8745173745173745,
+    "f1_score": 0.5434913017396521,
+    "classification_accuracy": 0.3731466227347611
+  },
+  "error_breakdown": {
+    "exact_matches": 377,
+    "partial_matches": 76,
+    "missed_secrets": 65,
+    "false_positives": 696
+  },
+  "baselines": {
+    "vanilla_scanner_cli": {
+      "perfect_matches": 229,
+      "missed": 257,
+      "raw_false_positives": 135
+    },
+    "scanner_sdk_default_plugins": {
+      "perfect_matches": 270,
+      "missed": 202,
+      "raw_false_positives": 152
+    },
+    "scanner_with_high_entropy_string_detector": {
+      "perfect_matches": 377,
+      "missed": 65,
+      "raw_false_positives": 696
+    }
+  }
+}

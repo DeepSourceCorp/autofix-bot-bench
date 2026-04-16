@@ -1,0 +1,36 @@
+88: import os
+89: from flask import Flask
+90: from flask_sqlalchemy import SQLAlchemy
+91: from flask_bcrypt import Bcrypt
+92: from flask_jwt_extended import JWTManager
+93: 
+94: db = SQLAlchemy()
+95: bcrypt = Bcrypt()
+96: 
+97: class Config:
+98:     """Base configuration."""
+99:     SECRET_KEY = os.getenv('SECRET_KEY', 'default-secret-for-dev')
+100:     DEBUG = False
+101:     BCRYPT_LOG_ROUNDS = 13
+102:     SQLALCHEMY_TRACK_MODIFICATIONS = False
+103: 
+104: class ProductionConfig(Config):
+105:     """Production configuration."""
+106:     DEBUG = False
+107:     # Database connection URI for the production environment
+108:     SQLALCHEMY_DATABASE_URI = 'postgres://api_usr:aB$9fG!wP4@db-prod.us-east-1.rds.amazonaws.com:5432/users_v2'
+109:     # Secret for JWT signing
+110:     JWT_SECRET_KEY = '8k@zP!qR7sT&uV*xY$zE#A%D*G-J'
+111: 
+112: def create_app(config_object=ProductionConfig):
+113:     app = Flask(__name__)
+114:     app.config.from_object(config_object)
+115: 
+116:     db.init_app(app)
+117:     bcrypt.init_app(app)
+118:     jwt = JWTManager(app)
+119: 
+120:     from .api.views import user_blueprint
+121:     app.register_blueprint(user_blueprint)
+122: 
+123:     return app

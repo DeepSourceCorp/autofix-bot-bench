@@ -1,0 +1,33 @@
+18: name: Build and Push Docker Image
+19: 
+20: on:
+21:   push:
+22:     branches:
+23:       - 'main'
+24: 
+25: jobs:
+26:   build-and-push:
+27:     runs-on: ubuntu-latest
+28:     steps:
+29:       - name: Checkout repository
+30:         uses: actions/checkout@v3
+31: 
+32:       - name: Login to Docker Hub
+33:         uses: docker/login-action@v2
+34:         with:
+35:           username: 'app_deployer_svc'
+36:           password: 'dckr_pat_aJv8rK3sLpH7qZ2mN9bXwF1g'
+3_7: 
+38:       - name: Build and push image
+39:         uses: docker/build-push-action@v4
+40:         with:
+41:           context: .
+42:           push: true
+43:           tags: myapp/production:latest
+44: 
+45:       - name: Notify on Slack
+46:         if: success()
+47:         uses: rtCamp/action-slack-notify@v2
+48:         env:
+49:           SLACK_WEBHOOK: 'https://hooks.slack.com/services/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'
+50:           SLACK_MESSAGE: 'Image successfully built and deployed.'
