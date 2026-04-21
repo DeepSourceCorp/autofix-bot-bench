@@ -1,5 +1,5 @@
 """System prompt used to generate the synthetic secret-detection benchmark
-dataset (`golden-set.jsonl`). The prompt was fed to a large language model
+dataset (`raw-dataset.jsonl`). The prompt was fed to a large language model
 which emitted batches of 5 synthetic code snippets (25-35 numbered lines each,
 containing 1-4 realistic-looking hardcoded secrets per snippet).
 """

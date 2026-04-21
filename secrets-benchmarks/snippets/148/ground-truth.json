@@ -1,0 +1,11 @@
+{
+  "entry_id": 32,
+  "language": "javascript",
+  "findings": [
+    {
+      "line_number": 39,
+      "secret": "https://b4d29ca2b98e4a9e8b7c0f1e8e2b8f75@o450550.ingest.sentry.io/4505501234567890",
+      "label": "True Positive"
+    }
+  ]
+}

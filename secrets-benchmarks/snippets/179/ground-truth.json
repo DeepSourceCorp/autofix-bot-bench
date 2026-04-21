@@ -1,0 +1,11 @@
+{
+  "entry_id": 38,
+  "language": "javascript",
+  "findings": [
+    {
+      "line_number": 64,
+      "secret": "pk.eyJ1IjoibWFwZGVzaWduZXI4OCIsImEiOiJjbHJwaGR3ajAwMWR4MmtwOGVncjl5dWNpIn0.eFTpL6vj-57Bq2nTOs2KjQ",
+      "label": "True Positive"
+    }
+  ]
+}

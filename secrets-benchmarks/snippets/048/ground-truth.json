@@ -1,0 +1,11 @@
+{
+  "entry_id": 11,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 124,
+      "secret": "sk-ant-api03-S5bA6gH7jK8lI9oP0qR1tV2uY3vW4xZ9vR-mK1jLpFzXgY8cBu7DwEa4SdF2gH3iKlJnOpQ_AAA",
+      "label": "True Positive"
+    }
+  ]
+}

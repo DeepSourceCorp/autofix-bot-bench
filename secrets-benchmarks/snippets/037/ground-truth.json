@@ -1,0 +1,26 @@
+{
+  "entry_id": 9,
+  "language": "groovy",
+  "findings": [
+    {
+      "line_number": 133,
+      "secret": "9a8b7c6d-5e4f-3a2b-1c0d-9f8e7d6c5b4a",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 134,
+      "secret": "8S5R3ZQXDI1VMEG9N4Y2QWB7A7JH8W5C6I",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 140,
+      "secret": "sUp3rS3cur3P@ssw0rd",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 142,
+      "secret": "k3yP@ssw0rdF0rR3l3ase",
+      "label": "True Positive"
+    }
+  ]
+}

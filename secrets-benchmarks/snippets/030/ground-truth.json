@@ -1,0 +1,16 @@
+{
+  "entry_id": 7,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 88,
+      "secret": "4a1b0c9d2e8f7g6h5i4j3k2l1m0n9o8p7q6r5s4t3u2v1w0x",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 95,
+      "secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLnMxLmV4YW1wbGUuY29tIiwic3ViIjoiY2NjY2QxZjctMGIzNC00MWFmLThmZjktYWZmMDc0MjVmYTc3IiwiYXVkIjoiYXBpLnMxLmV4YW1wbGUuY29tIiwiaWF0IjoxNjQ4MDQ0NDc5LCJleHAiOjE2NDgwNDgwNzl9.m4zV8G48EaFqfJkXw9Y2ZzQ3bH6iJ8kL0mN2oP4qR6s",
+      "label": "True Positive"
+    }
+  ]
+}

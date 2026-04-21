@@ -1,0 +1,11 @@
+{
+  "entry_id": 38,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 32,
+      "secret": "postgres://billing_svc_user:D4fG#kS$q9!zL@pg-prod-us-east-1.c8zqg7rf1vkm.rds.amazonaws.com:5432/billing_prod?sslmode=require",
+      "label": "True Positive"
+    }
+  ]
+}

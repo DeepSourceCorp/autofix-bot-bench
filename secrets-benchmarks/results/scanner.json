@@ -1,6 +1,6 @@
 {
   "stage": "stage-1 scanner (pattern + high-entropy heuristics)",
-  "dataset": "golden-set.jsonl",
+  "dataset": "raw-dataset.jsonl",
   "summary": {
     "total_processed": 518,
     "perfect_matches": 377,

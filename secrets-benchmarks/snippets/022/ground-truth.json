@@ -1,0 +1,11 @@
+{
+  "entry_id": 5,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 61,
+      "secret": "dckr_pat_bH8gY2cX1dE4fG5hI6jK7lM8nO9pQ0rS",
+      "label": "True Positive"
+    }
+  ]
+}

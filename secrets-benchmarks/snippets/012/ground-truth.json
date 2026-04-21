@@ -1,0 +1,11 @@
+{
+  "entry_id": 3,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 74,
+      "secret": "4a8f15d7e5b6c93f0a12e4d3c5f6b8a1",
+      "label": "True Positive"
+    }
+  ]
+}

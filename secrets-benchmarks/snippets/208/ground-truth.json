@@ -1,0 +1,16 @@
+{
+  "entry_id": 44,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 31,
+      "secret": "4hG#kL$pQ2s!tV*wXyZ(aB-dE",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 38,
+      "secret": "NjIzZGU5NTgtYWYzZC00YjM1LWE3MzktZWYzMDU3NTM1YmYxYzUyMWU1NzItODk0Yi00ODY0LWIzZjItYmYyYjVjYTAwZjY1",
+      "label": "True Positive"
+    }
+  ]
+}

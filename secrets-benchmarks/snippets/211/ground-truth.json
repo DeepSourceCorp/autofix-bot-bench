@@ -1,0 +1,21 @@
+{
+  "entry_id": 45,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 20,
+      "secret": "postgres://user_svc_acct:p9#zF!8k@L$sR_Wv@db-users.internal.corp:5432/users",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 22,
+      "secret": "u$h3Jk!^nL*8g$Pz@qV5sR9b#Gf2M(wE",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 23,
+      "secret": "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",
+      "label": "True Positive"
+    }
+  ]
+}

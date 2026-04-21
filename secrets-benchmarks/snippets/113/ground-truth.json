@@ -1,0 +1,11 @@
+{
+  "entry_id": 24,
+  "language": "json",
+  "findings": [
+    {
+      "line_number": 133,
+      "secret": "dXNlcl9kZXBsb3k6Zkc5amwzTTl2WjRuNCEyQw==",
+      "label": "True Positive"
+    }
+  ]
+}

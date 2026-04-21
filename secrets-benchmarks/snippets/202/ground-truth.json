@@ -1,0 +1,21 @@
+{
+  "entry_id": 43,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 60,
+      "secret": "AKIAY3R4WZ76X2P5QJ6M",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 61,
+      "secret": "wJalrXUtnFEMI5K7MDENGbPxRfi2qZf6sZ2c4g5b",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 79,
+      "secret": "https://hooks.slack.com/services/T024F4SJ2/B0C3E4D5F6/aBcDeFgHiJkLmNoPqRsTuVwX",
+      "label": "True Positive"
+    }
+  ]
+}

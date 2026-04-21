@@ -1,0 +1,16 @@
+{
+  "entry_id": 41,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 121,
+      "secret": "postgres://billing_svc_user:Ac8#k$!p9F@dBe3-db.prod.us-west-2.rds.amazonaws.com:5432/payments_db",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 126,
+      "secret": "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",
+      "label": "True Positive"
+    }
+  ]
+}

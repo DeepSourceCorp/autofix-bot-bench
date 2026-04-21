@@ -1,0 +1,16 @@
+{
+  "entry_id": 35,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 105,
+      "secret": "postgresql://warehouse_svc:vF9@p#Z&rT7s!q@db-prod-@eu-west-1.rds.amazonaws.com:5432/analytics_data_prod",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 113,
+      "secret": "sk_live_51Kk0L2ApB8fG1tY9lEwJbNc5ZgHqR6vY7kO4sT3uF1gA2iXvMn9cRzXvWqSjU3mB",
+      "label": "True Positive"
+    }
+  ]
+}

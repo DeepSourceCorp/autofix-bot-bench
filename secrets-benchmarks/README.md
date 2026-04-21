@@ -6,8 +6,8 @@ dataset of hardcoded-secret-bearing code snippets.
 ## Pipeline under test
 
 ```
-              golden-set.jsonl
-        (48 entries, 518 secrets)
+                snippets/
+         (240 snippets, 518 secrets)
                    │
                    ▼
       ┌─────────────────────────────┐
@@ -52,14 +52,11 @@ secrets-benchmarks/
 ├── README.md                         # this file
 ├── generation-prompt.py              # the system prompt used to generate the
 │                                     # synthetic dataset
-├── golden-set.jsonl                  # ground truth: 48 entries, 240 snippets, 518 secrets
-├── snippets/                         # the exact text fed to the scanner
-│   └── NNN_M.txt                     # NNN = entry id, M = sub-example index (0..4)
-├── snippets-v2/                      # language-native files with preserved line numbers
-│   └── NN/                           # entry id (01-50, skipping 06 and 27)
-│       └── snippet-K/                # K = 1..5 (1-indexed folder name)
-│           ├── snippet.{ext}         # code in its native extension
-│           └── key.json              # ground-truth secrets + metadata
+├── raw-dataset.jsonl                 # raw generator output; `snippets/` is derived from this
+├── snippets/                         # 240 language-native snippets with preserved line numbers
+│   └── NNN/                          # 001-240, one dir per snippet
+│       ├── snippet.{ext}             # code in its native extension
+│       └── ground-truth.json         # ground-truth secrets + metadata
 ├── raw-output/                       # exact per-stage outputs
 │   ├── scanner.json                  # stage-1: per-snippet scan results incl. all 696 raw FPs
 │   └── classifier.jsonl              # stage-2: raw per-snippet predictions
@@ -74,12 +71,12 @@ secrets-benchmarks/
 
 ## File formats
 
-### `golden-set.jsonl`
+### `raw-dataset.jsonl`
 
-One top-level entry per line. 48 entries total; IDs 1-50 with 6 and 27 missing.
-The dataset was AI-generated synthetically, then manually verified and
-post-filtered — entries 6 and 27 were removed because they contained
-low-quality synthetic secret values or formatting errors.
+Raw output from the generator. One top-level entry per line, 48 entries (IDs
+1-50 with 6 and 27 dropped during manual review). Each entry bundles 5
+sub-examples together; `snippets/` is the exploded, language-native form used
+for evaluation.
 
 ```jsonc
 {
@@ -87,7 +84,7 @@ low-quality synthetic secret values or formatting errors.
   "findings": [                       // 5 sub-examples per entry
     {
       "code": "78: import boto3\n79: ...\n83: aws_access_key = 'AKIA...'",
-      "findings": [                   // ground-truth secrets in this sub-example
+      "findings": [
         {"line_number": 83, "secret": "AKIA...", "label": "True Positive"}
       ]
     }
@@ -96,53 +93,42 @@ low-quality synthetic secret values or formatting errors.
 }
 ```
 
-**Note on line numbers:** the generated snippets bake fake line-number prefixes
-(`78:`, `15:`, `12:`…) into the first column of each line. Ground truth uses
-those prefixed numbers. The scanner, which doesn't know about the prefix
-convention, reports actual 1-indexed line numbers in the buffer — so the two
-line-number spaces differ by the prefix offset. The match is still scored on
-the secret value (exact vs. partial).
+### `snippets/`
 
-### `snippets/NNN_M.txt`
-
-Plain text of `golden-set.jsonl[id=NNN].findings[M].code`. Each file is 25-35
-lines of numbered code in a mix of languages (Python, Go, Terraform, YAML,
-shell, etc.) containing 1-4 hardcoded secrets. These are the exact inputs
-handed to the scanner.
-
-### `snippets-v2/`
-
-A restructured version of `snippets/` designed for direct consumption by code
-scanners. Each snippet is a real source file with the correct language
-extension, so scanners can infer language and report accurate line numbers
-without any translation.
+240 language-native snippets designed for direct consumption by code scanners.
+Each snippet is a real source file with the correct language extension, so
+scanners can infer language and report accurate line numbers without any
+translation. The dataset was AI-generated synthetically, then manually
+verified.
 
 **Directory structure:**
 
 ```
-snippets-v2/01/snippet-1/snippet.py    # entry 1, sub-example 0
-snippets-v2/01/snippet-2/snippet.yml   # entry 1, sub-example 1
+snippets/001/snippet.py                # one dir per snippet, 001-240
+snippets/002/snippet.yml
 ...
-snippets-v2/50/snippet-5/snippet.properties
+snippets/240/snippet.properties
 ```
+
+Each directory holds the code plus a `ground-truth.json` with the expected
+findings.
 
 **Line-number preservation:** The original snippets have baked-in line-number
 prefixes (e.g., `78: import boto3` — the code starts at line 78, not line 1).
-In `snippets-v2`, comment padding fills lines 1 through N-1 so the actual code
-lands on its original line number. A scanner reporting a secret on line 83 of
-`snippet.py` matches the ground-truth `line_number: 83` directly.
+Comment padding fills lines 1 through N-1 so the actual code lands on its
+original line number. A scanner reporting a secret on line 83 of `snippet.py`
+matches the ground-truth `line_number: 83` directly.
 
 Padding uses the language's native comment syntax (`#` for Python/YAML/Shell,
 `//` for Go/Java/JS/Terraform, blank lines for JSON). Line 1 of padded files
 is always a header: `# Padding: original snippet starts at line 78`. Snippets
 that originally start at line 1 have no padding.
 
-**`key.json` format:**
+**`ground-truth.json` format:**
 
 ```jsonc
 {
-  "entry_id": 1,
-  "snippet_index": 0,          // 0-based (folder snippet-1 has index 0)
+  "entry_id": 1,                   // original generation-prompt id
   "language": "python",
   "findings": [
     {"line_number": 83, "secret": "AKIA...", "label": "True Positive"}
@@ -151,17 +137,12 @@ that originally start at line 1 have no padding.
 ```
 
 If padding could not be applied (e.g., a JSON snippet where blank-line padding
-was insufficient), a `"line_offset"` field is added to `key.json` indicating
-the difference between file line numbers and ground-truth line numbers.
+was insufficient), a `"line_offset"` field is added indicating the difference
+between file line numbers and ground-truth line numbers.
 
 **Languages present:** python, javascript, typescript, go, java, yaml,
 terraform, properties, json, csharp, groovy, kotlin, swift, dart, php (14
 total).
-
-**Regeneration:** The generation script lives in the forge repo at
-`secrets_benchmark/generate_snippets_v2.py`. It reads
-`benchmark_dataset_with_languages.jsonl` and writes the `snippets-v2/`
-directory.
 
 ### `raw-output/scanner.json`
 

@@ -1,0 +1,16 @@
+{
+  "entry_id": 36,
+  "language": "swift",
+  "findings": [
+    {
+      "line_number": 27,
+      "secret": "https://a4d9aa8c6e3b4a2ab9b8b3b8c3d9aa3c@o123456.ingest.sentry.io/789012",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 31,
+      "secret": "pk.eyJ1IjoibXl1c2VybmFtZTEyMyIsImEiOiJjazg3ZzA2ZWgwYXQyM21wZHRpZTI1a2QzIn0.nB9m_gZ2vXl0qY5uP3r7Ww",
+      "label": "True Positive"
+    }
+  ]
+}

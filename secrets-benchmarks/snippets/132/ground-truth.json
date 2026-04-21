@@ -1,0 +1,11 @@
+{
+  "entry_id": 29,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 118,
+      "secret": "dd-api-9871e4a2dff3b3e511d7392110427c3d",
+      "label": "True Positive"
+    }
+  ]
+}

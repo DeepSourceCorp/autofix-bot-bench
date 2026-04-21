@@ -1,0 +1,16 @@
+{
+  "entry_id": 7,
+  "language": "csharp",
+  "findings": [
+    {
+      "line_number": 219,
+      "secret": "DefaultEndpointsProtocol=https;AccountName=prodfilestorage1;AccountKey=wJ/x5mP8Q+kZ3rT9vB2uC4dE6fG8hJ0lM2nO4pQ6rS8tV0wX2yZ4aC6bE8dF+gHjK/lM4nO6pQ==;EndpointSuffix=core.windows.net",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 220,
+      "secret": "SG.bF3gH5iJ7kL9mN1oP3qR5sT7uV9wX1yZ.aC3bE5dF7gH9jK1lM3nO5pQ7rS9tU",
+      "label": "True Positive"
+    }
+  ]
+}

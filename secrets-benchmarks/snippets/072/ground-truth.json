@@ -1,0 +1,16 @@
+{
+  "entry_id": 16,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 59,
+      "secret": "sqp_a8b3f0c1d2e4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 74,
+      "secret": "https://hooks.slack.com/services/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",
+      "label": "True Positive"
+    }
+  ]
+}

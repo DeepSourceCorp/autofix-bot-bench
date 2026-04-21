@@ -1,6 +1,6 @@
 {
   "stage": "stage-1 scanner (pattern + high-entropy heuristics)",
-  "dataset": "golden-set.jsonl",
+  "dataset": "raw-dataset.jsonl",
   "timestamp": "2025-09-17T19:25:58.674352",
   "per_entry_results": {
     "1": [

@@ -1,0 +1,16 @@
+{
+  "entry_id": 32,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 127,
+      "secret": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 130,
+      "secret": "p$qR5tU6vW7x!z#A",
+      "label": "True Positive"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "entry_id": 25,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 17,
+      "secret": "dckr_pat_b3FpZ9sK1mFj8oN6cW0qYdE2pH7rL",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 32,
+      "secret": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImE4ZTVjMGEyYjYwZDE2NjYyOTI1OGNjZmMzYjI2Y2I4In0.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmNpOmdsaWRlciJ9.bX4fP8vR2wN9qK7vZ-lS6wYjZ8eT0nC-kF4gH1sJ3",
+      "label": "True Positive"
+    }
+  ]
+}

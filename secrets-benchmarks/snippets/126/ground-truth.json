@@ -1,0 +1,11 @@
+{
+  "entry_id": 28,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 131,
+      "secret": "sk_live_51Mv9L2ApC9eG1tZ8cRwXvWqSjU3mBhT5yE6eF2dD4cCnRbAqZgXwVvUuYtRsPaOcB9a8g",
+      "label": "True Positive"
+    }
+  ]
+}

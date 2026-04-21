@@ -1,7 +1,7 @@
 {
   "tool": "DeepSource",
   "pipeline": "scanner (stage 1) + false-positive classifier (stage 2)",
-  "dataset": "golden-set.jsonl",
+  "dataset": "raw-dataset.jsonl",
   "counts": {
     "perfect_matches": 453,
     "partial_matches": 0,

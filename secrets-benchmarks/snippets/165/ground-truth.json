@@ -1,0 +1,16 @@
+{
+  "entry_id": 35,
+  "language": "csharp",
+  "findings": [
+    {
+      "line_number": 214,
+      "secret": "Server=tcp:user-db-server.database.windows.net,1433;Initial Catalog=UserProfiles;Persist Security Info=False;User ID=db_admin_svc;Password={9aB!cDeFgH2iJkLmN};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 238,
+      "secret": "a4b1c8d7e2f5g3h9i0j6k4l2m1n0o7p3",
+      "label": "True Positive"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "stage": "stage-2 false-positive classifier (standalone eval)",
-  "dataset": "golden-set.jsonl (513 of 518 samples returned parseable predictions)",
+  "dataset": "raw-dataset.jsonl (513 of 518 samples returned parseable predictions)",
   "summary": {
     "total_processed": 513,
     "perfect_matches": 476,

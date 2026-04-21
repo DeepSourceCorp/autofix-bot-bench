@@ -1,0 +1,11 @@
+{
+  "entry_id": 8,
+  "language": "typescript",
+  "findings": [
+    {
+      "line_number": 9,
+      "secret": "AIzaSyCDE1234FGH5678IJKL9012MNOPQRs-tU",
+      "label": "True Positive"
+    }
+  ]
+}
