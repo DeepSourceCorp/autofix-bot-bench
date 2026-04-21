@@ -1,0 +1,32 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: 'autobuilder-acme'
+          password: 'dckr_pat_1VzJ8h_L9KqR7sW3tX5yGZbN0c'
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: acme/webapp:latest
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_LOGIN: "sqp_8d4e9c3e2f5b1a0a3b8c6d7e5f0a2b3c4d5e6f7a"
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+

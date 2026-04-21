@@ -1,0 +1,26 @@
+{
+  "entry_id": 19,
+  "language": "swift",
+  "findings": [
+    {
+      "line_number": 8,
+      "secret": "https://a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6@o450123.ingest.sentry.io/7890123",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 12,
+      "secret": "pk.eyJ1IjoicHJvZC1tYXBib3gtZGV2IiwiYSI6ImNsOXFoOGxic2M0ZGczMnA5N3Mxa2FoNjh4In0.rAnDoMkEyNaMeCoMpLeXiBlE",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 16,
+      "secret": "8qM4pL7xJ5sK1mF3bZ8oN6cW0qYdEaV4",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 23,
+      "secret": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZXJ2aWNlX2FjY291bnQiLCJzY29wZXMiOlsicmVhZDpzdGF0cyIsIndyaXRlOmdhbWVwbGF5Il0sImlhdCI6MTY2NTIyNjAwMCwiZXhwIjoxNjk2NzYyMDAwfQ.gH2fR5tU9zV4wL8xQoP6N7sC1kE3bX6yZ0mJ5vF4aDc",
+      "label": "True Positive"
+    }
+  ]
+}

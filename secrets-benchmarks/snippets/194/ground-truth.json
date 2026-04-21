@@ -1,0 +1,16 @@
+{
+  "entry_id": 41,
+  "language": "typescript",
+  "findings": [
+    {
+      "line_number": 15,
+      "secret": "AIzaSyBv4nE8tGfH3jK2L5mN7oP9qR1sT3uV5wX",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 28,
+      "secret": "pk.eyJ1IjoibXljb29sYXBwIiwiYSI6ImNrcWV3Z3NqMDBjajAyd281cDNtZGNpb3oifQ.Vv1B2C3D4E5F6G7H8I9J0K",
+      "label": "True Positive"
+    }
+  ]
+}

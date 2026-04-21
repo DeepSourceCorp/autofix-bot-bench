@@ -1,0 +1,41 @@
+# Jenkinsfile for the main application build and deploy pipeline
+pipeline {
+    agent any
+    environment {
+        DOCKER_REGISTRY = 'registry.hub.docker.com'
+        DOCKER_IMAGE_NAME = 'my-corp/webapp-main'
+    }
+
+    stages {
+        stage('Build and Test') {
+            steps {
+                sh 'mvn clean install'
+                sh 'mvn test'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    def dockerUsername = 'corp_deploy_bot'
+                    def dockerApiToken = 'dckr_pat_bH8gY2cX1dE4fG5hI6jK7lM8nO9pQ0rS'
+                    sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} ."
+                    sh "echo ${dockerApiToken} | docker login -u ${dockerUsername} --password-stdin ${DOCKER_REGISTRY}"
+                    sh "docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                sh './deploy.sh staging'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
+}

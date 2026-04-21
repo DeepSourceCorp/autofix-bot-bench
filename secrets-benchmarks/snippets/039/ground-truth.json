@@ -1,0 +1,11 @@
+{
+  "entry_id": 9,
+  "language": "typescript",
+  "findings": [
+    {
+      "line_number": 32,
+      "secret": "RptUsr!pWd$2o21@9bF&",
+      "label": "True Positive"
+    }
+  ]
+}

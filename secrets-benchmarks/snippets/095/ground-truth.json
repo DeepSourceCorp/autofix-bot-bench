@@ -1,0 +1,26 @@
+{
+  "entry_id": 20,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 13,
+      "secret": "jdbc:postgresql://db-repl-cluster-1.us-east-2.rds.amazonaws.com:5432/analytics_db",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 14,
+      "secret": "etl_worker_usr",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 15,
+      "secret": "p#a5sWd_9F!gH",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 24,
+      "secret": "gK9pD3rX8vLhT6bFzA4mSjR7uW1qV0iNzY5eC2oP/cE=",
+      "label": "True Positive"
+    }
+  ]
+}

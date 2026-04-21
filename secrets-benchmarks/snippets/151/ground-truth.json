@@ -1,0 +1,21 @@
+{
+  "entry_id": 33,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 10,
+      "secret": "ACd4f8b0e7c6a5e4d3f2c1b0a9e8d7c6b5",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 11,
+      "secret": "5a9f3e1b7d5c8e2a1b9f4d6c7e8b9a0c",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 12,
+      "secret": "postgres://notifications_svc:3rD#kS8@pGqW7!z@pg-prod-cluster-1.rds.amazonaws.com:5432/notificationsdb",
+      "label": "True Positive"
+    }
+  ]
+}

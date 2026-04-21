@@ -1,0 +1,46 @@
+name: Deploy Staging Environment
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy to Staging Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: staging.example-hosting.com
+          username: deploy_bot
+          key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+            NhAAAAAwEAAQAAAYEA1H5s2b9r8fH8P2Z7g3d4s5v7t8w9A6B2C4E6fGgHhJkL1M3N5... 
+            ...base64 encoded private key data... 
+            G3hJkL1M3N5n9p0q2r4s6t8v9w0x2y3z5A7B9C1D3F5H7J9L1N3P5R7T9V1X3Z5B7D9F1H
+            -----END OPENSSH PRIVATE KEY-----
+          port: 22
+          script: |
+            cd /var/www/staging-app
+            git pull origin develop
+            docker compose down && docker compose up -d --build
+
+      - name: Notify Slack on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Staging deployment succeeded!"}' https://hooks.slack.com/services/T00ABCDEF/B00GHIJKL/mN7pQ8rS6tU5vW4xY3z2A1B0

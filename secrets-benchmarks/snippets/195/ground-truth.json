@@ -1,0 +1,16 @@
+{
+  "entry_id": 41,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 11,
+      "secret": "ZThkNDFkYzAtNzA1Mi00YjU5LTg5Y2UtMjdhMTEyMzg1ZjM5NDY0Y2ZkYjMtYTEzNC00MWI4LWJmOTItZWY5YTJjNmE1N2Jl",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 21,
+      "secret": "amqp://notif_worker:RpR8#bV^9sL@mq-cluster.internal:5672/vhost_prod",
+      "label": "True Positive"
+    }
+  ]
+}

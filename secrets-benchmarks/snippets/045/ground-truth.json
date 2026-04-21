@@ -1,0 +1,11 @@
+{
+  "entry_id": 10,
+  "language": "groovy",
+  "findings": [
+    {
+      "line_number": 36,
+      "secret": "AAAApcJ-Hk4:APA91bE3rZtUq_yG9sVxW5pKjL7hB8dC1fN0mO4iG2pJ6oS4tA0cQ7nV1wR9zY_lF5aK8uI3eB7fJ9dC2gH6vM5",
+      "label": "True Positive"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "entry_id": 37,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 17,
+      "secret": "postgres://analytics_svc:3#fG&pW9qJ@pg-reporting-cluster.eu-west-1.internal:5432/telemetry_data",
+      "label": "True Positive"
+    }
+  ]
+}

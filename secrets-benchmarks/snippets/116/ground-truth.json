@@ -1,0 +1,16 @@
+{
+  "entry_id": 25,
+  "language": "java",
+  "findings": [
+    {
+      "line_number": 20,
+      "secret": "4%jK#pL9sV!qR8bF&gH3",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 27,
+      "secret": "amqp://event_handler:dG9oN6cpL8tXy@rabbitmq-cluster.prod:5672/analytics_vhost",
+      "label": "True Positive"
+    }
+  ]
+}

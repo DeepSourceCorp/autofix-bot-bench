@@ -1,0 +1,21 @@
+{
+  "entry_id": 19,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 11,
+      "secret": "4!z$C&F)J@NcRfUjXn2r5u7x!A%D*G",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 19,
+      "secret": "z$C&F)J@NcRfUjXn2r5u7x!A%D*G-KaPdSgVkYp3s6v9y/B?E(H+MbQeThWmZq4t",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 31,
+      "secret": "key-8j2k5m7p9q1r3s4t6v8w0y1z3x5c7b9a",
+      "label": "True Positive"
+    }
+  ]
+}

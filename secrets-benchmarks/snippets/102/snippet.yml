@@ -1,0 +1,38 @@
+name: Deploy Staging Environment
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
+
+      - name: Build Go binary
+        run: go build -o my-app ./...
+
+      - name: Login to internal artifact registry
+        run: |
+          echo "Logging into internal registry..."
+          REGISTRY_USER="svc_cicd_builder"
+          REGISTRY_TOKEN="ghp_bK9yR3tX1vP5zN7mW0sD8jF2hG6cV4eLqA"
+          docker login registry.internal.co -u $REGISTRY_USER -p $REGISTRY_TOKEN
+      
+      - name: Publish to Slack on Failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Staging deploy failed for commit ${{ github.sha }}"}' https://hooks.slack.com/services/T00ABCDEF/B01234567/j9kL8hG7fE6dC5b4A3s2S1qP
+
+      - name: Tag and Push Docker image
+        run: |
+          docker tag my-app registry.internal.co/my-app:${{ github.sha }}
+          docker push registry.internal.co/my-app:${{ github.sha }}

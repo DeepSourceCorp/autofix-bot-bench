@@ -1,0 +1,21 @@
+{
+  "entry_id": 16,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 10,
+      "secret": "postgres://user_prod_rw:dG9m9#4k!sPq@db-prod-cluster.c8x4z1b2q3r.us-east-1.rds.amazonaws.com:5432/main_app",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 11,
+      "secret": "AKIAY3R4WZ76X2P5QJ6M",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 12,
+      "secret": "jT4vK9sL+pQ8wX6zC2nH7bF1gR5eD3aU0iO/mNkW",
+      "label": "True Positive"
+    }
+  ]
+}

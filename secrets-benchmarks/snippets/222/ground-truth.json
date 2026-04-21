@@ -1,0 +1,26 @@
+{
+  "entry_id": 47,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 17,
+      "secret": "f0g1h2i3-j4k5-6789-l0m1-n2o3p4q5678b",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 18,
+      "secret": "a8b1c2d3-e4f5-6789-a0b1-c2d3e4f5678a",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 19,
+      "secret": "~m88Q~bH2tY.xK5cZ_-.LpG7j9nF3rVqEwD1aB",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 20,
+      "secret": "c9d0e1f2-g3h4-5678-i9j0-k1l2m3n4567c",
+      "label": "True Positive"
+    }
+  ]
+}

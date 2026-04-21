@@ -1,0 +1,16 @@
+{
+  "entry_id": 15,
+  "language": "python",
+  "findings": [
+    {
+      "line_number": 12,
+      "secret": "AKIAY3R4WZ76X2P5QJ6M",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 13,
+      "secret": "jTpHv9rX8wB1nA6sF2gK7cZ5bV4mE0yL3dI9oU8a",
+      "label": "True Positive"
+    }
+  ]
+}

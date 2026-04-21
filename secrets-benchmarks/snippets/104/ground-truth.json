@@ -1,0 +1,16 @@
+{
+  "entry_id": 22,
+  "language": "typescript",
+  "findings": [
+    {
+      "line_number": 14,
+      "secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtwcmd6cm1rc3Z5cWpmcndocHRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk2NjU4MjMsImV4cCI6MTk5NTI0MTgyM30.4iU9a-y9mC2bYDDsYk1E1f0LgR8PzO7JqN6cX-wB1A4",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 20,
+      "secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtwcmd6cm1rc3Z5cWpmcndocHRkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY3OTY2NTgyMywiZXhwIjoxOTk1MjQxODIzfQ.kL8T5gV2rE1zO6pJ9bN4yF0wH7uX3eC8iS1aB0d9F6E",
+      "label": "True Positive"
+    }
+  ]
+}

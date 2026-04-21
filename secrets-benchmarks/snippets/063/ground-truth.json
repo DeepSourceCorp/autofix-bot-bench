@@ -1,0 +1,16 @@
+{
+  "entry_id": 14,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 23,
+      "secret": "amqp://ingest_worker:HkP8#sF!t$jR@rabbitmq.prod.svc.cluster.local:5672/",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 33,
+      "secret": "R9bXmPZc$vT2sK!eN5wF8qGg4jA#7D",
+      "label": "True Positive"
+    }
+  ]
+}

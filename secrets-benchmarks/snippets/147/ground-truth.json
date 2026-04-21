@@ -1,0 +1,16 @@
+{
+  "entry_id": 32,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 20,
+      "secret": "AKIA4Z7P6TQ5RVN3MUEW",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 21,
+      "secret": "j9mK0cH7pL6xJ2sV4gH9rT2pL7xJ5sK1mF3bZ8oN",
+      "label": "True Positive"
+    }
+  ]
+}

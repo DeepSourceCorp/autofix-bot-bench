@@ -1,0 +1,16 @@
+{
+  "entry_id": 15,
+  "language": "javascript",
+  "findings": [
+    {
+      "line_number": 9,
+      "secret": "https://a4b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5@o123456.ingest.sentry.io/7890123",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 18,
+      "secret": "pk.eyJ1IjoiZGFzaGJvYXJkdXNlciIsImEiOiJjazlzcDU0OWowMGR2M2Vud2IzaDV2ZHJtIn0.7gU6DqR7wE5qM1vN8sY2fQ",
+      "label": "True Positive"
+    }
+  ]
+}

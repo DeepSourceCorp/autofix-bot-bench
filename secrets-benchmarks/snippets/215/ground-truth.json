@@ -1,0 +1,16 @@
+{
+  "entry_id": 45,
+  "language": "go",
+  "findings": [
+    {
+      "line_number": 20,
+      "secret": "amqp://msg_proc:F3d^kLp@9s!zR-q@rabbitmq-prod.svc.cluster.local:5672/",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 23,
+      "secret": "sv-tok-prod_8A2zL9pHqY7tJv5kR4wGcXnF1bS3mD6h",
+      "label": "True Positive"
+    }
+  ]
+}

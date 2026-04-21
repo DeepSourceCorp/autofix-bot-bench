@@ -1,0 +1,21 @@
+{
+  "entry_id": 36,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 18,
+      "secret": "autobuilder-acme",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 19,
+      "secret": "dckr_pat_1VzJ8h_L9KqR7sW3tX5yGZbN0c",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 30,
+      "secret": "sqp_8d4e9c3e2f5b1a0a3b8c6d7e5f0a2b3c4d5e6f7a",
+      "label": "True Positive"
+    }
+  ]
+}

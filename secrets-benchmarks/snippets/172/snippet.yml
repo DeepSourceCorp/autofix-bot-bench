@@ -1,0 +1,36 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_IMAGE: my-app
+  DOCKER_REGISTRY: registry.internal.corp.com
+  KUBE_NAMESPACE: production
+
+build_job:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - echo "Logging into private Docker registry..."
+    - echo "glpat-sBv3yZ8xWq9kLpGfJ1cR" | docker login $DOCKER_REGISTRY -u gitlab-ci-token --password-stdin
+  script:
+    - docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE:$CI_COMMIT_SHA .
+    - docker push $DOCKER_REGISTRY/$DOCKER_IMAGE:$CI_COMMIT_SHA
+  only:
+    - master
+
+deploy_production:
+  stage: deploy
+  image: curlimages/curl:7.83.1
+  script:
+    - echo "Triggering deployment webhook..."
+    - >
+      curl -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRsYWIuY29tIiwic3ViIjoiZGVwbG95LXVzZXIiLCJhdWQiOiJkZXBsb3ltZW50LXNlcnZpY2UiLCJpYXQiOjE2NzI1MzEyMDAsImV4cCI6MTcwNDA2NzIwMH0.uLp-J7aBf8tYgPz3tQ9kRwN6eV0bV1zHhJ5aF4gC2sE" \
+      -H "Content-Type: application/json" \
+      --data "{\"image_tag\":\"$CI_COMMIT_SHA\", \"environment\":\"production\"}" \
+      https://deployer.internal.corp.com/api/v1/deploy
+  when: on_success
+

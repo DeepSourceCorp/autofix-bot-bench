@@ -1,0 +1,44 @@
+name: Build and Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: npm_E9z4fGh7jK3pL5rA8vB2sY1tW0cXiUoN
+
+  deploy_to_kubernetes:
+    needs: build_and_publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate with GKE
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '{{"type":"service_account","project_id":"acme-corp-314159","private_key_id":"a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2","private_key":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6\n-----END PRIVATE KEY-----\n"}}'
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install web-app ./charts/webapp \
+            --set image.tag=${{ github.sha }}

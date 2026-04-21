@@ -1,0 +1,26 @@
+{
+  "entry_id": 21,
+  "language": "properties",
+  "findings": [
+    {
+      "line_number": 7,
+      "secret": "postgres://billing_svc_user:p5^z@kL$9!sR@prod-db-replica-1.us-east-1.rds.amazonaws.com:5432/billing_prod",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 17,
+      "secret": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhdXRoLXRva2VuIiwiZXhwIjoxNjk5ODgwOTU1fQ.X2mZ4pBv8qC6wN3rF1eD0sJ7gT9hK8uL5oA",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 20,
+      "secret": "sdk-e6a8c4f9-b0d3-4f1e-8a7b-9c2d0f3e5b6a",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 24,
+      "secret": "Kq5dG3iSgPi1Lw0bM4rV7cHuZx/N+pU8wJ2lO3fF6xg=",
+      "label": "True Positive"
+    }
+  ]
+}

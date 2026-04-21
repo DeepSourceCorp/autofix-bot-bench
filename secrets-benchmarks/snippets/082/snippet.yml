@@ -1,0 +1,40 @@
+name: Deploy Staging Environment
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: docker.pkg.github.com
+      DOCKERHUB_TOKEN: "dckr_pat_1kIuR9vO7mS3xZ5yQ2jF8bN6pL4cH0gA9dE"
+      KUBE_CONFIG_DATA: "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lKQU9ocFlVbEpxdEVsTUEwR0NTcUdTSWIzRFFFQkN3VUFNQWd4Q3pBSkJnTlYKQkFZVEFrTk9NUkV3RHdZRFZRUUhFd2xQYms1dllteHZZMkZzYUc5emREb0tNQk1HQTFVRUNnd01SR1ZzYkc5egpjeUJCYkdGaVlXMGlhSFl4RURBT0JnTlZCQWNUQjBKc2IyRmtiaUJrYjI1amIyNHdIaGNOTWpFd05qRTFNRGc1CldqQm5aGFk5TWpZeU9ERXhNVFV3V2pBTUJnOHdDUVlEVlFRR0V3SlZVekVSTUE4R0ExVUVDQXdJVGs5eWVTQkIKZFhSb2IzSnBlbVJOZVhOMFpXUkJjblZsY21sbklqcDdNQ01HQTFVRUN3d01SR1ZzYkc5emN5QkJiR0ZpWVcwMQpMWFJ2SUZCQmdrcWhraUc5dzBCQVFzRkFBT0NBUThBTUlJQkNnS0NBUUVBNzJSM2x4VmhYUXFvbU55U3U3V3UKU0J3aEVyY2tlcVp3YXdJbmd0VzFwK2J2RjJ0em80VnFmcE5kSG53N2sxcFp0a1FtbUtHcHdLVGxtV295b2lCCnhaYlhmTlpzQzF6OGprVUtzZncrL2x3emJ4K0d4TmVqYzdqQnhwVnJ0VnQ1aWJCVllWc3J0K25wV1B5ZEZnOAphRjU2SlNuS081R3BqV0YwZkhGdzN3bFlmZ3JGYXBCMzQ4K3Bqam1FSE1wUkZkQmltUXh2MjQxb05kQ3l0VgppaE9sT090R3Y2ajN4dkw1Rkt3a3d5ZzR0VmFydG14N3VlMWxVSHRFV0FwWWVvUHVVbFFuN1N5K2Z4M0RVSDEKU2dGWWJ2V0w1VFFQdEtJb1JpWXhQd0lEQVFBQm8xTXdVVEFkQmdOVkhRNEVGZ1FVeEtTMmZHRStpZEtGZ3pvCkhCMUo3akU2MzhNd0N3WURWUjBQQkFRREFnRUdNQThHQTFVZEV3RUIvd1FGTUFvR0NDc0dBUVVCRndNQ01BOEcKQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01DQmdnckJnRUZCUWNEQWdZSUt3WUJCUVVIQXdFd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBSjZJekNid1B6dE9XbHhEVWw3bnd3bW14enVqV0d5UFNkY1FkSXZyTmM2UWhvYkZ4bgpHMVl1WllKdkdYQ2ZpZ3BvSlhpUmRuc0x6M2hTNVpSN0lXNnduNkZ6d2x1U3Z6TWltdENnQy8xSkJ2aG9tSwp0NzlJOG05S2Q3dHZ0QWZvRytzNFNUeWdndzN5VnhIdVAvUHV1c2hJbTNQWEt6MVZlZ1E1MWp0ckVlSWU4MjgKQyt2VnBLd1d5QmpMUE9sV3g2b1U5akd1MXNWSldYV210VFF0N3hBcVJkMVdJMEV4YW5iSmZ0TzJtQ2t2eGtrClR0ZUVtMzdIbnZkK3dOOUQ3dVRiYjBwLyt3d3N0T2cvQVVtb1B2Lyt3TG5PQVp6QklYUk1BMG89Ci0tLS0tRU5EIENFUlRJTklDQVRFLS0tLS0K    server: https://1a2b3c4d-e5f6-7890.k8s.ondigitalocean.com\n  name: do-sfo2-prod-cluster\ncontexts:\n- context:\n    cluster: do-sfo2-prod-cluster\n    user: do-sfo2-prod-cluster-admin\n  name: do-sfo2-prod-cluster\ncurrent-context: do-sfo2-prod-cluster\nkind: Config\npreferences: {}\nusers:\n- name: do-sfo2-prod-cluster-admin\n  user:\n    token: dop_v1_a738c2f10d9e8b6d4c5b9f7a8e2d1c0b3a4f5d6e7g8h9i0j1k_prod_token\n"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configure kubectl
+        run: |
+          mkdir -p $HOME/.kube
+          echo "$KUBE_CONFIG_DATA" | base64 --decode > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: 'my-app-bot'
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t my-app-bot/my-app:${{ github.sha }} .
+          docker push my-app-bot/my-app:${{ github.sha }}
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl set image deployment/my-app-deployment my-app=my-app-bot/my-app:${{ github.sha }}

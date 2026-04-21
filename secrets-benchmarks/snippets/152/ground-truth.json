@@ -1,0 +1,16 @@
+{
+  "entry_id": 33,
+  "language": "terraform",
+  "findings": [
+    {
+      "line_number": 14,
+      "secret": "AKIAUZY47P56V3IWQEXN",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 15,
+      "secret": "pL8vGkZuJ4mR9sB7dF1aH6cE5kL0xV+yW9iO3nQz",
+      "label": "True Positive"
+    }
+  ]
+}

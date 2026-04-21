@@ -1,0 +1,21 @@
+{
+  "entry_id": 4,
+  "language": "yaml",
+  "findings": [
+    {
+      "line_number": 19,
+      "secret": "dckr_pat_aJv8rK3sLpH7qZ2mN9bXwF1g",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 18,
+      "secret": "app_deployer_svc",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 32,
+      "secret": "https://hooks.slack.com/services/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",
+      "label": "True Positive"
+    }
+  ]
+}

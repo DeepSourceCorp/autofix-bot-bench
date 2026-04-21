@@ -1,0 +1,35 @@
+name: Deploy Production to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIA4F3PH5XH637P5Q2S
+          aws-secret-access-key: 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
+          aws-region: us-east-1
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: corp_ci_bot
+          password: "dckr_pat_aJkLmnOpQrStUvWxYzAbCdEfGhIjK12345"
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/my-app:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/my-app:$IMAGE_TAG

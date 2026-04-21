@@ -1,0 +1,16 @@
+{
+  "entry_id": 28,
+  "language": "php",
+  "findings": [
+    {
+      "line_number": 14,
+      "secret": "D#fG8*jK!lM2$n P5",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 18,
+      "secret": "key-c9a8b7d6e5f4a3b2c1d0e9f8a7b6c5d4",
+      "label": "True Positive"
+    }
+  ]
+}

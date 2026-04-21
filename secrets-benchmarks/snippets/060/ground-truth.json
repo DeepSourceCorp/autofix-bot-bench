@@ -1,0 +1,16 @@
+{
+  "entry_id": 13,
+  "language": "csharp",
+  "findings": [
+    {
+      "line_number": 14,
+      "secret": "SG.lI8pZ3jT9qW7eR1aV5bC0x.mK4oH6sN2yU9iO-pLgJ7fDcXvBwZqR",
+      "label": "True Positive"
+    },
+    {
+      "line_number": 28,
+      "secret": "9u8x/A?D(G+KbPeShVmYp3s6v9y$B&E)",
+      "label": "True Positive"
+    }
+  ]
+}

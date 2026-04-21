@@ -1,0 +1,35 @@
+name: Production Deployment to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: AKIAV5Y3RXU2FN7QZ6PL
+          aws-secret-access-key: p2gR8hL9kM3tN4vW5zC1xS7qY6bA+dE0fG/jK
+          aws-region: us-west-2
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t my-app:latest .
+          # Push to ECR logic here
+
+      - name: Notify on Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_TITLE: 'Deployment Succeeded'
+          SLACK_MESSAGE: 'Production deployment completed successfully.'
+          SLACK_COLOR: 'good'
+
