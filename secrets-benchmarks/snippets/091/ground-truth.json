@@ -3,17 +3,17 @@
   "language": "python",
   "findings": [
     {
-      "line_number": 97,
+      "line_number": 10,
       "secret": "AKIAU5N4F6V2X7L9W8K3",
       "label": "True Positive"
     },
     {
-      "line_number": 98,
+      "line_number": 11,
       "secret": "yJkLpQz8tHj9rWvXnF7sD2bA4gC6eM1hT5oI3uR",
       "label": "True Positive"
     },
     {
-      "line_number": 111,
+      "line_number": 24,
       "secret": "https://hooks.slack.com/services/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",
       "label": "True Positive"
     }

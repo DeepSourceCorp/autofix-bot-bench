@@ -3,17 +3,17 @@
   "language": "yaml",
   "findings": [
     {
-      "line_number": 29,
+      "line_number": 22,
       "secret": "devops_deploy_bot",
       "label": "True Positive"
     },
     {
-      "line_number": 30,
+      "line_number": 23,
       "secret": "dckr_pat_gHj8LpQ2sWzK4vB7nC1xR9yT6fU3aE5d",
       "label": "True Positive"
     },
     {
-      "line_number": 49,
+      "line_number": 42,
       "secret": "sqp_9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2d1e0f",
       "label": "True Positive"
     }

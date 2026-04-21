@@ -1,17 +1,3 @@
-// Padding: original snippet starts at line 15
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 # main.tf - AWS Infrastructure for the reporting service
 
 provider "aws" {

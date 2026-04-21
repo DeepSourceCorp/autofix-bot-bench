@@ -1,27 +1,3 @@
-// Padding: original snippet starts at line 25
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 package main
 
 import (

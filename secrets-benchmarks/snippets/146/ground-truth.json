@@ -3,12 +3,12 @@
   "language": "python",
   "findings": [
     {
-      "line_number": 97,
+      "line_number": 10,
       "secret": "sk_live_51Mv9L2KpF7hG3tZ9cRzXvWqSjU3mB2nFk5vL6xJ7iO1pE9yC",
       "label": "True Positive"
     },
     {
-      "line_number": 98,
+      "line_number": 11,
       "secret": "postgres://billing_svc_user:AgH3#kL$pQ2s!bV9@db-payments-prod.c8x4z1b2q3r.us-east-1.rds.amazonaws.com:5432/payments_db",
       "label": "True Positive"
     }

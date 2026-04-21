@@ -1,23 +1,3 @@
-// Padding: original snippet starts at line 21
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 import Foundation
 
 /// Centralized configuration for external services and feature flags.

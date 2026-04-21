@@ -1,13 +1,3 @@
-// Padding: original snippet starts at line 11
-//
-//
-//
-//
-//
-//
-//
-//
-//
 package com.example.paymentservice.config;
 
 import org.springframework.context.annotation.Bean;

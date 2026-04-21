@@ -1,27 +1,3 @@
-// Padding: original snippet starts at line 25
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 using System.Data.SqlClient;
 using SendGrid;
 using SendGrid.Helpers.Mail;

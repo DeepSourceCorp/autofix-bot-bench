@@ -3,12 +3,12 @@
   "language": "terraform",
   "findings": [
     {
-      "line_number": 46,
+      "line_number": 19,
       "secret": "Adm1nPassw0rd$tr0ng!2023",
       "label": "True Positive"
     },
     {
-      "line_number": 63,
+      "line_number": 36,
       "secret": "postgres://platform_admin:Adm1nPassw0rd$tr0ng!2023@${aws_db_instance.main_db.address}:5432/platformdb",
       "label": "True Positive"
     }

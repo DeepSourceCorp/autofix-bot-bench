@@ -1,20 +1,3 @@
-// Padding: original snippet starts at line 18
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 resource "aws_db_instance" "main_db" {
   allocated_storage    = 20
   engine               = "postgres"

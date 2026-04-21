@@ -1,35 +1,3 @@
-// Padding: original snippet starts at line 33
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 # Terraform configuration for Datadog provider and monitoring
 
 terraform {

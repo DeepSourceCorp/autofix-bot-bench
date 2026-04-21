@@ -3,12 +3,12 @@
   "language": "php",
   "findings": [
     {
-      "line_number": 79,
+      "line_number": 8,
       "secret": "p@sswd_7h6f$G!kLz9qR",
       "label": "True Positive"
     },
     {
-      "line_number": 86,
+      "line_number": 15,
       "secret": "key-9f8e7d6c5b4a3a2a1b0c9d8e7f6a5b4c",
       "label": "True Positive"
     }

@@ -3,7 +3,7 @@
   "language": "javascript",
   "findings": [
     {
-      "line_number": 53,
+      "line_number": 9,
       "secret": "pk.eyJ1IjoiYmFyYmFyYS1kZXYiLCJhIjoiY2xwY3RkY2prMDFhajJqcGNwanRmaTV2ZSJ9._WkUvXkQR_zT8qCvCSXw5A",
       "label": "True Positive"
     }

@@ -1,35 +1,3 @@
-// Padding: original snippet starts at line 33
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 # Terraform Block for GCP Provider and Backend Configuration
 terraform {
   required_version = ">= 1.0"

@@ -1,35 +1,3 @@
-# Padding: original snippet starts at line 33
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, text
 import boto3

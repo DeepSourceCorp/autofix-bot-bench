@@ -1,23 +1,3 @@
-// Padding: original snippet starts at line 21
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 # main.tf - Production Infrastructure for Analytics Service
 
 provider "aws" {

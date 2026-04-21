@@ -1,35 +1,3 @@
-// Padding: original snippet starts at line 33
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/react';

@@ -1,9 +1,3 @@
-// Padding: original snippet starts at line 7
-//
-//
-//
-//
-//
 // src/config/services.ts
 // Centralized configuration for third-party services used in the application.
 

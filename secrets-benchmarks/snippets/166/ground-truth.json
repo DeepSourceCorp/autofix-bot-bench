@@ -3,12 +3,12 @@
   "language": "python",
   "findings": [
     {
-      "line_number": 97,
+      "line_number": 10,
       "secret": "AKIAY3R4WZ76X2P5QJ6M",
       "label": "True Positive"
     },
     {
-      "line_number": 98,
+      "line_number": 11,
       "secret": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
       "label": "True Positive"
     }

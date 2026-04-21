@@ -3,7 +3,7 @@
   "language": "terraform",
   "findings": [
     {
-      "line_number": 57,
+      "line_number": 17,
       "secret": "E#u8!pS$t9rWbK@zL7m3vN&yQ2xH",
       "label": "True Positive"
     }

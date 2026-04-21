@@ -1,12 +1,3 @@
-// Padding: original snippet starts at line 10
-//
-//
-//
-//
-//
-//
-//
-//
 terraform {
   required_providers {
     azurerm = {

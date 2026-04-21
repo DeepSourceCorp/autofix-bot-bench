@@ -3,17 +3,17 @@
   "language": "python",
   "findings": [
     {
-      "line_number": 50,
+      "line_number": 9,
       "secret": "postgres://webapp_user:p$3#R7s@Q!9F@prod-db-cluster-1.c4f3g2h1i0j.us-west-2.rds.amazonaws.com:5432/main_app_db",
       "label": "True Positive"
     },
     {
-      "line_number": 55,
+      "line_number": 14,
       "secret": "AC5f8e0a1b9c3d4e5f6a7b8c9d0e1f2a3b",
       "label": "True Positive"
     },
     {
-      "line_number": 56,
+      "line_number": 15,
       "secret": "5a94025a4392a8b9f7a7751c1e95c4a1",
       "label": "True Positive"
     }

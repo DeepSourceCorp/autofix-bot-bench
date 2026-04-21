@@ -3,17 +3,17 @@
   "language": "javascript",
   "findings": [
     {
-      "line_number": 28,
+      "line_number": 8,
       "secret": "AIzaSyB9X8Y7Z6W5V4U3T2S1R0P9Q8O7N6M5L4",
       "label": "True Positive"
     },
     {
-      "line_number": 45,
+      "line_number": 25,
       "secret": "https://b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8@o123456.ingest.sentry.io/7890123",
       "label": "True Positive"
     },
     {
-      "line_number": 48,
+      "line_number": 28,
       "secret": "pk.eyJ1IjoiZGV2LWFjY291bnQiLCJhIjoiY2xwOXRzNWFjMDBsdDJrcWY2eGlrbmxmYSJ9.UThkRzFqazVwN3M0YjAyblRhbGF6UQ",
       "label": "True Positive"
     }

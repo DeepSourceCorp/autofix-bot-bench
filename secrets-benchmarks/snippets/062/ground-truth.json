@@ -3,17 +3,17 @@
   "language": "yaml",
   "findings": [
     {
-      "line_number": 32,
+      "line_number": 18,
       "secret": "AKIA4F3PH5XH637P5Q2S",
       "label": "True Positive"
     },
     {
-      "line_number": 33,
+      "line_number": 19,
       "secret": "9jK/lM8nO3pQr7sT6uV1wXyZ0aB4cD8fE9gHh2iJ",
       "label": "True Positive"
     },
     {
-      "line_number": 40,
+      "line_number": 26,
       "secret": "dckr_pat_aJkLmnOpQrStUvWxYzAbCdEfGhIjK12345",
       "label": "True Positive"
     }

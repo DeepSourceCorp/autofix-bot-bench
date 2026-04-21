@@ -1,23 +1,3 @@
-// Padding: original snippet starts at line 21
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 # Terraform configuration for monitoring and cloud provider setup
 terraform {
   required_providers {

@@ -1,35 +1,3 @@
-// Padding: original snippet starts at line 33
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 provider "google" {
   project = var.gcp_project_id
   region  = "us-central1"

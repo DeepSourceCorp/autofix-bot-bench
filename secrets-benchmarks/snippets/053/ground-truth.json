@@ -3,12 +3,12 @@
   "language": "terraform",
   "findings": [
     {
-      "line_number": 25,
+      "line_number": 11,
       "secret": "db_admin_master",
       "label": "True Positive"
     },
     {
-      "line_number": 26,
+      "line_number": 12,
       "secret": "S3cuRe_dBP@ssw0rd-f0R-Pr0d!2023",
       "label": "True Positive"
     }

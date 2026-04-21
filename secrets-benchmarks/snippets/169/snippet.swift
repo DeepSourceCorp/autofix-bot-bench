@@ -1,23 +1,3 @@
-// Padding: original snippet starts at line 21
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 import SwiftUI
 import Sentry
 import MapboxMaps

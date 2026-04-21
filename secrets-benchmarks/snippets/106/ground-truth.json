@@ -3,12 +3,12 @@
   "language": "python",
   "findings": [
     {
-      "line_number": 96,
+      "line_number": 9,
       "secret": "postgres://report_writer:j$F9*kL2!pQ@dbr-prod-az1.c8xyzefg1234.us-east-1.rds.amazonaws.com:5432/reporting_db",
       "label": "True Positive"
     },
     {
-      "line_number": 98,
+      "line_number": 11,
       "secret": "45d6f3c1b0a8f7e6d5c4b3a291807f6e5d4c3b2a19807f6e",
       "label": "True Positive"
     }

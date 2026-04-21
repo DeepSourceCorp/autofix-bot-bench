@@ -3,12 +3,12 @@
   "language": "properties",
   "findings": [
     {
-      "line_number": 19,
+      "line_number": 9,
       "secret": "s$3pL!z#9FqG&vB^kY5h@m",
       "label": "True Positive"
     },
     {
-      "line_number": 31,
+      "line_number": 21,
       "secret": "NzhhYjU0ZWE3YzE2NGU5YWYyMGExYzhmNDY3NzU3M2M4YjE2OTIzYjljYjA3ZGIxNzQwMjQyMmMxOGQ4ZDllZA",
       "label": "True Positive"
     }

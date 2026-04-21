@@ -3,7 +3,7 @@
   "language": "go",
   "findings": [
     {
-      "line_number": 127,
+      "line_number": 13,
       "secret": "{\n\"type\": \"service_account\",\n\"project_id\": \"internal-data-pipeline-314159\",\n\"private_key_id\": \"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0\",\n\"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6sA7g5+fE6tSj\\n4p6t2w3x...\\n... (key data continues) ...\\nfN4r4c0i9v6j5t7r9s1u3v5x7z9A1B3C5E7G9I1K3M5O7Q9S1U3W5Y7Z9a1c3e5g\\n7i9k1m3o5q7s9u1w3y5z7B9D1F3H5J7L9N1P3R5T7V9X1Z3b5d7f9h1j3l5n7p9r\\n...\\n-----END PRIVATE KEY-----\\n\",\n\"client_email\": \"backup-runner@internal-data-pipeline-314159.iam.gserviceaccount.com\",\n\"client_id\": \"109876543210987654321\",\n\"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n\"token_uri\": \"https://oauth2.googleapis.com/token\",\n\"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n\"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/backup-runner%40internal-data-pipeline-314159.iam.gserviceaccount.com\"\n}",
       "label": "True Positive"
     }

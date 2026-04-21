@@ -1,23 +1,3 @@
-// Padding: original snippet starts at line 21
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 provider "fastly" {
   # Fastly provider configuration
   api_key = "B4kL9mN8oP1qR2sT3uV4wX5yZ6aB7c8D"

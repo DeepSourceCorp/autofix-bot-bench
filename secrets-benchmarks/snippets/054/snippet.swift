@@ -1,10 +1,3 @@
-// Padding: original snippet starts at line 8
-//
-//
-//
-//
-//
-//
 import Foundation
 
 struct AppConfig {

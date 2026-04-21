@@ -3,12 +3,12 @@
   "language": "csharp",
   "findings": [
     {
-      "line_number": 67,
+      "line_number": 13,
       "secret": "Server=tcp:prod-db-server.database.windows.net,1433;Database=UserProfiles;User ID=sqladmin;Password=4#tG&kL$pQ2s!hG;Trusted_Connection=False;Encrypt=True;",
       "label": "True Positive"
     },
     {
-      "line_number": 83,
+      "line_number": 29,
       "secret": "N5u8x/A?D(G+KbPeShVmYp3s6v9y$B&E",
       "label": "True Positive"
     }

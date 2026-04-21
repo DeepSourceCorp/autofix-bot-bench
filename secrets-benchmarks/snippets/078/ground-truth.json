@@ -3,17 +3,17 @@
   "language": "yaml",
   "findings": [
     {
-      "line_number": 40,
+      "line_number": 23,
       "secret": "dckr_pat_a4sRgT9iOpQ2mZl8vWb7nXc1jYkFhG5uE-r3v",
       "label": "True Positive"
     },
     {
-      "line_number": 52,
+      "line_number": 35,
       "secret": "https://hooks.slack.com/services/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",
       "label": "True Positive"
     },
     {
-      "line_number": 57,
+      "line_number": 40,
       "secret": "https://hooks.slack.com/services/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",
       "label": "True Positive"
     }

@@ -1,23 +1,3 @@
-# Padding: original snippet starts at line 21
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # A script to provision a new user and send a welcome email.

@@ -1,35 +1,3 @@
-// Padding: original snippet starts at line 33
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 terraform {
   required_providers {
     aws = {

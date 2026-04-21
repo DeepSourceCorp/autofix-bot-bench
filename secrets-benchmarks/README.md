@@ -113,16 +113,11 @@ snippets/240/snippet.properties
 Each directory holds the code plus a `ground-truth.json` with the expected
 findings.
 
-**Line-number preservation:** The original snippets have baked-in line-number
-prefixes (e.g., `78: import boto3` — the code starts at line 78, not line 1).
-Comment padding fills lines 1 through N-1 so the actual code lands on its
-original line number. A scanner reporting a secret on line 83 of `snippet.py`
-matches the ground-truth `line_number: 83` directly.
-
-Padding uses the language's native comment syntax (`#` for Python/YAML/Shell,
-`//` for Go/Java/JS/Terraform, blank lines for JSON). Line 1 of padded files
-is always a header: `# Padding: original snippet starts at line 78`. Snippets
-that originally start at line 1 have no padding.
+**Line numbers.** Each `snippet.{ext}` starts at line 1. `ground-truth.json`
+reports the line within that file where each secret appears, so a scanner's
+reported line number can be compared to `line_number` directly. The snippet's
+original line offset (from the generator prompt) is preserved in
+`raw-dataset.jsonl` if needed.
 
 **`ground-truth.json` format:**
 
@@ -131,14 +126,10 @@ that originally start at line 1 have no padding.
   "entry_id": 1,                   // original generation-prompt id
   "language": "python",
   "findings": [
-    {"line_number": 83, "secret": "AKIA...", "label": "True Positive"}
+    {"line_number": 6, "secret": "AKIA...", "label": "True Positive"}
   ]
 }
 ```
-
-If padding could not be applied (e.g., a JSON snippet where blank-line padding
-was insufficient), a `"line_offset"` field is added indicating the difference
-between file line numbers and ground-truth line numbers.
 
 **Languages present:** python, javascript, typescript, go, java, yaml,
 terraform, properties, json, csharp, groovy, kotlin, swift, dart, php (14

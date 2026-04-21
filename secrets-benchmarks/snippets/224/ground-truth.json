@@ -3,12 +3,12 @@
   "language": "yaml",
   "findings": [
     {
-      "line_number": 36,
+      "line_number": 22,
       "secret": "dckr_pat_u7VpMzX9hL8rKjG6wQfB2cT4oN",
       "label": "True Positive"
     },
     {
-      "line_number": 51,
+      "line_number": 37,
       "secret": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\nQyNTUxOQAAACCrY4qzb6p5bSj/LhkCHwPksPA2/mOapvO02N7UUDlO6gAAAJgRjN4EEYze\nBAAAAAtzc2gtZWQyNTUxOQAAACCrY4qzb6p5bSj/LhkCHwPksPA2/mOapvO02N7UUDlO6g\nAAAECBmxuGZJz76hTkyk1r6s9JRXr8K2T4lVjTpf3G9T/lFKtjirNvqnltKP8uGQIfA+Sw\n8Db+Y5qm87TY3tRQOU7qAAAAEGNpY2RfYWdlbnRAbWFpbC5jb20BAg==\n-----END OPENSSH PRIVATE KEY-----",
       "label": "True Positive"
     }

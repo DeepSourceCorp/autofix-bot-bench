@@ -1,14 +1,3 @@
-// Padding: original snippet starts at line 12
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 provider "aws" {
   region     = "us-west-2"
   access_key = "AKIAY3R4WZ76X2P5QJ6M"

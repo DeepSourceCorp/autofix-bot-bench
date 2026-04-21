@@ -1,17 +1,3 @@
-// Padding: original snippet starts at line 15
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 // src/config/serviceKeys.ts
 // This file contains configuration for external services used in the application.
 

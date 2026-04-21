@@ -3,12 +3,12 @@
   "language": "terraform",
   "findings": [
     {
-      "line_number": 25,
+      "line_number": 8,
       "secret": "8!hG#kL$pQ2s@db.prod-STRONG-Pa$$wrd",
       "label": "True Positive"
     },
     {
-      "line_number": 40,
+      "line_number": 23,
       "secret": "ghp_aV4gH9rT2pL7xJ5sK1mF3bZ8oN6cW0qYdE7z",
       "label": "True Positive"
     }

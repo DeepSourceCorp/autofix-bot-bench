@@ -3,12 +3,12 @@
   "language": "yaml",
   "findings": [
     {
-      "line_number": 61,
+      "line_number": 17,
       "secret": "dckr_pat_f9JkLpQwErTyUiOpAsDfGhJkLzXcVbNmQwErTy",
       "label": "True Positive"
     },
     {
-      "line_number": 70,
+      "line_number": 26,
       "secret": "https://hooks.slack.com/services/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",
       "label": "True Positive"
     }

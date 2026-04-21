@@ -1,35 +1,3 @@
-# Padding: original snippet starts at line 33
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
 name: Build and Deploy Next.js App
 
 on:

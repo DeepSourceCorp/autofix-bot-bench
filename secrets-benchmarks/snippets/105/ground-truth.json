@@ -3,22 +3,22 @@
   "language": "groovy",
   "findings": [
     {
-      "line_number": 92,
+      "line_number": 21,
       "secret": "AIzaSyBw-D9Gv_FzTjuKmL8sH2pR1oY7qE6bXz4",
       "label": "True Positive"
     },
     {
-      "line_number": 93,
+      "line_number": 22,
       "secret": "8a7b6c5d4e3f2g1h0j9k8l7m6n5o4p3q",
       "label": "True Positive"
     },
     {
-      "line_number": 99,
+      "line_number": 28,
       "secret": "UnsafeKeyStorePassword123",
       "label": "True Positive"
     },
     {
-      "line_number": 101,
+      "line_number": 30,
       "secret": "UnsafeKeyPassword!@#",
       "label": "True Positive"
     }

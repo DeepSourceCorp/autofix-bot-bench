@@ -3,12 +3,12 @@
   "language": "terraform",
   "findings": [
     {
-      "line_number": 58,
+      "line_number": 17,
       "secret": "AKIAY3R4WZ76X2P5QJ6M",
       "label": "True Positive"
     },
     {
-      "line_number": 59,
+      "line_number": 18,
       "secret": "pL8fG1tY9cRzXvWqSjU3mB2sL4hK7dF0aN5oP1zE",
       "label": "True Positive"
     }

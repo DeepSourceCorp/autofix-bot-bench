@@ -1,30 +1,3 @@
-// Padding: original snippet starts at line 28
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 // src/api/twilio-service.js
 // This service handles all SMS and voice notifications.
 

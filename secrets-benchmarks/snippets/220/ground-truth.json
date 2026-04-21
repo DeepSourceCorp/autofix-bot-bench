@@ -3,17 +3,17 @@
   "language": "properties",
   "findings": [
     {
-      "line_number": 111,
+      "line_number": 14,
       "secret": "Z8qWn!y$B&E)H@McQfTjWnZr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+KbPeSh",
       "label": "True Positive"
     },
     {
-      "line_number": 126,
+      "line_number": 29,
       "secret": "notifications-prod@we-send-alerts.com",
       "label": "True Positive"
     },
     {
-      "line_number": 127,
+      "line_number": 30,
       "secret": "4R#sV9$!pLq2b",
       "label": "True Positive"
     }

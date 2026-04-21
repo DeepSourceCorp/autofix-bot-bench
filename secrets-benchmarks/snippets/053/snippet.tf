@@ -1,17 +1,3 @@
-// Padding: original snippet starts at line 15
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 provider "aws" {
   region = "eu-central-1"
 }

@@ -3,12 +3,12 @@
   "language": "go",
   "findings": [
     {
-      "line_number": 101,
+      "line_number": 14,
       "secret": "postgres://auth_svc_user:gH#kL$pQ2s!8fT@prod-db-master.c8d9e0f.us-east-1.rds.amazonaws.com:5432/user_auth_prod",
       "label": "True Positive"
     },
     {
-      "line_number": 111,
+      "line_number": 24,
       "secret": "sk-proj-aV4gH9rT2pL7xJ5sK1mF3bZ8oN6cW0qYdEjKlMnOpQrStUvWx",
       "label": "True Positive"
     }

@@ -3,12 +3,12 @@
   "language": "csharp",
   "findings": [
     {
-      "line_number": 40,
+      "line_number": 16,
       "secret": "Server=tcp:prod-db-cluster-1.database.windows.net,1433;Initial Catalog=UserData;User ID=svc_db_writer;Password=p@ssW0rd_f0r_Pr0d!v2.4$Db;Encrypt=True;",
       "label": "True Positive"
     },
     {
-      "line_number": 41,
+      "line_number": 17,
       "secret": "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",
       "label": "True Positive"
     }

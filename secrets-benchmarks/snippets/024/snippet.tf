@@ -1,27 +1,3 @@
-// Padding: original snippet starts at line 25
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 resource "aws_db_instance" "main" {
   allocated_storage    = 20
   engine               = "mysql"

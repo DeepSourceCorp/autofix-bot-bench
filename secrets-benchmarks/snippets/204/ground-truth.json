@@ -3,17 +3,17 @@
   "language": "javascript",
   "findings": [
     {
-      "line_number": 99,
+      "line_number": 12,
       "secret": "AIzaSyB9X8c7V6D5E4F3G2H1I0jL9K8mN7pQoR",
       "label": "True Positive"
     },
     {
-      "line_number": 108,
+      "line_number": 21,
       "secret": "pk.eyJ1IjoiYXBwZGV2ZWxvcGVyIiwiYSI6ImNrdzVjNmRmMDBkbmoydm51cTY5ZzVlMncifQ.A1b2c3d4E5F6g7h8I9J0kL",
       "label": "True Positive"
     },
     {
-      "line_number": 113,
+      "line_number": 26,
       "secret": "sk-proj-rT8uV9wXyZ1aB2c3d4E5f6G7h8i9j0kL1m2N3o4P5q6R",
       "label": "True Positive"
     }

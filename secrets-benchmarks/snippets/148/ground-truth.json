@@ -3,7 +3,7 @@
   "language": "javascript",
   "findings": [
     {
-      "line_number": 39,
+      "line_number": 11,
       "secret": "https://b4d29ca2b98e4a9e8b7c0f1e8e2b8f75@o450550.ingest.sentry.io/4505501234567890",
       "label": "True Positive"
     }

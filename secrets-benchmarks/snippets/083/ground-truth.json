@@ -3,12 +3,12 @@
   "language": "javascript",
   "findings": [
     {
-      "line_number": 207,
+      "line_number": 7,
       "secret": "pk.eyJ1IjoibWFwcHJvZHVjdGlvbiIsImEiOiJjazg1dGY3c2gwM3FmM21wZzRjY3Y5cGpzIn0.4k_O3Zf5xG5aE9Jd6pQxYw",
       "label": "True Positive"
     },
     {
-      "line_number": 213,
+      "line_number": 13,
       "secret": "https://e8e7f8e6e5e44a4b8b8b9c9d0e1f2g3h@o450555.ingest.sentry.io/4505551234567890",
       "label": "True Positive"
     }

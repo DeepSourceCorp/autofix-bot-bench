@@ -3,17 +3,17 @@
   "language": "terraform",
   "findings": [
     {
-      "line_number": 25,
+      "line_number": 5,
       "secret": "AKIAT7G3W4LIX5M2P6Q4",
       "label": "True Positive"
     },
     {
-      "line_number": 26,
+      "line_number": 6,
       "secret": "xZ9cU7sV3mB+pQkL5jH8fG1tY9cRzXvWqSjU3mB/kL",
       "label": "True Positive"
     },
     {
-      "line_number": 32,
+      "line_number": 12,
       "secret": "7e3c98a50616b0b8ad4a835a68729c1d",
       "label": "True Positive"
     }
